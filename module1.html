@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+
+<head>
+  <title>Module 1: HTML Basics</title>
+  <script src="main.js"></script>
+  <link rel="stylesheet" href="main.css">
+  <meta charset="UTF-8">
+  <style>
+    body {
+      background: url('assets/blueBg.png') repeat center/40px rgba(0, 0, 0, 0.3);
+      background-color: #0e0505;
+    }
+
+    .terminal-container {
+      background-color: #1e1e1e;
+      border-radius: 8px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      font-family: 'Courier New', Courier, monospace;
+      width: fit-content;
+      min-width: 300px;
+      max-width: 90%;
+      margin: 40px auto;
+    }
+
+    .terminal-header {
+      background-color: #333;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dot {
+      height: 12px;
+      width: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .red {
+      background-color: #ff5f56;
+    }
+
+    .yellow {
+      background-color: #ffbd2e;
+    }
+
+    .green {
+      background-color: #27c93f;
+    }
+
+    .header-title {
+      color: #999;
+      font-size: 12px;
+      margin-left: 10px;
+    }
+
+    .terminal-body {
+      padding: 10px;
+      color: #a9b7c6;
+      overflow-x: auto;
+    }
+
+    .terminal-body pre {
+      margin: 0;
+      white-space: pre-wrap;
+    }
+
+    pre {
+      box-sizing: border-box;
+      background-color: #000000;
+      color: #67be67;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+
+    .literallyEverything {
+      background-color: rgba(0, 0, 0, 0.85);
+      color: white;
+      width: 100%;
+      max-width: 800px;
+      margin: 62px auto;
+      min-height: 100vh;
+      padding: 40px;
+      box-sizing: border-box;
+      line-height: 1.6;
+      border-left: dashed 2px #ffcf2f;
+      border-right: dashed 2px #ffcf2f;
+      border-top: dashed 2px #ffcf2f;
+      border-bottom: dashed 2px #ffcf2f;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h1 {
+      color: white;
+
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ===== SIDEBAR TOGGLE BUTTON ===== -->
+  <button id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
+  </button>
+
+  <!-- ===== SIDEBAR ===== -->
+  <div id="sidebar" role="navigation" aria-label="Sidebar navigation">
+    <div class="sidebar-label">Navigation</div>
+    <nav class="sidebar-nav">
+      <a href="home.html"><span>🏠 Home</span></a>
+      <a href="mission.html"><span>📌 Mission</span></a>
+      <hr class="sidebar-divider">
+      <a href="module1.html"><span>🏗️ Module 1: HTML</span></a>
+      <a href="module2.html"><span>🎨 Module 2: CSS</span></a>
+      <a href="module3.html"><span>⚡ Module 3: JavaScript</span></a>
+    </nav>
+    <div class="sidebar-footer-blurb">
+      Website Development Fundamentals<br>A student ICT project
+    </div>
+  </div>
+
+  <!-- ===== SIDEBAR OVERLAY ===== -->
+  <div id="sidebar-overlay"></div>
+
+
+  <nav id="navbar">
+    <div id="logo">
+      <a href="home.html">
+        <img src="theLogo.png" alt="Website Logo" height="50">
+      </a>
+    </div>
+    <ul id="nav-links">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="mission.html">Mission</a></li>
+
+      <li id="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Modules &#9662;</a>
+        <div class="dropdown-content">
+          <a href="module1.html">Module 1: HTML Basics</a>
+          <a href="module2.html">Module 2: CSS Fundamentals</a>
+          <a href="module3.html">Module 3: JavaScript Introduction</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="literallyEverything">
+    <main>
+      <h1>Module 1: HTML Basics</h1>
+      <hr>
+
+      <h2>1. HTML Headings</h2>
+      <p>We have 1-6 headings ranging from the most important text (largest text heading size) to the least important
+        text (smallest text heading size).</p>
+      <ul>
+        <li><strong>&lt;h1&gt;</strong> defines the most important heading.</li>
+        <li><strong>&lt;h6&gt;</strong> defines the least important heading.</li>
+      </ul>
+
+
+
+      <h3>Example Code:</h3>
+      <div class="terminal-container">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="header-title">bash — 80×24</span>
+        </div>
+        <div class="terminal-body">
+          <pre id="code-headings">
+&lt;h1&gt;This is heading 1&lt;/h1&gt;
+&lt;h2&gt;This is heading 2&lt;/h2&gt;
+&lt;h3&gt;This is heading 3&lt;/h3&gt;
+    </pre>
+        </div>
+      </div>
+      <button onclick="showOutput(document.getElementById('code-headings').textContent)" class="show-output-btn"><span>
+          ▶ Show Output </span>
+      </button>
+      <hr>
+
+      <h2>2. HTML Paragraphs</h2>
+      <p>Paragraphs are defined with the <strong>&lt;p&gt;</strong> tag.</p>
+
+      <h3>Example Code:</h3>
+      <div class="terminal-container">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="header-title">bash — 80×24</span>
+        </div>
+        <div class="terminal-body">
+          <pre id="code-paragraphs">
+
+&lt;p&gt;This is a paragraph.&lt;/p&gt;
+&lt;p&gt;This is another paragraph.&lt;/p&gt;
+    </pre>
+        </div>
+      </div>
+      <button onclick="showOutput(document.getElementById('code-paragraphs').textContent)"
+        class="show-output-btn"><span>
+          ▶ Show Output </span>
+      </button>
+      <h3>Combined Example (Full Structure):</h3>
+      <div class="terminal-container">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="header-title">bash — 80×24</span>
+        </div>
+        <div class="terminal-body">
+          <pre id="code-full">
+
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+&lt;title&gt; My Website &lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;h1&gt;Welcome to my homepage!&lt;/h1&gt;
+&lt;p&gt;My first website&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+    </pre>
+        </div>
+      </div>
+      <button onclick="showOutput(document.getElementById('code-full').textContent)" class="show-output-btn"><span>
+          ▶ Show Output </span>
+      </button>
+      <hr>
+
+      <h2>3. HTML Images</h2>
+      <p>HTML images are defined with the <strong>&lt;img&gt;</strong> tag. Unlike other HTML tags, it has no ending
+        tags like &lt;/img&gt;.</p>
+
+      <p><strong>Attributes:</strong></p>
+      <ul>
+        <li><strong>src:</strong> Specifies the path to the image file.</li>
+        <li><strong>alt:</strong> Alternative text used to describe the image if it doesn't load.</li>
+        <li><strong>width/height:</strong> Used to input the size (number or percentage) to manipulate the image's size.
+        </li>
+      </ul>
+
+      <h3>Example Code:</h3>
+      <div class="terminal-container">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="header-title">bash — 80×24</span>
+        </div>
+        <div class="terminal-body">
+          <pre id="code-images">
+&lt;img src="flower.jpg" alt="Pink tulips" width="104" height="142"&gt;
+    </pre>
+        </div>
+      </div>
+      <p><em>Note: The image file must be .jpg for this specific example code to work successfully.</em></p>
+      <button onclick="showOutput(document.getElementById('code-images').textContent)" class="show-output-btn"><span>
+          ▶ Show Output </span>
+      </button>
+      <hr>
+
+      <h2>4. HTML Videos</h2>
+      <p>The <strong>&lt;video&gt;</strong> tag is used to embed video content in a document, such as a movie clip or
+        other video streams. It has one or more source tags with different video sources, but the browser will choose
+        the first source it supports.</p>
+
+      <p><strong>Supported Formats:</strong> MP4, WebM, and OGG.</p>
+
+
+
+      <h3>Example Code:</h3>
+      <div class="terminal-container">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="header-title">bash — 80×24</span>
+        </div>
+        <div class="terminal-body">
+          <pre id="code-videos">
+&lt;video width="320" height="240" controls&gt;
+  &lt;source src="assets/EDGE_OF_INPHINITY.mp" type="video/mp4"&gt;
+  &lt;source src="movie.ogg" type="video/ogg"&gt;
+  Your browser does not support the video tag.
+&lt;/video&gt;
+    </pre>
+        </div>
+      </div>
+
+      <button onclick="showOutput(document.getElementById('code-videos').textContent)" class="show-output-btn"><span>
+          ▶ Show Output </span>
+      </button>
+      <p><em>The text between the video tags will only be displayed in browsers that do not support the video
+          element.</em></p>
+
+      <h3>Attributes:</h3>
+      <ul>
+        <li><strong>src:</strong> specifies the URL of the video file</li>
+        <li><strong>width:</strong> sets the width size of the video</li>
+        <li><strong>muted:</strong> mutes the audio of the video</li>
+        <li><strong>loop:</strong> starts the video over again once it is finished</li>
+        <li><strong>autoplay:</strong> automatically starts playing the video as soon as the webpage has loaded or when
+          the video is ready</li>
+      </ul>
+
+      <hr>
+
+      <h2>5. HTML Audios</h2>
+      <p>The <strong>&lt;audio&gt;</strong> tag is used to embed sound content in a document, such as music or other
+        audio streams. Just like the video tag, it also has one or more source tags with different audio sources, and
+        the browser chooses the first source it supports.</p>
+
+      <p><strong>Supported Formats:</strong> MP3, WAV, and OGG.</p>
+
+      <h3>Example Code:</h3>
+      <div class="terminal-container">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="header-title">bash — 80×24</span>
+        </div>
+        <div class="terminal-body">
+          <pre id="code-audios">
+&lt;audio controls&gt;
+  &lt;source src="horse.ogg" type="audio/ogg"&gt;
+  &lt;source src="horse.mp3" type="audio/mpeg"&gt;
+  Your browser does not support the audio tag.
+&lt;/audio&gt;
+    </pre>
+        </div>
+      </div>
+      <button onclick="showOutput(document.getElementById('code-audios').textContent)" class="show-output-btn"><span>
+          ▶ Show Output </span>
+      </button>
+      <h3>Attributes:</h3>
+      <ul>
+        <li><strong>src:</strong> specifies the URL of the audio file</li>
+        <li><strong>muted:</strong> mutes the audio</li>
+        <li><strong>loop:</strong> starts the audio over again once it is finished</li>
+        <li><strong>autoplay:</strong> automatically starts playing as soon as the webpage has loaded</li>
+      </ul>
+
+      <hr>
+
+      <h2>6. HTML Links</h2>
+      <p>HTML links are hyperlinks defined with the <strong>&lt;a&gt;</strong> tag (anchor tag) and
+        <strong>href</strong> (Hypertext Reference) for linking other webpages to a document.
+      </p>
+
+      <h3>Example Code:</h3>
+      <div class="terminal-container">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="header-title">bash — 80×24</span>
+        </div>
+        <div class="terminal-body">
+          <pre id="code-links">
+&lt;a href="https://www.google.com"&gt;This is a link&lt;/a&gt;
+    </pre>
+        </div>
+      </div>
+      <button onclick="showOutput(document.getElementById('code-links').textContent)" class="show-output-btn"><span>
+          ▶ Show Output </span>
+      </button>
+      <ul>
+        <li>The link's destination is specified in the <strong>href</strong> attribute.</li>
+        <li>Attributes are generally used to provide additional information about HTML elements.</li>
+      </ul>
+
+      <hr>
+
+      <h2>7. HTML Forms</h2>
+      <p>A section of a document that contains normal content, markup, special elements called controls (checkboxes,
+        radio buttons, menu, etc.) and labels to said controls.</p>
+
+
+
+      <h3>The &lt;input&gt; Element</h3>
+      <p>This is the most used form element. The "type" attribute specifies the type of input element to display.</p>
+
+      <h3>Common Attributes:</h3>
+      <ul>
+        <li><strong>Name:</strong> Each input field must have a name attribute to be submitted.</li>
+        <li><strong>Value:</strong> Specifies an initial value for an input field.</li>
+        <li><strong>Placeholder:</strong> Specifies a short hint of what the expected value is to be inputted in the
+          form.</li>
+        <li><strong>Required:</strong> Specifies that an input must be filled out before submitting the form.</li>
+      </ul>
+
+      <h3>Input Element Types & Examples:</h3>
+
+      <h4>1. Text</h4>
+      <div class="terminal-container">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="header-title">bash — 80×24</span>
+        </div>
+        <div class="terminal-body">
+          <pre id="code-forms-text">
+
+&lt;form&gt;
+  &lt;label for="fname"&gt;First name:&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" id="fname" name="fname"&gt;&lt;br&gt;
+  &lt;label for="lname"&gt;Last name:&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" id="lname" name="lname"&gt;
+&lt;/form&gt;
+    </pre>
+        </div>
+      </div>
+      <button onclick="showOutput(document.getElementById('code-forms-text').textContent)"
+        class="show-output-btn"><span>
+          ▶ Show Output </span>
+      </button>
+      <h4>2. Password</h4>
+      <div class="terminal-container">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="header-title">bash — 80×24</span>
+        </div>
+        <div class="terminal-body">
+          <pre id="code-forms-password">
+
+&lt;h2&gt;Password&lt;/h2&gt;
+&lt;form&gt;
+  &lt;label for="pwd"&gt;Password:&lt;/label&gt;&lt;br&gt;
+  &lt;input type="password" id="pwd" name="pwd"&gt;
+&lt;/form&gt;
+    </pre>
+        </div>
+      </div>
+      <button onclick="showOutput(document.getElementById('code-forms-password').textContent)"
+        class="show-output-btn"><span>
+          ▶ Show Output </span>
+      </button>
+      <h4>3. Number</h4>
+      <div class="terminal-container">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="header-title">bash — 80×24</span>
+        </div>
+        <div class="terminal-body">
+          <pre id="code-forms-number">
+
+
+&lt;h2&gt;Number&lt;/h2&gt;
+&lt;form&gt;
+ &lt;label for="quantity"&gt;Quantity (between 1 and 5):&lt;/label&gt;
+ &lt;input type="number" id="quantity" name="quantity" min="1" max="5"&gt;
+&lt;/form&gt;
+    </pre>
+        </div>
+      </div>
+      <button onclick="showOutput(document.getElementById('code-forms-number').textContent)"
+        class="show-output-btn"><span>
+          ▶ Show Output </span>
+      </button>
+      <h4>4. Radio</h4>
+      <div class="terminal-container">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="header-title">bash — 80×24</span>
+        </div>
+        <div class="terminal-body">
+          <pre id="code-forms-radio">
+
+&lt;p&gt;Choose your favorite Web language:&lt;/p&gt;
+
+&lt;form&gt;
+  &lt;input type="radio" id="html" name="fav_language" value="HTML"&gt;
+  &lt;label for="html"&gt;HTML&lt;/label&gt;&lt;br&gt;
+  &lt;input type="radio" id="css" name="fav_language" value="CSS"&gt;
+  &lt;label for="css"&gt;CSS&lt;/label&gt;&lt;br&gt;
+  &lt;input type="radio" id="javascript" name="fav_language" value="JavaScript"&gt;
+  &lt;label for="javascript"&gt;JavaScript&lt;/label&gt;
+&lt;/form&gt;
+    </pre>
+        </div>
+      </div>
+      <button onclick="showOutput(document.getElementById('code-forms-radio').textContent)"
+        class="show-output-btn"><span>
+          ▶ Show Output </span>
+      </button>
+
+      <h4>5. Checkbox</h4>
+      <div class="terminal-container">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="header-title">bash — 80×24</span>
+        </div>
+        <div class="terminal-body">
+          <pre id="code-forms-checkbox">
+
+&lt;form&gt;
+  &lt;input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"&gt;
+  &lt;label for="vehicle1"&gt; I have a bike&lt;/label&gt;&lt;br&gt;
+  &lt;input type="checkbox" id="vehicle2" name="vehicle2" value="Car"&gt;
+  &lt;label for="vehicle2"&gt; I have a car&lt;/label&gt;&lt;br&gt;
+  &lt;input type="checkbox" id="vehicle3" name="vehicle3" value="Boat"&gt;
+  &lt;label for="vehicle3"&gt; I have a boat&lt;/label&gt;
+&lt;/form&gt;
+    </pre>
+        </div>
+      </div>
+      <button onclick="showOutput(document.getElementById('code-forms-checkbox').textContent)"
+        class="show-output-btn"><span>
+          ▶ Show Output </span>
+      </button>
+
+      <h4>6. Select</h4>
+      <div class="terminal-container">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="header-title">bash — 80×24</span>
+        </div>
+        <div class="terminal-body">
+          <pre id="code-forms-select">
+&lt;form&gt;
+  &lt;label for="cars"&gt;Choose a car:&lt;/label&gt;
+  &lt;select id="cars" name="cars"&gt;
+    &lt;option value="volvo"&gt;Volvo&lt;/option&gt;
+    &lt;option value="saab"&gt;Saab&lt;/option&gt;
+    &lt;option value="fiat"&gt;Fiat&lt;/option&gt;
+    &lt;option value="audi"&gt;Audi&lt;/option&gt;
+  &lt;/select&gt;
+&lt;/form&gt;
+    </pre>
+        </div>
+      </div>
+
+      <button onclick="showOutput(document.getElementById('code-forms-select').textContent)"
+        class="show-output-btn"><span>
+          ▶ Show Output </span>
+      </button>
+
+      <h4>7. Text Area</h4>
+      <div class="terminal-container">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="header-title">bash — 80×24</span>
+        </div>
+        <div class="terminal-body">
+          <pre id="code-forms-textarea">
+&lt;textarea&gt;Hello!&lt;/textarea&gt;
+
+&lt;!-- Or left blank --&gt;
+&lt;textarea&gt;&lt;/textarea&gt;
+    </pre>
+        </div>
+      </div>
+
+      <button onclick="showOutput(document.getElementById('code-forms-textarea').textContent)"
+        class="show-output-btn"><span>
+          ▶ Show Output </span>
+      </button>
+
+      <h4>8. Submit</h4>
+      <div class="terminal-container">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="header-title">bash — 80×24</span>
+        </div>
+        <div class="terminal-body">
+          <pre id="code-forms-submit">
+&lt;form&gt;
+  &lt;label for="fname"&gt;First name:&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" id="fname" name="fname" value="John"&gt;&lt;br&gt;
+  &lt;label for="lname"&gt;Last name:&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" id="lname" name="lname" value="Doe"&gt;&lt;br&gt;&lt;br&gt;
+  &lt;input type="submit" value="Submit"&gt;
+&lt;/form&gt;
+    </pre>
+        </div>
+      </div>
+
+      <button onclick="showOutput(document.getElementById('code-forms-submit').textContent)"
+        class="show-output-btn"><span>
+          ▶ Show Output </span>
+      </button>
+      <h4>9. Reset</h4>
+      <div class="terminal-container">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="header-title">bash — 80×24</span>
+        </div>
+        <div class="terminal-body">
+          <pre id="code-forms-reset">
+&lt;h1&gt;Display a Reset Button&lt;/h1&gt;
+
+&lt;p&gt;Click on the reset button to reset the form.&lt;/p&gt;
+
+&lt;form&gt;
+  &lt;label for="email"&gt;Enter your email:&lt;/label&gt;
+  &lt;input type="email" id="email" name="email"&gt;&lt;br&gt;&lt;br&gt;
+
+  &lt;label for="pin"&gt;Enter a PIN:&lt;/label&gt;
+  &lt;input type="text" id="pin" name="pin" maxlength="4"&gt;&lt;br&gt;&lt;br&gt;     
+
+  &lt;input type="reset" value="Reset"&gt;
+  &lt;input type="submit" value="Submit"&gt;
+&lt;/form&gt;
+    </pre>
+        </div>
+      </div>
+      <button onclick="showOutput(document.getElementById('code-forms-reset').textContent)"
+        class="show-output-btn"><span>
+          ▶ Show Output </span>
+      </button>
+      <hr>
+
+      <h2>Advance Lesson: External CSS (Preview for Module 2)</h2>
+      <p>This is most recommended when you will be full-on using CSS for designing your website. CSS parts are done on a
+        separate file that you will only need to link to your HTML file in order to display the input of the CSS code!
+      </p>
+
+      <p>External styles are defined within the <strong>&lt;link&gt;</strong> element, inside the
+        <strong>&lt;head&gt;</strong> section of an HTML page.
+      </p>
+
+      <h3>HTML Example:</h3>
+      <div class="terminal-container">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="header-title">bash — 80×24</span>
+        </div>
+        <div class="terminal-body">
+          <pre id="code-external-css">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;link rel="stylesheet" href="mystyle.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;h1&gt;This is a heading&lt;/h1&gt;
+&lt;p&gt;This is a paragraph.&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+    </pre>
+        </div>
+      </div>
+      <button onclick="showOutput(document.getElementById('code-external-css').textContent)"
+        class="show-output-btn"><span>
+          ▶ Show Output </span>
+      </button>
+      <h3>CSS File Example (mystyle.css):</h3>
+      <div class="terminal-container">
+        <div class="terminal-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="header-title">bash — 80×24</span>
+        </div>
+        <div class="terminal-body">
+          <pre>
+body {
+  background-color: lightblue;
+}
+
+h1 {
+  color: navy;
+  margin-left: 20px;
+}
+    </pre>
+        </div>
+      </div>
+      <h3>Key Notes:</h3>
+      <ul>
+        <li>The file name in the href attribute is labeled <strong>.css</strong>, which defines that file as only for
+          CSS codes!</li>
+        <li>Both internal and external CSS are located in the <strong>&lt;head&gt;</strong> tag of the HTML file.</li>
+        <li>Stylesheet is the standard link to be used in order for the HTML and external CSS to be connected.</li>
+      </ul>
+
+    </main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- ===== FOOTER ===== -->
+  <footer id="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h3>Web Dev Fundamentals</h3>
+        <p>A student-built guide to HTML, CSS &amp; JavaScript — made for beginners, by a beginner.</p>
+      </div>
+      <div class="footer-divider-vertical"></div>
+      <div class="footer-links">
+        <a href="home.html">Home</a>
+        <a href="mission.html">Mission</a>
+        <a href="module1.html">Module 1: HTML</a>
+        <a href="module2.html">Module 2: CSS</a>
+        <a href="module3.html">Module 3: JavaScript</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Aztaryx (Mark) &mdash; Student Project &middot; Educational Use Only</p>
+      <div class="footer-dot-pattern">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

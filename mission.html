@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Mission</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="main.js" defer></script>
+    <style>
+        body {
+            background: url('assets/blueBg.png') repeat center/40px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: white;
+        }
+
+        .partiallyEverything {
+            background-color: rgba(0, 0, 0, 0.85);
+            color: white;
+            width: 100%;
+            max-width: 800px;
+            margin: 62px auto;
+            min-height: 100vh;
+            padding: 40px;
+            box-sizing: border-box;
+            line-height: 1.6;
+            border-left: dashed 2px #ffcf2f;
+            border-right: dashed 2px #ffcf2f;
+            border-top: dashed 2px #ffcf2f;
+            border-bottom: dashed 2px #ffcf2f;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ===== SIDEBAR TOGGLE BUTTON ===== -->
+    <button id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+    </button>
+
+    <!-- ===== SIDEBAR ===== -->
+    <div id="sidebar" role="navigation" aria-label="Sidebar navigation">
+        <div class="sidebar-label">Navigation</div>
+        <nav class="sidebar-nav">
+            <a href="home.html"><span>🏠 Home</span></a>
+            <a href="mission.html"><span>📌 Mission</span></a>
+            <hr class="sidebar-divider">
+            <a href="module1.html"><span>🏗️ Module 1: HTML</span></a>
+            <a href="module2.html"><span>🎨 Module 2: CSS</span></a>
+            <a href="module3.html"><span>⚡ Module 3: JavaScript</span></a>
+        </nav>
+        <div class="sidebar-footer-blurb">
+            Website Development Fundamentals<br>A student ICT project
+        </div>
+    </div>
+
+    <!-- ===== SIDEBAR OVERLAY ===== -->
+    <div id="sidebar-overlay"></div>
+
+
+    <nav id="navbar">
+        <div id="logo">
+            <a href="home.html">
+                <img src="theLogo.png" alt="Website Logo" height="50">
+            </a>
+        </div>
+        <ul id="nav-links">
+            <li><a href="home.html"><span>Home</span></a></li>
+            <li><a href="mission.html"><span>Mission</span></a></li>
+            <li id="dropdown">
+                <a href="javascript:void(0)" class="dropbtn"><span>Modules &#9662;</span></a>
+                <div class="dropdown-content">
+                    <a href="module1.html"><span>Module 1: HTML Basics</span></a>
+                    <a href="module2.html"><span>Module 2: CSS Fundamentals</span></a>
+                    <a href="module3.html"><span>Module 3: JavaScript Introduction</span></a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <div class="partiallyEverything">
+        <!-- actually no, PARTIALLY everything    p.s: there we go -->
+        <h1>Our Mission</h1>
+        <p>Hello! Main developer here. I started this project because of a school project in our ICT subject. I told
+            myself,
+            wouldn't it be really, really funny if I made a website that teaches people how to, ironically, make a
+            website?
+            And not only that. I was planning to significantly deviate off course from what we learned. Before I
+            started, I
+            had NO clue on what the hell a meta charset is, nor font importing. I had to look at websites such as
+            W3schools,
+            which is the main inspiration for this website. I also removed approximately 1 or 2 hours from my already
+            stupidly unhealthy sleep schedule of 6 hours to learn about coding. And what came out is this. I hope you
+            enjoy,
+            and I am PRAYING this becomes official, atleast in our school only. </p> <br>
+        <p><strong> Signing off, Aztaryx (Mark).</strong></p>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer id="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h3>Web Dev Fundamentals</h3>
+                <p>A student-built guide to HTML, CSS &amp; JavaScript — made for beginners, by a beginner.</p>
+            </div>
+            <div class="footer-divider-vertical"></div>
+            <div class="footer-links">
+                <a href="home.html">Home</a>
+                <a href="mission.html">Mission</a>
+                <a href="module1.html">Module 1: HTML</a>
+                <a href="module2.html">Module 2: CSS</a>
+                <a href="module3.html">Module 3: JavaScript</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Aztaryx (Mark) &mdash; Student Project &middot; Educational Use Only</p>
+            <div class="footer-dot-pattern">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

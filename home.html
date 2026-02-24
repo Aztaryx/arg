@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Website Development Fundamentals - Home</title>
+    <script src="main.js" defer></script>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        body {
+            margin-top: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ===== SIDEBAR TOGGLE BUTTON ===== -->
+    <button id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+    </button>
+
+    <!-- ===== SIDEBAR ===== -->
+    <div id="sidebar" role="navigation" aria-label="Sidebar navigation">
+        <div class="sidebar-label">Navigation</div>
+        <nav class="sidebar-nav">
+            <a href="home.html"><span>🏠 Home</span></a>
+            <a href="mission.html"><span>📌 Mission</span></a>
+            <hr class="sidebar-divider">
+            <a href="module1.html"><span>🏗️ Module 1: HTML</span></a>
+            <a href="module2.html"><span>🎨 Module 2: CSS</span></a>
+            <a href="module3.html"><span>⚡ Module 3: JavaScript</span></a>
+        </nav>
+        <div class="sidebar-footer-blurb">
+            Website Development Fundamentals<br>A student ICT project
+        </div>
+    </div>
+
+    <!-- ===== SIDEBAR OVERLAY ===== -->
+    <div id="sidebar-overlay"></div>
+
+
+    <div id="warning-overlay">
+        <div id="warning-box">
+            <div class="warning-icon"></div>
+            <h2>Important Notice</h2>
+            <p>
+                The topics covered in this website represent <strong>only the modules that were discussed to us</strong>
+                during our school curriculum.
+            </p>
+            <p class="module-list">
+                We cover three core modules:<br>
+                <strong>HTML • CSS • JavaScript</strong>
+            </p>
+            <p>
+                This is a student project created for educational purposes and reflects the scope of our learning
+                materials.
+            </p>
+            <div class="button-container">
+                <button id="close-warning">
+                    <span>Alright!</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <nav id="navbar">
+        <div id="logo">
+            <a href="home.html">
+                <img src="theLogo.png" alt="Website Logo" height="50">
+            </a>
+        </div>
+        <ul id="nav-links">
+            <li><a href="home.html"><span>Home</span></a></li>
+            <li><a href="mission.html"><span>Mission</span></a></li>
+            <li id="dropdown">
+                <a href="javascript:void(0)" class="dropbtn"><span>Modules &#9662;</span></a>
+                <div class="dropdown-content">
+                    <a href="module1.html"><span>Module 1: HTML Basics</span></a>
+                    <a href="module2.html"><span>Module 2: CSS Fundamentals</span></a>
+                    <a href="module3.html"><span>Module 3: JavaScript Introduction</span></a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="page-content">
+        <p id="startP">Welcome to</p>
+        <h1>Website Development Fundamentals!</h1>
+    </div>
+    <hr class="dashed_hr">
+    <!-- Intro Section -->
+    <div class="intro-section">
+        <p>
+            <strong>We get it. Coding websites are hard the first time.</strong> Which is why we built this introductory
+            website
+            for those planning to start out. Below you'll find our three core modules — each one designed to
+            walk you through the basics, step by step.
+        </p>
+    </div>
+
+    <!-- Module Windows -->
+    <div class="module-windows">
+        <div class="module-window">
+            <div class="module-window-icon">🏗️</div>
+            <h3>HTML</h3>
+            <p>The building blocks of website development</p>
+            <a href="module1.html" class="module-btn"><span>Read! →</span></a>
+        </div>
+        <div class="module-window">
+            <div class="module-window-icon">🎨</div>
+            <h3>CSS</h3>
+            <p>The styling language that makes the web beautiful</p>
+            <a href="module2.html" class="module-btn"><span>Read! →</span></a>
+        </div>
+        <div class="module-window">
+            <div class="module-window-icon">⚡</div>
+            <h3>JavaScript</h3>
+            <p>The programming language that brings websites to life</p>
+            <a href="module3.html" class="module-btn"><span>Read! →</span></a>
+        </div>
+    </div>
+
+    <!-- Carousel Section -->
+    <div class="carousel-section">
+        <h2>Learn from the Best</h2>
+        <p>Check out these tutorials from creators around the web.</p>
+
+        <div class="carousel-wrapper">
+            <div class="carousel-track">
+                <!-- Thumbnail cards linking to YouTube tutorials -->
+                <div class="carousel-item">
+                    <a class="carousel-thumb-link" href="https://www.youtube.com/watch?v=qz0aGYrrlhU" target="_blank"
+                        rel="noopener">
+                        <img src="https://img.youtube.com/vi/qz0aGYrrlhU/maxresdefault.jpg"
+                            alt="the thumbnail got eaten">
+                        <div class="carousel-play-btn">&#9654;</div>
+                        <div class="carousel-label">Learn HTML in 1 Hour</div>
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a class="carousel-thumb-link" href="https://www.youtube.com/watch?v=1PnVor36_40" target="_blank"
+                        rel="noopener">
+                        <img src="https://img.youtube.com/vi/1PnVor36_40/maxresdefault.jpg"
+                            alt="the thumbnail got eaten">
+                        <div class="carousel-play-btn">&#9654;</div>
+                        <div class="carousel-label">HTML & CSS Full Course</div>
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a class="carousel-thumb-link" href="https://www.youtube.com/watch?v=PkZNo7MFNFg" target="_blank"
+                        rel="noopener">
+                        <img src="https://img.youtube.com/vi/PkZNo7MFNFg/maxresdefault.jpg"
+                            alt="the thumbnail got eaten">
+                        <div class="carousel-play-btn">&#9654;</div>
+                        <div class="carousel-label">Learn JavaScript - Full Course for Beginners</div>
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a class="carousel-thumb-link" href="https://www.youtube.com/watch?v=UB1O30fR-EE" target="_blank"
+                        rel="noopener">
+                        <img src="https://img.youtube.com/vi/UB1O30fR-EE/maxresdefault.jpg"
+                            alt="the thumbnail got eaten">
+                        <div class="carousel-play-btn">&#9654;</div>
+                        <div class="carousel-label">HTML & CSS Crash Course</div>
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a class="carousel-thumb-link" href="https://www.youtube.com/watch?v=PkZNo7MFNFg" target="_blank"
+                        rel="noopener">
+                        <img src="https://img.youtube.com/vi/PkZNo7MFNFg/maxresdefault.jpg"
+                            alt="the thumbnail got eaten">
+                        <div class="carousel-play-btn">&#9654;</div>
+                        <div class="carousel-label">JavaScript Full Course</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-nav">
+            <button class="carousel-arrow" id="carousel-prev"><span>&#8249;</span></button>
+            <div class="carousel-dots" id="carousel-dots"></div>
+            <button class="carousel-arrow" id="carousel-next"><span>&#8250;</span></button>
+        </div>
+    </div>
+    <h2 style="text-align:center;">Sources</h2>
+    <div class="sources-outer">
+        <div class="sources-ticker" id="sources-ticker">
+            <div class="ticker-track" id="ticker-track">
+                <span class="ticker-item">What made this website possible:</span>
+                <span class="ticker-sep">✦</span>
+                <span class="ticker-item">The entirety of <a href="https://www.w3schools.com" class="special-link"
+                        data-site="w3schools" target="_blank" rel="noopener">W3Schools, Refsnes Data AS</a></span>
+                <span class="ticker-sep">✦</span>
+                <span class="ticker-item">The entirety of <a href="https://www.geeksforgeeks.org" class="special-link"
+                        data-site="geeksforgeeks" target="_blank" rel="noopener">GeeksforGeeks, GeeksforGeeks
+                        Foundation</a></span>
+                <span class="ticker-sep">✦</span>
+                <span class="ticker-item">The creators of <a href="https://getbootstrap.com/docs/4.0/examples/"
+                        class="special-link" data-site="bootstrap" target="_blank" rel="noopener">Bootstrap, Mark Otto,
+                        Jacob Thornton, and the Bootstrap contributors</a></span>
+                <span class="ticker-sep">✦</span>
+                <span class="ticker-item">My teammates, for all of their support and feedback.</span>
+                <span class="ticker-sep">✦</span>
+                <span class="ticker-item">My teacher, for letting me use the WiFi in the school (which is NOT for
+                    students).</span>
+                <span class="ticker-sep">✦</span>
+                <span class="ticker-item">And you! The reader, for taking time out of your day to read my
+                    website.</span>
+                <span class="ticker-sep">✦</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Site Info Popup -->
+    <div id="site-popup" class="site-popup">
+        <strong id="popup-title"></strong>
+        <p id="popup-desc"></p>
+    </div>
+
+    <style>
+        /* ===== SOURCES TICKER ===== */
+        .sources-outer {
+            width: 100%;
+            overflow: hidden;
+            padding: 2.5rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .sources-ticker {
+            width: 100%;
+            overflow: hidden;
+            cursor: default;
+            position: relative;
+            mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+        }
+
+        .ticker-track {
+            display: inline-flex;
+            align-items: center;
+            gap: 0;
+            white-space: nowrap;
+            will-change: transform;
+        }
+
+        .ticker-item {
+            display: inline-block;
+            padding: 0.5rem 1.8rem;
+            font-size: 0.95rem;
+            transition: opacity 0.35s ease, transform 0.35s ease, color 0.35s ease;
+            vertical-align: middle;
+        }
+
+        .ticker-sep {
+            display: inline-block;
+            opacity: 0.35;
+            font-size: 0.7rem;
+            padding: 0 0.4rem;
+            vertical-align: middle;
+            transition: opacity 0.35s ease;
+        }
+
+        .ticker-item a {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        /* ===== SITE POPUP ===== */
+        .site-popup {
+            position: fixed;
+            display: none;
+            padding: 1rem 1.4rem;
+            border-radius: 10px;
+            border: 2px solid #ccc;
+            background: #ffffff;
+            color: #111;
+            max-width: 300px;
+            width: 280px;
+            z-index: 99999;
+            pointer-events: none;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            animation: popupFadeIn 0.2s ease forwards;
+        }
+
+        .site-popup strong {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 0.45rem;
+        }
+
+        .site-popup p {
+            font-size: 0.83rem;
+            line-height: 1.55;
+            margin: 0;
+            opacity: 0.85;
+        }
+
+        @keyframes popupFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+    <script>
+        /* ===================================================
+           SOURCES TICKER — JS-driven for smooth hover control
+        =================================================== */
+        (function () {
+            const ticker = document.getElementById('sources-ticker');
+            const track = document.getElementById('ticker-track');
+            if (!ticker || !track) return;
+
+            // Duplicate content for seamless looping
+            const originalHTML = track.innerHTML;
+            track.innerHTML = originalHTML + originalHTML;
+
+            const halfWidth = track.scrollWidth / 2;
+            let x = 0;
+            let paused = false;
+            let lastTime = null;
+            const speed = 55; // px per second
+
+            function animate(ts) {
+                if (!lastTime) lastTime = ts;
+                const dt = Math.min((ts - lastTime) / 1000, 0.05); // cap delta to avoid jumps
+                lastTime = ts;
+
+                if (!paused) {
+                    x -= speed * dt;
+                    if (x <= -halfWidth) x += halfWidth;
+                    track.style.transform = `translateX(${x}px)`;
+                }
+                requestAnimationFrame(animate);
+            }
+            requestAnimationFrame(animate);
+
+            // Helper: get all ticker-item elements
+            function getAllItems() {
+                return Array.from(track.querySelectorAll('.ticker-item'));
+            }
+            function getAllSeps() {
+                return Array.from(track.querySelectorAll('.ticker-sep'));
+            }
+
+            // Hover: pause and center hovered item
+            let activeItem = null;
+
+            ticker.addEventListener('mouseover', function (e) {
+                const item = e.target.closest('.ticker-item');
+                if (!item) return;
+                if (item === activeItem) return;
+
+                paused = true;
+                activeItem = item;
+
+                // Center this item in the ticker
+                const containerCenter = ticker.offsetWidth / 2;
+                const itemLeft = item.offsetLeft + x; // item's current visual left
+                const itemCenter = itemLeft + item.offsetWidth / 2;
+                const targetX = x + (containerCenter - itemCenter);
+
+                track.style.transition = 'transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                track.style.transform = `translateX(${targetX}px)`;
+
+                // Read the matched text to grey out ALL other instances (original + clone)
+                const matchText = item.textContent.trim();
+                getAllItems().forEach(function (i) {
+                    const isMatch = i.textContent.trim() === matchText;
+                    i.style.opacity = isMatch ? '1' : '0.2';
+                    i.style.transform = isMatch ? 'scale(1.14)' : 'scale(0.97)';
+                });
+                getAllSeps().forEach(function (s) { s.style.opacity = '0.1'; });
+            });
+
+            ticker.addEventListener('mouseleave', function () {
+                paused = false;
+                activeItem = null;
+                lastTime = null; // reset so no time-skip on resume
+
+                // Sync x with actual visual position before removing transition
+                const matrix = new DOMMatrix(getComputedStyle(track).transform);
+                x = matrix.m41;
+                // Wrap x back into valid range
+                if (x < -halfWidth) x += halfWidth;
+                if (x > 0) x -= halfWidth;
+
+                track.style.transition = 'none';
+                track.style.transform = `translateX(${x}px)`;
+
+                getAllItems().forEach(function (i) {
+                    i.style.opacity = '';
+                    i.style.transform = '';
+                });
+                getAllSeps().forEach(function (s) { s.style.opacity = ''; });
+            });
+        })();
+
+        /* ===================================================
+           SITE INFO POPUPS
+        =================================================== */
+        (function () {
+            const popup = document.getElementById('site-popup');
+            const popupTitle = document.getElementById('popup-title');
+            const popupDesc = document.getElementById('popup-desc');
+            if (!popup) return;
+
+            const siteData = {
+                w3schools: {
+                    title: 'W3Schools',
+                    desc: 'The world\'s largest web developer learning site, offering free tutorials and references on HTML, CSS, JavaScript, and more — complete with a live "Try it Yourself" code editor.',
+                    color: '#04AA6D',
+                    shadow: 'rgba(4, 170, 109, 0.35)'
+                },
+                geeksforgeeks: {
+                    title: 'GeeksforGeeks',
+                    desc: 'A comprehensive computer science portal covering algorithms, data structures, web development, and programming in depth — trusted by millions of students and developers worldwide.',
+                    color: '#2F8D46',
+                    shadow: 'rgba(47, 141, 70, 0.35)'
+                },
+                bootstrap: {
+                    title: 'Bootstrap',
+                    desc: 'The most popular open-source CSS framework, providing a responsive grid system, pre-built components, and utilities that help developers build polished interfaces fast.',
+                    color: '#7952B3',
+                    shadow: 'rgba(121, 82, 179, 0.4)'
+                }
+            };
+
+            function positionPopup(e) {
+                const margin = 15;
+                const pw = popup.offsetWidth || 280;
+                const ph = popup.offsetHeight || 120;
+                let lx = e.clientX + margin;
+                let ly = e.clientY - margin;
+                if (lx + pw > window.innerWidth - 10) lx = e.clientX - pw - margin;
+                if (ly + ph > window.innerHeight - 10) ly = e.clientY - ph - margin;
+                popup.style.left = lx + 'px';
+                popup.style.top = ly + 'px';
+            }
+
+            document.querySelectorAll('.special-link').forEach(function (link) {
+                link.addEventListener('mouseenter', function (e) {
+                    const info = siteData[link.dataset.site];
+                    if (!info) return;
+                    popupTitle.textContent = info.title;
+                    popupDesc.textContent = info.desc;
+                    popup.style.borderColor = info.color;
+                    popup.style.boxShadow = `0 8px 30px ${info.shadow}`;
+                    popup.style.animation = 'none';
+                    popup.style.display = 'block';
+                    // Re-trigger animation
+                    void popup.offsetWidth;
+                    popup.style.animation = 'popupFadeIn 0.2s ease forwards';
+                    positionPopup(e);
+                });
+
+                link.addEventListener('mousemove', positionPopup);
+
+                link.addEventListener('mouseleave', function () {
+                    popup.style.display = 'none';
+                });
+            });
+        })();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <!-- ===== FOOTER ===== -->
+    <footer id="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h3>Web Dev Fundamentals</h3>
+                <p>A student-built guide to HTML, CSS &amp; JavaScript — made for beginners, by a beginner.</p>
+            </div>
+            <div class="footer-divider-vertical"></div>
+            <div class="footer-links">
+                <a href="home.html">Home</a>
+                <a href="mission.html">Mission</a>
+                <a href="module1.html">Module 1: HTML</a>
+                <a href="module2.html">Module 2: CSS</a>
+                <a href="module3.html">Module 3: JavaScript</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Aztaryx (Mark) &mdash; Student Project &middot; Educational Use Only</p>
+            <div class="footer-dot-pattern">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </footer>
+</body>
