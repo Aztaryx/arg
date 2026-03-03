@@ -113,7 +113,7 @@ p {
     top: 0;
     width: 100%;
     transition: 0.4s;
-    z-index: 1000;
+    z-index: 1100;
 }
 
 
@@ -685,10 +685,12 @@ body.warning-active {
 .module-window:hover {
     box-shadow: 0 12px 40px rgba(42, 92, 199, 0.45);
     transform: translateY(-6px);
+    transition-delay: 0s !important;
 }
 
 .module-window.visible:hover {
     transform: translateY(-6px);
+    transition-delay: 0s !important;
 }
 
 .module-window-icon {
@@ -991,12 +993,14 @@ body.warning-active {
    SIDEBAR STYLES
    ======================================== */
 
-/* Sidebar toggle button — fixed top-left */
+/* Sidebar toggle button — sits inside the right of the navbar */
 #sidebar-toggle {
-    position: fixed;
-    top: 14px;
-    left: 14px;
-    z-index: 1100;
+    position: relative;
+    top: auto;
+    left: auto;
+    z-index: 1200;
+    /* Ensure it's above everything */
+    flex-shrink: 0;
     width: 44px;
     height: 44px;
     background-color: #1a3c8a;
@@ -1008,9 +1012,13 @@ body.warning-active {
     align-items: center;
     gap: 5px;
     padding: 0;
+    margin-left: auto;
+    /* Pushes to the right */
+    margin-right: 20px;
+    /* Margin from the right edge */
     transform: skewX(0deg);
     transition: background-color 0.3s ease;
-    box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.4);
+    box-shadow: -3px 3px 12px rgba(0, 0, 0, 0.4);
 }
 
 #sidebar-toggle:hover {
@@ -1030,9 +1038,9 @@ body.warning-active {
         width 0.3s ease;
 }
 
-/* Arrow state: top line becomes top arm of back arrow */
+/* Arrow state: top line becomes top arm pointing RIGHT */
 #sidebar-toggle.open .hamburger-line:nth-child(1) {
-    transform: translateY(7px) rotate(-45deg) scaleX(0.65);
+    transform: translateY(7px) rotate(45deg) scaleX(0.65);
     transform-origin: left center;
     width: 16px;
 }
@@ -1043,9 +1051,9 @@ body.warning-active {
     width: 22px;
 }
 
-/* Arrow state: bottom line becomes bottom arm */
+/* Arrow state: bottom line becomes bottom arm pointing RIGHT */
 #sidebar-toggle.open .hamburger-line:nth-child(3) {
-    transform: translateY(-7px) rotate(45deg) scaleX(0.65);
+    transform: translateY(-7px) rotate(-45deg) scaleX(0.65);
     transform-origin: left center;
     width: 16px;
 }
@@ -1054,10 +1062,11 @@ body.warning-active {
 #sidebar {
     position: fixed;
     top: 0;
-    left: 0;
+    right: 0;
+    /* Changed from left: 0 */
     width: 260px;
     height: 100%;
-    background: url('assets/blueBg.png') repeat center/40px,
+    background: url('assets/blueBg.png') repeat 0 0 / 40px 40px,
         linear-gradient(160deg, #050f26 0%, #0a1a3a 60%, #0f2460 100%);
     background-blend-mode: overlay;
     z-index: 1050;
@@ -1066,12 +1075,27 @@ body.warning-active {
     padding-top: 80px;
     padding-bottom: 30px;
     box-sizing: border-box;
-    border-right: 2px dashed #2a5cc7;
-    box-shadow: 6px 0 30px rgba(0, 0, 0, 0.6);
+    border-left: 2px dashed #2a5cc7;
+    /* Changed from border-right */
+    box-shadow: -6px 0 30px rgba(0, 0, 0, 0.6);
+    /* Changed from positive 6px */
+    animation: dotScrollDiag 6s linear infinite;
 
-    /* Hidden state — off to the left */
-    transform: translateX(-110%);
+    /* Hidden state — off to the right */
+    transform: translateX(110%);
+    /* Changed from -110% */
     transition: transform 0.42s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes dotScrollDiag {
+    from {
+        background-position: 0 0, 0 0;
+    }
+
+    to {
+        /* Move one full tile diagonally down-right so the loop is seamless */
+        background-position: 40px 40px, 0 0;
+    }
 }
 
 /* Open state — slides right-to-left into view */
@@ -1113,13 +1137,17 @@ body.warning-active {
     font-size: 0.85rem;
     font-weight: 600;
     border: 1px solid transparent;
-    border-left: 3px solid #f7d74e;
+    border-right: 3px solid #f7d74e;
+    /* Changed from border-left */
     transition: background-color 0.25s ease,
         border-color 0.25s ease,
         transform 0.25s ease,
         box-shadow 0.25s ease;
     transform: skewX(0deg);
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: -2px 2px 8px rgba(0, 0, 0, 0.3);
+    /* Adjusted shadow direction */
+    text-align: right;
+    /* Align text to right for right-side sidebar */
 }
 
 .sidebar-nav a span {
@@ -1129,8 +1157,9 @@ body.warning-active {
 .sidebar-nav a:hover {
     background-color: #2a5cc7;
     border-color: #f7d74e;
-    transform: translateX(6px);
-    box-shadow: 4px 4px 14px rgba(42, 92, 199, 0.45);
+    transform: translateX(-6px);
+    /* Slide left on hover */
+    box-shadow: -4px 4px 14px rgba(42, 92, 199, 0.45);
 }
 
 /* Divider in sidebar */
@@ -1150,6 +1179,7 @@ body.warning-active {
     line-height: 1.5;
     border-top: 1px dashed #2a5cc7;
     margin-top: 10px;
+    text-align: right;
 }
 
 /* Dim overlay behind sidebar */
@@ -1196,7 +1226,8 @@ body.warning-active {
 @keyframes sidebarLinkIn {
     from {
         opacity: 0;
-        transform: translateX(-20px);
+        transform: translateX(20px);
+        /* Changed from -20px */
     }
 
     to {

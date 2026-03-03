@@ -1,0 +1,126 @@
+/* ========================================
+   PARANOIA — Mode Styles
+   Two cards. One answer. Don't crack.
+   ======================================== */
+
+body {
+    background: linear-gradient(175deg, #03080f 0%, #060d1c 55%, #08101f 100%);
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 35%, rgba(0, 0, 0, 0.65) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Header overrides */
+#startP {
+    color: #3d5080;
+}
+
+h1 {
+    color: #d0daf0;
+    letter-spacing: -0.01em;
+}
+
+.dashed_hr {
+    border-color: #0f1e3a;
+}
+
+.intro-section p {
+    color: #5f7ab0;
+}
+
+.intro-section p strong {
+    color: #d0daf0;
+}
+
+/* Acts list in intro */
+.pn-acts-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.pn-acts-list li {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    color: #253050;
+}
+
+.pn-acts-list li:first-child {
+    color: #f7d74e;
+}
+
+/* ---- Game Area ---- */
+.pn-game-area {
+    max-width: 860px;
+    margin: 40px auto 80px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 240px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ---- Start Button ---- */
+.pn-start-btn {
+    background: transparent;
+    color: #f7d74e;
+    border: 1px solid #f7d74e;
+    padding: 16px 64px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    transform: skewX(-20deg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pn-start-btn span {
+    display: inline-block;
+    transform: skewX(20deg);
+}
+
+.pn-start-btn:hover {
+    background: #f7d74e;
+    color: #0a1a3a;
+    box-shadow: 0 0 24px rgba(247, 215, 78, 0.28);
+}
+
+/* ---- Sidebar game button ---- */
+.sidebar-game-btn {
+    display: block;
+    width: 100%;
+    background: transparent;
+    color: #f7d74e;
+    border: 1px solid #1a3c8a;
+    padding: 10px 16px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.22s ease;
+    margin-top: 8px;
+}
+
+.sidebar-game-btn:hover {
+    border-color: #f7d74e;
+    background: rgba(247, 215, 78, 0.07);
+}
+
+#site-footer {
+    position: relative;
+    z-index: 1;
+}

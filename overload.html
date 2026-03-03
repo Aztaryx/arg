@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Overload — Quiz Game</title>
+    <script src="main.js" defer></script>
+    <script src="questions.js" defer></script>
+    <script src="overload.js" defer></script>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="quiz.css">
+    <style>body { margin-top: 80px; }</style>
+</head>
+<body class="mode-overload">
+
+    <div id="sidebar" role="navigation" aria-label="Sidebar navigation">
+        <div class="sidebar-label">Navigation</div>
+        <nav class="sidebar-nav">
+            <a href="home.html"><span>🏠 Home</span></a>
+            <a href="quizhomepage.html"><span>🎮 Game Modes</span></a>
+            <hr class="sidebar-divider">
+            <div class="sidebar-label" style="margin-top:4px;">Game Area</div>
+            <button class="sidebar-game-btn" id="sidebar-play-btn"><span>▶ Play Now</span></button>
+        </nav>
+        <div class="sidebar-footer-blurb">Quiz Game<br>Select your mode and begin.</div>
+    </div>
+    <div id="sidebar-overlay"></div>
+
+    <nav id="navbar">
+        <div id="logo">
+            <a href="home.html"><img src="theLogo.png" alt="Website Logo" height="50"></a>
+        </div>
+        <ul id="nav-links">
+            <li><a href="home.html"><span>Home</span></a></li>
+            <li><a href="quizhomepage.html"><span>Game Modes</span></a></li>
+        </ul>
+        <button id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+    </nav>
+
+    <div class="page-content">
+        <p id="startP">Game Mode</p>
+        <h1>🌊 OVERLOAD</h1>
+    </div>
+    <hr class="dashed_hr">
+
+    <div class="intro-section">
+        <p>The questions don't stop coming. <strong>Clear the board</strong> before it buries you — because once it's full, you're done.</p>
+    </div>
+
+    <!-- ===== GAME AREA ===== -->
+    <div class="ol-game-area">
+
+        <div class="ol-hud">
+            <div class="ol-hud-block">
+                <span class="ol-hud-label">Cleared</span>
+                <span class="ol-hud-value" id="ol-cleared">0</span>
+            </div>
+            <div class="ol-fill-wrap">
+                <div class="ol-fill-label">BOARD FILL</div>
+                <div class="ol-fill-track">
+                    <div class="ol-fill-bar" id="ol-fill-bar"></div>
+                </div>
+                <div class="ol-fill-pct" id="ol-fill-pct">0%</div>
+            </div>
+            <div class="ol-now-playing">
+                <span id="ol-song">♪ &nbsp;—</span>
+            </div>
+        </div>
+
+        <div class="ol-board" id="ol-board">
+            <!-- Cards injected by overload.js -->
+        </div>
+
+    </div>
+
+    <!-- ===== START OVERLAY ===== -->
+    <div class="ol-overlay" id="ol-overlay">
+        <div class="ol-overlay-box">
+            <div class="ol-mode-tag">OVERLOAD</div>
+            <h2>Clear the board.</h2>
+            <p>New questions flood in before you're done with the last.<br>Answer fast. Keep the board clear.<br>When it fills — it's over.</p>
+            <button class="ol-start-btn" id="ol-start-btn"><span>START</span></button>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand"><h3>Quiz Game</h3><p>Multiple modes. One goal — don't get it wrong.</p></div>
+            <div class="footer-divider-vertical"></div>
+            <div class="footer-links">
+                <a href="home.html">Home</a>
+                <a href="quizhomepage.html">Game Modes</a>
+                <a href="blitzkrieg.html">Blitzkrieg</a>
+                <a href="paranoia.html">Paranoia</a>
+                <a href="suddendeath.html">Sudden Death</a>
+                <a href="overload.html">Overload</a>
+                <a href="blackout.html">Blackout</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Quiz Game &mdash; Placeholder Build</p>
+            <div class="footer-dot-pattern"><span></span><span></span><span></span></div>
+        </div>
+    </footer>
+</body>
+</html>

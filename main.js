@@ -131,13 +131,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const contentContainer = document.querySelector('.literallyEverything main') ||
         document.querySelector('main') ||
         document.querySelector('.literallyEverything') ||
-        document.querySelector('body > *:not(#navbar):not(#warning-overlay)');
+        document.querySelector('.page-content') ||
+        document.querySelector('.partiallyEverything') ||
+        document.querySelector('body > *:not(#navbar):not(#warning-overlay):not(#sidebar):not(#sidebar-toggle):not(#sidebar-overlay):not(#site-footer)');
 
     if (contentContainer) {
-        // Add the page-content class
         contentContainer.classList.add('page-content');
-
-        // Trigger the animation after a brief delay
         setTimeout(() => {
             contentContainer.classList.add('loaded');
         }, 100);
@@ -167,7 +166,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 400);
         });
 
-        // Close on ESC key
         document.addEventListener('keydown', function (event) {
             if (event.key === 'Escape') {
                 closeBtn.click();
@@ -205,7 +203,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (carouselItems.length > 0 && dotsContainer) {
         let currentIndex = 0;
 
-        // Generate dots
         carouselItems.forEach(function (_, i) {
             const dot = document.createElement('button');
             dot.classList.add('carousel-dot');
@@ -219,10 +216,8 @@ document.addEventListener('DOMContentLoaded', function () {
         function updateCarousel() {
             const total = carouselItems.length;
             carouselItems.forEach(function (item, i) {
-                // Remove all state classes
                 item.classList.remove('active', 'prev', 'next', 'far-prev', 'far-next');
 
-                // Calculate relative position (handle wrapping)
                 let diff = i - currentIndex;
                 if (diff > total / 2) diff -= total;
                 if (diff < -total / 2) diff += total;
@@ -240,7 +235,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
 
-            // Update dots
             const dots = dotsContainer.querySelectorAll('.carousel-dot');
             dots.forEach(function (dot, i) {
                 dot.classList.toggle('active', i === currentIndex);
@@ -265,10 +259,77 @@ document.addEventListener('DOMContentLoaded', function () {
         if (prevBtn) prevBtn.addEventListener('click', prevSlide);
         if (nextBtn) nextBtn.addEventListener('click', nextSlide);
 
-        // Initialize
         updateCarousel();
     }
+
+    // ========================================
+    // MODULE PAGE NAVIGATION
+    // ========================================
+    initModulePages();
 });
+
+
+// ========================================
+// MODULE PAGE NAVIGATION SYSTEM
+// ========================================
+function initModulePages() {
+    const pages = document.querySelectorAll('.module-page');
+    if (pages.length === 0) return;
+
+    let currentPage = 0;
+    const total = pages.length;
+
+    const prevBtn = document.getElementById('module-prev');
+    const nextBtn = document.getElementById('module-next');
+    const counter = document.getElementById('module-page-counter');
+
+    function showPage(index) {
+        // Clamp index
+        index = Math.max(0, Math.min(index, total - 1));
+        if (index === currentPage && pages[currentPage].classList.contains('active-page')) {
+            return;
+        }
+
+        // Fade out current
+        pages[currentPage].classList.remove('active-page');
+        currentPage = index;
+
+        // Fade in new
+        pages[currentPage].classList.add('active-page');
+
+        // Scroll the inner main area back to top on page change
+        const mainEl = document.querySelector('.literallyEverything main');
+        if (mainEl) mainEl.scrollTop = 0;
+
+        if (counter) counter.textContent = `${currentPage + 1} / ${total}`;
+        if (prevBtn) prevBtn.disabled = currentPage === 0;
+        if (nextBtn) nextBtn.disabled = currentPage === total - 1;
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', () => showPage(currentPage - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => showPage(currentPage + 1));
+
+    // Keyboard navigation — left/right arrow keys
+    document.addEventListener('keydown', function (e) {
+        // Don't hijack keys if user is typing in an input or a modal is open
+        const activeTag = document.activeElement ? document.activeElement.tagName : '';
+        if (['INPUT', 'TEXTAREA', 'SELECT'].includes(activeTag)) return;
+        if (document.body.querySelector('[style*="z-index: 1000"]')) return;
+
+        if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            showPage(currentPage + 1);
+        } else if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            showPage(currentPage - 1);
+        }
+    });
+
+    // Initialize first page
+    showPage(0);
+}
+
+
 // ========================================
 // SIDEBAR TOGGLE
 // ========================================
@@ -310,5 +371,32 @@ document.addEventListener('DOMContentLoaded', function () {
         document.addEventListener('DOMContentLoaded', initSidebar);
     } else {
         initSidebar();
+    }
+})();
+
+// ========================================
+// QUIZ — SIDEBAR PLAY BUTTON
+// Finds the current mode's start button
+// and triggers it (scrolls first if needed).
+// ========================================
+(function () {
+    function initSidebarPlayBtn() {
+        const btn = document.getElementById('sidebar-play-btn');
+        if (!btn) return;
+
+        btn.addEventListener('click', function () {
+            const startBtn = document.querySelector(
+                '#bk-start-btn, #pn-start-btn, #sd-start-btn, #ol-start-btn, #bo-start-btn'
+            );
+            if (!startBtn) return;
+            startBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(function () { startBtn.click(); }, 420);
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSidebarPlayBtn);
+    } else {
+        initSidebarPlayBtn();
     }
 })();

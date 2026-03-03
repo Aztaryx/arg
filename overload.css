@@ -1,0 +1,106 @@
+/* ========================================
+   OVERLOAD — Mode Styles
+   Clear the board before it buries you.
+   ======================================== */
+
+body {
+    background: linear-gradient(175deg, #001414 0%, #001c1c 55%, #001010 100%);
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 35%, rgba(0, 0, 0, 0.68) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Header overrides */
+#startP {
+    color: #0e4a4a;
+}
+
+h1 {
+    color: #a0e8e8;
+    letter-spacing: -0.01em;
+    text-shadow: 0 0 40px rgba(50, 200, 200, 0.3);
+}
+
+.dashed_hr {
+    border-color: #062020;
+}
+
+.intro-section p {
+    color: #3a7a7a;
+}
+
+.intro-section p strong {
+    color: #a0e8e8;
+}
+
+/* ---- Game Area ---- */
+.ol-game-area {
+    max-width: 860px;
+    margin: 40px auto 80px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 240px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ---- Start Button ---- */
+.ol-start-btn {
+    background: transparent;
+    color: #32c8c8;
+    border: 1px solid #32c8c8;
+    padding: 16px 64px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    transform: skewX(-20deg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.ol-start-btn span {
+    display: inline-block;
+    transform: skewX(20deg);
+}
+
+.ol-start-btn:hover {
+    background: #32c8c8;
+    color: #001414;
+    box-shadow: 0 0 28px rgba(50, 200, 200, 0.35);
+}
+
+/* ---- Sidebar game button ---- */
+.sidebar-game-btn {
+    display: block;
+    width: 100%;
+    background: transparent;
+    color: #32c8c8;
+    border: 1px solid #0e4a4a;
+    padding: 10px 16px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.22s ease;
+    margin-top: 8px;
+}
+
+.sidebar-game-btn:hover {
+    border-color: #32c8c8;
+    background: rgba(50, 200, 200, 0.07);
+}
+
+#site-footer {
+    position: relative;
+    z-index: 1;
+}

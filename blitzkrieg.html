@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Blitzkrieg — Quiz Game</title>
+    <script src="main.js" defer></script>
+    <script src="questions.js" defer></script>
+    <script src="blitzkrieg.js" defer></script>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="quiz.css">
+    <style>body { margin-top: 80px; }</style>
+</head>
+
+<body class="mode-blitzkrieg">
+
+    <!-- ===== SIDEBAR ===== -->
+    <div id="sidebar" role="navigation" aria-label="Sidebar navigation">
+        <div class="sidebar-label">Navigation</div>
+        <nav class="sidebar-nav">
+            <a href="home.html"><span>🏠 Home</span></a>
+            <a href="quizhomepage.html"><span>🎮 Game Modes</span></a>
+            <hr class="sidebar-divider">
+            <div class="sidebar-label" style="margin-top:4px;">Game Area</div>
+            <button class="sidebar-game-btn" id="sidebar-play-btn"><span>▶ Play Now</span></button>
+        </nav>
+        <div class="sidebar-footer-blurb">Quiz Game<br>Select your mode and begin.</div>
+    </div>
+    <div id="sidebar-overlay"></div>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav id="navbar">
+        <div id="logo">
+            <a href="home.html"><img src="theLogo.png" alt="Website Logo" height="50"></a>
+        </div>
+        <ul id="nav-links">
+            <li><a href="home.html"><span>Home</span></a></li>
+            <li><a href="quizhomepage.html"><span>Game Modes</span></a></li>
+        </ul>
+        <button id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+    </nav>
+
+    <!-- ===== PAGE HEADER ===== -->
+    <div class="page-content">
+        <p id="startP">Game Mode</p>
+        <h1>⚡ BLITZKRIEG</h1>
+    </div>
+    <hr class="dashed_hr">
+
+    <div class="intro-section">
+        <p>
+            A race to the timer! With a collection of <strong>four different songs</strong>, answer as many questions
+            as possible in <strong>2 minutes and 30 seconds</strong>. Keep the streak alive — every second counts.
+            <em>(More songs to be added.)</em>
+        </p>
+    </div>
+
+    <!-- ===== GAME AREA ===== -->
+    <div class="bk-game-area">
+
+        <div class="bk-hud">
+            <div class="bk-hud-block">
+                <span class="bk-hud-label">Score</span>
+                <span class="bk-hud-value" id="bk-score">0</span>
+            </div>
+            <div class="bk-timer-wrap">
+                <svg class="bk-ring" viewBox="0 0 120 120">
+                    <circle class="bk-ring-bg" cx="60" cy="60" r="52"/>
+                    <circle class="bk-ring-arc" cx="60" cy="60" r="52" id="bk-ring-arc"/>
+                </svg>
+                <div class="bk-timer-center">
+                    <span id="bk-time">2:30</span>
+                </div>
+            </div>
+            <div class="bk-hud-block">
+                <span class="bk-hud-label">Streak</span>
+                <span class="bk-hud-value" id="bk-streak">0 🔥</span>
+            </div>
+        </div>
+
+        <div class="bk-now-playing">
+            <span class="bk-np-pip"></span>
+            <span id="bk-song">♪ &nbsp;Now Playing: —</span>
+        </div>
+
+        <div class="bk-card" id="bk-card">
+            <div class="bk-card-tag" id="bk-q-num">Q1</div>
+            <p class="bk-question" id="bk-question">[ Waiting to start... ]</p>
+            <div class="bk-answers" id="bk-answers">
+                <button class="bk-ans" disabled><span>—</span></button>
+                <button class="bk-ans" disabled><span>—</span></button>
+                <button class="bk-ans" disabled><span>—</span></button>
+                <button class="bk-ans" disabled><span>—</span></button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ===== START OVERLAY ===== -->
+    <div class="bk-overlay" id="bk-overlay">
+        <div class="bk-overlay-box">
+            <div class="bk-mode-tag">BLITZKRIEG</div>
+            <h2>Race the Clock.</h2>
+            <p>Four tracks. Two and a half minutes.<br>Answer as many as you can before time runs out.</p>
+            <button class="bk-start-btn" id="bk-start-btn"><span>START</span></button>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer id="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h3>Quiz Game</h3>
+                <p>Multiple modes. One goal — don't get it wrong.</p>
+            </div>
+            <div class="footer-divider-vertical"></div>
+            <div class="footer-links">
+                <a href="home.html">Home</a>
+                <a href="quizhomepage.html">Game Modes</a>
+                <a href="blitzkrieg.html">Blitzkrieg</a>
+                <a href="paranoia.html">Paranoia</a>
+                <a href="suddendeath.html">Sudden Death</a>
+                <a href="overload.html">Overload</a>
+                <a href="blackout.html">Blackout</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Quiz Game &mdash; Placeholder Build</p>
+            <div class="footer-dot-pattern"><span></span><span></span><span></span></div>
+        </div>
+    </footer>
+
+</body>
+</html>

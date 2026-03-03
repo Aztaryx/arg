@@ -5,6 +5,7 @@
     <title>Website Development Fundamentals - Home</title>
     <script src="main.js" defer></script>
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="quiz.css">
     <style>
         body {
             margin-top: 80px;
@@ -13,19 +14,13 @@
 </head>
 
 <body>
-    <!-- ===== SIDEBAR TOGGLE BUTTON ===== -->
-    <button id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-    </button>
-
     <!-- ===== SIDEBAR ===== -->
     <div id="sidebar" role="navigation" aria-label="Sidebar navigation">
         <div class="sidebar-label">Navigation</div>
         <nav class="sidebar-nav">
             <a href="home.html"><span>🏠 Home</span></a>
             <a href="mission.html"><span>📌 Mission</span></a>
+            <a href="quizhomepage.html"><span>🎮 Quiz Game</span></a>
             <hr class="sidebar-divider">
             <a href="module1.html"><span>🏗️ Module 1: HTML</span></a>
             <a href="module2.html"><span>🎨 Module 2: CSS</span></a>
@@ -72,6 +67,7 @@
         <ul id="nav-links">
             <li><a href="home.html"><span>Home</span></a></li>
             <li><a href="mission.html"><span>Mission</span></a></li>
+            <li><a href="quizhomepage.html"><span>Quiz Game</span></a></li>
             <li id="dropdown">
                 <a href="javascript:void(0)" class="dropbtn"><span>Modules &#9662;</span></a>
                 <div class="dropdown-content">
@@ -81,6 +77,12 @@
                 </div>
             </li>
         </ul>
+        <!-- ===== SIDEBAR TOGGLE BUTTON ===== -->
+        <button id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
     </nav>
 
     <div class="page-content">
@@ -117,6 +119,27 @@
             <h3>JavaScript</h3>
             <p>The programming language that brings websites to life</p>
             <a href="module3.html" class="module-btn"><span>Read! →</span></a>
+        </div>
+    </div>
+
+
+    <!-- ===== QUIZ GAME TEASER ===== -->
+    <div class="games-teaser">
+        <div class="gt-inner">
+            <div class="gt-text">
+                <p class="gt-label">Now Available</p>
+                <h2>Quiz Game</h2>
+                <p>Five different ways to be wrong. Pick your mode and find out how well you actually know your stuff.
+                </p>
+                <a href="quizhomepage.html" class="module-btn gt-btn"><span>Play →</span></a>
+            </div>
+            <div class="gt-modes">
+                <span class="gt-mode-tag" style="--c:#f7e84e">⚡ Blitzkrieg</span>
+                <span class="gt-mode-tag" style="--c:#f7d74e">👁️ Paranoia</span>
+                <span class="gt-mode-tag" style="--c:#e03030">💀 Sudden Death</span>
+                <span class="gt-mode-tag" style="--c:#32c8c8">🌊 Overload</span>
+                <span class="gt-mode-tag" style="--c:#aaa">🕶️ Blackout</span>
+            </div>
         </div>
     </div>
 
@@ -198,6 +221,9 @@
                 <span class="ticker-item">The creators of <a href="https://getbootstrap.com/docs/4.0/examples/"
                         class="special-link" data-site="bootstrap" target="_blank" rel="noopener">Bootstrap, Mark Otto,
                         Jacob Thornton, and the Bootstrap contributors</a></span>
+                <span class="ticker-sep">✦</span>
+                <span class="ticker-item">Google's <a href="https://antigravity.google" class="special-link"
+                        data-site="google" target="_blank" rel="noopener">Antigravity</a></span>
                 <span class="ticker-sep">✦</span>
                 <span class="ticker-item">My teammates, for all of their support and feedback.</span>
                 <span class="ticker-sep">✦</span>
@@ -350,27 +376,43 @@
                 return Array.from(track.querySelectorAll('.ticker-sep'));
             }
 
-            // Hover: pause and center hovered item
+            // Hover: pause and center hovered item, with dwell buffer to prevent
+            // accidental triggers on short items (e.g. "Google Antigravity").
+            //
+            // KEY FIX: We use 'mousemove' instead of 'mouseover'. When activateItem
+            // triggers a CSS centering transition, the track physically slides under
+            // the stationary cursor — 'mouseover' fires for every item that drifts
+            // beneath it, instantly resetting the dwell timer and making the buffer
+            // feel non-existent. 'mousemove' only reacts when the cursor actually
+            // moves, so sliding items are completely ignored.
             let activeItem = null;
+            let pendingItem = null;
+            let dwellTimer = null;
+            let lastHoveredItem = null; // tracks the last item the cursor physically moved onto
+            let isTransitioning = false; // true while the centering CSS transition is running
+            const DWELL_MS = 180; // ms the cursor must rest on a new item before it activates
+            const TRANSITION_MS = 450; // must match the CSS transition duration below
 
-            ticker.addEventListener('mouseover', function (e) {
-                const item = e.target.closest('.ticker-item');
-                if (!item) return;
+            function activateItem(item) {
                 if (item === activeItem) return;
-
-                paused = true;
                 activeItem = item;
+                paused = true;
 
-                // Center this item in the ticker
+                // Sync x to the current rendered position so the centering math is accurate
+                const matrix = new DOMMatrix(getComputedStyle(track).transform);
+                x = matrix.m41;
+
                 const containerCenter = ticker.offsetWidth / 2;
-                const itemLeft = item.offsetLeft + x; // item's current visual left
-                const itemCenter = itemLeft + item.offsetWidth / 2;
+                const itemCenter = item.offsetLeft + x + item.offsetWidth / 2;
                 const targetX = x + (containerCenter - itemCenter);
 
-                track.style.transition = 'transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                // Guard against mousemove events fired for items sliding under the cursor
+                isTransitioning = true;
+                track.style.transition = `transform ${TRANSITION_MS}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
                 track.style.transform = `translateX(${targetX}px)`;
+                x = targetX; // keep internal x in sync with where we're animating to
+                setTimeout(function () { isTransitioning = false; }, TRANSITION_MS);
 
-                // Read the matched text to grey out ALL other instances (original + clone)
                 const matchText = item.textContent.trim();
                 getAllItems().forEach(function (i) {
                     const isMatch = i.textContent.trim() === matchText;
@@ -378,19 +420,70 @@
                     i.style.transform = isMatch ? 'scale(1.14)' : 'scale(0.97)';
                 });
                 getAllSeps().forEach(function (s) { s.style.opacity = '0.1'; });
+            }
+
+            function clearDwell() {
+                if (dwellTimer !== null) {
+                    clearTimeout(dwellTimer);
+                    dwellTimer = null;
+                }
+                pendingItem = null;
+            }
+
+            ticker.addEventListener('mousemove', function (e) {
+                // Ignore movement during the centering transition — the track is sliding
+                // under the cursor and we don't want those phantom item-changes.
+                if (isTransitioning) return;
+
+                const item = e.target.closest('.ticker-item');
+
+                // Cursor moved onto a non-item area (separator, gap, etc.)
+                if (!item) {
+                    if (lastHoveredItem !== null) {
+                        clearDwell();
+                        lastHoveredItem = null;
+                    }
+                    return;
+                }
+
+                // Cursor is still over the same item — nothing to do
+                if (item === lastHoveredItem) return;
+                lastHoveredItem = item;
+
+                // Moved onto the already-active item; cancel any pending switch
+                if (item === activeItem) {
+                    clearDwell();
+                    return;
+                }
+
+                // Already queued — let the existing timer run
+                if (item === pendingItem) return;
+
+                // New item: reset the dwell timer
+                clearDwell();
+                pendingItem = item;
+                dwellTimer = setTimeout(function () {
+                    dwellTimer = null;
+                    pendingItem = null;
+                    activateItem(item);
+                }, DWELL_MS);
             });
 
             ticker.addEventListener('mouseleave', function () {
-                paused = false;
+                clearDwell();
+                lastHoveredItem = null;
+                isTransitioning = false;
                 activeItem = null;
-                lastTime = null; // reset so no time-skip on resume
+                paused = false;
+                lastTime = null; // reset so animation doesn't jump on resume
 
-                // Sync x with actual visual position before removing transition
+                // Sync x with actual rendered position (handles mid-transition leave)
                 const matrix = new DOMMatrix(getComputedStyle(track).transform);
                 x = matrix.m41;
-                // Wrap x back into valid range
-                if (x < -halfWidth) x += halfWidth;
-                if (x > 0) x -= halfWidth;
+                // Normalize x back into the valid scroll range
+                // Use strict < to avoid an off-by-one at exactly -halfWidth
+                while (x < -halfWidth) x += halfWidth;
+                while (x > 0) x -= halfWidth;
 
                 track.style.transition = 'none';
                 track.style.transform = `translateX(${x}px)`;
@@ -406,6 +499,31 @@
         /* ===================================================
            SITE INFO POPUPS
         =================================================== */
+
+        const styleTag = document.createElement('style');
+        styleTag.textContent = `
+        @property --angle {
+            syntax: '<angle>';
+            inherits: false;
+            initial-value: 0deg;
+        }
+
+        @keyframes gradientRotate {
+            0%   { --angle: 0deg; }
+            100% { --angle: 360deg; }
+        }
+        .gradient-border-animated {
+        animation: gradientRotate 3s linear infinite !important;
+        border-color: transparent !important;
+        background-image: linear-gradient(#FFFFFF, #FFFFFF), 
+                          linear-gradient(var(--angle, 0deg), #EA4335, #FBBC05, #34A853, #4285F4) !important;
+        background-origin: border-box !important;
+        background-clip: padding-box, border-box !important;
+    }
+`;
+        document.head.appendChild(styleTag);
+
+
         (function () {
             const popup = document.getElementById('site-popup');
             const popupTitle = document.getElementById('popup-title');
@@ -430,6 +548,13 @@
                     desc: 'The most popular open-source CSS framework, providing a responsive grid system, pre-built components, and utilities that help developers build polished interfaces fast.',
                     color: '#7952B3',
                     shadow: 'rgba(121, 82, 179, 0.4)'
+                },
+                google: {
+                    title: 'Antigravity',
+                    desc: 'Experience liftoff! A branch of Microsoft\'s Visual Studio Code, Antigravity adds Google and Anthropic\'s strongest AI models to the editor.',
+                    color: null,
+                    gradient: 'linear-gradient(135deg, #EA4335, #FBBC05, #34A853, #4285F4)',
+                    shadow: 'rgba(66, 133, 244, 0.35)'
                 }
             };
 
@@ -451,7 +576,17 @@
                     if (!info) return;
                     popupTitle.textContent = info.title;
                     popupDesc.textContent = info.desc;
-                    popup.style.borderColor = info.color;
+                    if (info.gradient) {
+                        popup.style.borderColor = '';
+                        popup.style.backgroundImage = '';
+                        popup.classList.add('gradient-border-animated');
+                    } else {
+                        popup.classList.remove('gradient-border-animated');
+                        popup.style.borderColor = info.color;
+                        popup.style.backgroundImage = '';
+                        popup.style.backgroundOrigin = '';
+                        popup.style.backgroundClip = '';
+                    }
                     popup.style.boxShadow = `0 8px 30px ${info.shadow}`;
                     popup.style.animation = 'none';
                     popup.style.display = 'block';
@@ -465,6 +600,7 @@
 
                 link.addEventListener('mouseleave', function () {
                     popup.style.display = 'none';
+                    popup.classList.remove('gradient-border-animated');
                 });
             });
         })();

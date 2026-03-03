@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Paranoia — Quiz Game</title>
+    <script src="main.js" defer></script>
+    <script src="questions.js" defer></script>
+    <script src="paranoia.js" defer></script>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="quiz.css">
+    <style>body { margin-top: 80px; }</style>
+</head>
+
+<body class="mode-paranoia">
+
+    <!-- ===== SIDEBAR ===== -->
+    <div id="sidebar" role="navigation" aria-label="Sidebar navigation">
+        <div class="sidebar-label">Navigation</div>
+        <nav class="sidebar-nav">
+            <a href="home.html"><span>🏠 Home</span></a>
+            <a href="quizhomepage.html"><span>🎮 Game Modes</span></a>
+            <hr class="sidebar-divider">
+            <div class="sidebar-label" style="margin-top:4px;">Game Area</div>
+            <button class="sidebar-game-btn" id="sidebar-play-btn"><span>▶ Play Now</span></button>
+        </nav>
+        <div class="sidebar-footer-blurb">Quiz Game<br>Select your mode and begin.</div>
+    </div>
+    <div id="sidebar-overlay"></div>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav id="navbar">
+        <div id="logo">
+            <a href="home.html"><img src="theLogo.png" alt="Website Logo" height="50"></a>
+        </div>
+        <ul id="nav-links">
+            <li><a href="home.html"><span>Home</span></a></li>
+            <li><a href="quizhomepage.html"><span>Game Modes</span></a></li>
+        </ul>
+        <button id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+    </nav>
+
+    <!-- ===== PAGE HEADER ===== -->
+    <div class="page-content">
+        <p id="startP">Game Mode</p>
+        <h1>👁️ PARANOIA</h1>
+    </div>
+    <hr class="dashed_hr">
+
+    <div class="intro-section">
+        <p>
+            Slow down — something's not right. Two cards, two questions, but only
+            <strong>one deserves your answer</strong>. A meter looms at the edge of your screen.
+            Hesitate too long and it creeps upward. Answer wrong — or worse, answer the wrong card — and it surges.
+            Survive all <strong>five Acts</strong>. Don't crack.
+        </p>
+        <ul class="pn-acts-list">
+            <li>ACT 1 — Learn the rules.</li>
+            <li>ACT 2 — The screen fights back.</li>
+            <li>ACT 3 — More noise, more questions.</li>
+            <li>ACT 4 — Everything lies.</li>
+            <li>ACT 5 — Good luck.</li>
+        </ul>
+    </div>
+
+    <!-- ===== SANITY METER ===== -->
+    <div class="pn-meter" id="pn-meter">
+        <div class="pn-meter-label">SANITY</div>
+        <div class="pn-meter-track">
+            <div class="pn-meter-fill" id="pn-meter-fill"></div>
+        </div>
+        <div class="pn-meter-pct" id="pn-meter-pct">0%</div>
+    </div>
+
+    <!-- ===== GAME AREA ===== -->
+    <div class="pn-game-area">
+
+        <div class="pn-act-header">
+            <span class="pn-act-label" id="pn-act-label">ACT 1 — Learn the rules.</span>
+            <div class="pn-act-pips">
+                <span class="pn-pip active"></span>
+                <span class="pn-pip"></span>
+                <span class="pn-pip"></span>
+                <span class="pn-pip"></span>
+                <span class="pn-pip"></span>
+            </div>
+        </div>
+
+        <div class="pn-cards-row">
+            <div class="pn-card" id="pn-card-a">
+                <div class="pn-card-glyph">?</div>
+                <p class="pn-question">[ Card A ]</p>
+                <button class="pn-ans-btn"><span>Answer this one</span></button>
+            </div>
+            <div class="pn-divider">VS</div>
+            <div class="pn-card" id="pn-card-b">
+                <div class="pn-card-glyph">?</div>
+                <p class="pn-question">[ Card B ]</p>
+                <button class="pn-ans-btn"><span>Answer this one</span></button>
+            </div>
+        </div>
+
+        <p class="pn-sub">One card holds the real question. Choose the wrong card and the meter surges.</p>
+    </div>
+
+    <!-- ===== START OVERLAY ===== -->
+    <div class="pn-overlay" id="pn-overlay">
+        <div class="pn-overlay-box">
+            <div class="pn-mode-tag">PARANOIA</div>
+            <h2>Slow down.</h2>
+            <p>
+                Two cards. Two questions.<br>
+                Only <strong>one</strong> deserves your answer.<br>
+                The meter rises when you hesitate — or when you're wrong.
+            </p>
+            <div class="pn-acts-preview">
+                <span class="pn-ap-item active">ACT 1 — Learn the rules.</span>
+                <span class="pn-ap-item">ACT 2 — The screen fights back.</span>
+                <span class="pn-ap-item">ACT 3 — More noise, more questions.</span>
+                <span class="pn-ap-item">ACT 4 — Everything lies.</span>
+                <span class="pn-ap-item">ACT 5 — Good luck.</span>
+            </div>
+            <button class="pn-start-btn" id="pn-start-btn"><span>BEGIN</span></button>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer id="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h3>Quiz Game</h3>
+                <p>Multiple modes. One goal — don't get it wrong.</p>
+            </div>
+            <div class="footer-divider-vertical"></div>
+            <div class="footer-links">
+                <a href="home.html">Home</a>
+                <a href="quizhomepage.html">Game Modes</a>
+                <a href="blitzkrieg.html">Blitzkrieg</a>
+                <a href="paranoia.html">Paranoia</a>
+                <a href="suddendeath.html">Sudden Death</a>
+                <a href="overload.html">Overload</a>
+                <a href="blackout.html">Blackout</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Quiz Game &mdash; Placeholder Build</p>
+            <div class="footer-dot-pattern"><span></span><span></span><span></span></div>
+        </div>
+    </footer>
+
+</body>
+</html>

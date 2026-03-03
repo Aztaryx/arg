@@ -5,44 +5,16 @@
     <script src="main.js"></script>
     <link rel="stylesheet" href="main.css">
     <style>
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
             background: url('assets/purpPattern.png') repeat center/40px rgba(0, 0, 0, 0.3);
             background-color: #0e0505;
         }
-
-        .literallyEverything {
-            background-color: rgba(0, 0, 0, 0.85);
-            color: white;
-            width: 100%;
-            max-width: 800px;
-            margin: 62px auto;
-            margin-bottom: -16px;
-            min-height: 100vh;
-            padding: 40px;
-            box-sizing: border-box;
-            line-height: 1.6;
-            border-left: dashed 2px #ffcf2f;
-            border-right: dashed 2px #ffcf2f;
-            border-top: dashed 2px #ffcf2f;
-            border-bottom: dashed 2px #ffcf2f;
-        }
-
-        main {
-            padding: 20px;
-            max-width: 800px;
-            margin: auto;
-        }
-
-        code {
-            box-sizing: border-box;
-            background-color: #000000;
-            color: #67be67;
-            padding: 2px 4px;
-            border-radius: 4px;
-            font-family: 'Courier New', Courier, monospace;
-        }
-
-
 
         .terminal-container {
             background-color: #1e1e1e;
@@ -89,7 +61,6 @@
 
         .terminal-body {
             padding: 20px;
-            color: #000000;
         }
 
         .terminal-body pre {
@@ -100,8 +71,126 @@
             color: #67be67;
         }
 
-        section {
-            margin-bottom: 40px;
+        /* ── Paged container ── */
+        .literallyEverything {
+            background-color: rgba(0, 0, 0, 0.85);
+            color: white;
+            width: 100%;
+            max-width: 800px;
+            margin: 62px auto 0;
+            height: calc(100vh - 62px);
+            box-sizing: border-box;
+            line-height: 1.6;
+            border-left: dashed 2px #ffcf2f;
+            border-right: dashed 2px #ffcf2f;
+            border-top: dashed 2px #ffcf2f;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        main {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 40px;
+            box-sizing: border-box;
+            scrollbar-width: thin;
+            scrollbar-color: #ffcf2f #1a1a1a;
+        }
+
+        main::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        main::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        main::-webkit-scrollbar-thumb {
+            background: #ffcf2f;
+            border-radius: 3px;
+        }
+
+        /* ── Individual pages ── */
+        .module-page {
+            display: none;
+            animation: pageFadeIn 0.3s ease;
+        }
+
+        .module-page.active-page {
+            display: block;
+        }
+
+        @keyframes pageFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── Bottom navigation ── */
+        .module-nav {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-top: 1px solid #ffcf2f44;
+        }
+
+        .module-nav-btn {
+            background-color: #1a3c8a;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            transform: skewX(-15deg);
+            transition: background-color 0.2s, opacity 0.2s;
+        }
+
+        .module-nav-btn span {
+            display: inline-block;
+            transform: skewX(15deg);
+        }
+
+        .module-nav-btn:hover:not(:disabled) {
+            background-color: #2a5cc7;
+        }
+
+        .module-nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        #module-page-counter {
+            color: #ffcf2f;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        code {
+            background-color: #000000;
+            color: #67be67;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        pre {
+            background-color: #000000;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
         }
 
         h1,
@@ -110,15 +199,9 @@
             text-shadow: 1px 1px 2px #727272;
         }
 
-        #stupid_bugged_header_for_some_reason {
-            margin-top: -50px;
-        }
-
-        pre {
-            background-color: #000000;
-            padding: 10px;
-            border-radius: 5px;
-            overflow-x: auto;
+        h3,
+        h4 {
+            color: #c9c9c9;
         }
 
         figure {
@@ -131,16 +214,28 @@
             font-size: 0.9em;
             color: #7f8c8d;
         }
+
+        /* Border style demo table */
+        .border-demo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 16px 0;
+        }
+
+        .border-demo-item {
+            padding: 10px 14px;
+            color: #e7e7e7;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            border-width: 3px;
+            border-color: #ffcf2f;
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
-    <!-- ===== SIDEBAR TOGGLE BUTTON ===== -->
-    <button id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-    </button>
 
     <!-- ===== SIDEBAR ===== -->
     <div id="sidebar" role="navigation" aria-label="Sidebar navigation">
@@ -157,13 +252,7 @@
             Website Development Fundamentals<br>A student ICT project
         </div>
     </div>
-
-    <!-- ===== SIDEBAR OVERLAY ===== -->
     <div id="sidebar-overlay"></div>
-
-
-
-
 
     <nav id="navbar">
         <div id="logo">
@@ -183,70 +272,98 @@
                 </div>
             </li>
         </ul>
+        <button id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
     </nav>
 
     <div class="literallyEverything">
         <main>
-            <section>
-                <h1 id="stupid_bugged_header_for_some_reason">Module 2: CSS Fundamentals</h1>
+
+            <!-- ═══════════════════════════════ PAGE 1 ═══════════════════════════════ -->
+            <div class="module-page">
+                <h1>Module 2: CSS Fundamentals</h1>
                 <h2>What is CSS?</h2>
                 <p><strong>CSS (Cascading Style Sheets)</strong> is the language used to style HTML content on the web.
-                    It tells browsers how to display elements on screen, on paper, or in other media. Because styles can
-                    be defined in external stylesheet files, the same rules can be applied across multiple pages, which
-                    saves time and keeps design consistent.</p>
+                    It tells browsers how to display elements — on screen, on paper, or in other media. Because styles
+                    can be defined in external stylesheet files, the same rules can apply across multiple pages, saving
+                    time and keeping design consistent.</p>
                 <ul>
                     <li>CSS = Cascading Style Sheets</li>
                     <li>Describes how HTML elements are displayed</li>
-                    <li>External stylesheets (files with .css) can control many pages at once</li>
+                    <li>External stylesheets (.css files) can control many pages at once</li>
                 </ul>
-            </section>
-            <hr>
-            <section>
+                <p style="margin-top: 30px; color: #aaa; font-style: italic;">
+                    Use the navigation below — or the ← → arrow keys — to move between pages.
+                </p>
+            </div>
+
+            <!-- ═══════════════════════════════ PAGE 2 ═══════════════════════════════ -->
+            <div class="module-page">
+                <h1>Module 2: CSS Fundamentals</h1>
+                <hr>
                 <h2>CSS Syntax</h2>
-                <p>A CSS rule has a selector and a declaration block. The selector targets elements you want to style.
-                    Declarations are property:value pairs, separated by semicolons, inside curly braces.</p>
+                <p>A CSS rule has a <strong>selector</strong> and a <strong>declaration block</strong>. The selector
+                    targets elements you want to style. Declarations are property:value pairs, separated by semicolons,
+                    inside curly braces.</p>
                 <div class="terminal-container">
                     <div class="terminal-header">
-                        <span class="dot red"></span>
-                        <span class="dot yellow"></span>
-                        <span class="dot green"></span>
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
                         <span class="header-title">bash — 80×24</span>
                     </div>
                     <div class="terminal-body">
-                        <pre><code id="specialCodePart">p {                 
-  color: red;        
+                        <pre><code>p {
+  color: red;
   text-align: center;
-}                   </code></pre>
+}</code></pre>
                     </div>
                 </div>
                 <p>Explanation:</p>
                 <ul>
-                    <li><strong>p</strong> — selector targeting &lt;p&gt; elements.</li>
-                    <li><strong>color</strong>: <em>red</em> — sets text color.</li>
-                    <li><strong>text-align</strong>: <em>center</em> — centers inline content.</li>
+                    <li><strong>p</strong> — selector targeting all &lt;p&gt; elements.</li>
+                    <li><strong>color: red</strong> — sets the text color to red.</li>
+                    <li><strong>text-align: center</strong> — centers inline content.</li>
                 </ul>
-            </section>
-            <hr>
-            <section>
+                <button class="show-output-btn" onclick="showCSSDemo()">
+                    <span>▶ Show Output</span>
+                </button>
+            </div>
+
+            <!-- ═══════════════════════════════ PAGE 3 ═══════════════════════════════ -->
+            <div class="module-page">
+                <h1>Module 2: CSS Fundamentals</h1>
+                <hr>
                 <h2>The CSS Box Model</h2>
-                <p>Every HTML element is treated as a rectangular box consisting of, from inside out: content, padding,
-                    border, and margin. These parts determine element size and spacing.</p>
+                <p>Every HTML element is treated as a rectangular box consisting of, from inside out:
+                    <strong>content</strong>,
+                    <strong>padding</strong>, <strong>border</strong>, and <strong>margin</strong>. These parts
+                    determine
+                    element size and spacing.
+                </p>
                 <figure>
                     <img src="assets/boxModel.png" alt="CSS Box Model Diagram" style="max-width:100%;height:auto;">
-                    <figcaption>Inner to outer: Content → Padding → Border → Margin. <br> Visible in the developer tools
-                        <strong>(F12)</strong> in most browsers.
+                    <figcaption>
+                        Inner to outer: Content → Padding → Border → Margin.<br>
+                        Visible in the developer tools <strong>(F12)</strong> in most browsers.
                     </figcaption>
                 </figure>
-
                 <ul>
                     <li><strong>Content</strong> — where text and images appear.</li>
                     <li><strong>Padding</strong> — transparent space around content.</li>
                     <li><strong>Border</strong> — border around padding and content.</li>
                     <li><strong>Margin</strong> — transparent space outside the border.</li>
                 </ul>
-            </section>
-            <hr>
-            <section>
+                <button class="show-output-btn" onclick="showBoxModelDemo()">
+                    <span>▶ Show Output</span>
+                </button>
+            </div>
+
+            <!-- ═══════════════════════════════ PAGE 4 ═══════════════════════════════ -->
+            <div class="module-page">
+                <h1>Module 2: CSS Fundamentals</h1>
+                <hr>
                 <h2>Border Styles</h2>
                 <p>The <code>border-style</code> property controls how a border looks. Common values:</p>
                 <ul>
@@ -254,52 +371,242 @@
                     <li><strong>dashed</strong> — dashed border</li>
                     <li><strong>solid</strong> — solid border</li>
                     <li><strong>double</strong> — double border</li>
-                    <li><strong>groove</strong>, <strong>ridge</strong>, <strong>inset</strong>, <strong>outset</strong>
-                        — 3D effects depending on border-color</li>
+                    <li><strong>groove</strong>, <strong>ridge</strong>, <strong>inset</strong>,
+                        <strong>outset</strong> — 3D effects depending on border-color
+                    </li>
                     <li><strong>none</strong>, <strong>hidden</strong> — no visible border</li>
                 </ul>
                 <p>You can specify 1–4 values to set top/right/bottom/left border styles independently.</p>
-            </section>
-            <hr>
-            <section>
+
+                <p><em>Live preview of each style:</em></p>
+                <div class="border-demo-grid">
+                    <div class="border-demo-item" style="border-style: dotted;">dotted</div>
+                    <div class="border-demo-item" style="border-style: dashed;">dashed</div>
+                    <div class="border-demo-item" style="border-style: solid;">solid</div>
+                    <div class="border-demo-item" style="border-style: double; border-width: 5px;">double</div>
+                    <div class="border-demo-item" style="border-style: groove; border-color: #aaa;">groove</div>
+                    <div class="border-demo-item" style="border-style: ridge; border-color: #aaa;">ridge</div>
+                    <div class="border-demo-item" style="border-style: inset; border-color: #aaa;">inset</div>
+                    <div class="border-demo-item" style="border-style: outset; border-color: #aaa;">outset</div>
+                </div>
+
+                <button class="show-output-btn" onclick="showBorderDemo()">
+                    <span>▶ Show Output</span>
+                </button>
+            </div>
+
+            <!-- ═══════════════════════════════ PAGE 5 ═══════════════════════════════ -->
+            <div class="module-page">
+                <h1>Module 2: CSS Fundamentals</h1>
+                <hr>
                 <h2>Pseudo-classes</h2>
                 <p>Pseudo-classes (like <code>:hover</code>) are appended to selectors to target elements in a specific
-                    state (for example when a user hovers, focuses, or visits a link).</p>
+                    state — for example when a user hovers, focuses, or visits a link.</p>
                 <p>Common link pseudo-classes:</p>
                 <ul>
                     <li><code>:link</code> — unvisited links</li>
                     <li><code>:visited</code> — visited links</li>
                     <li><code>:hover</code> — when the mouse is over an element</li>
-                    <li><code>:active</code> — while an element is being activated</li>
+                    <li><code>:active</code> — while an element is being activated (clicked)</li>
                 </ul>
-            </section>
+                <button class="show-output-btn" onclick="showPseudoDemo()">
+                    <span>▶ Show Output</span>
+                </button>
+                <p style="margin-top: 30px; color: #ffcf2f; font-style: italic;">
+                    🎉 That wraps up Module 2! Head over to Module 3 to learn JavaScript.
+                </p>
+            </div>
+
         </main>
+
+        <!-- ── Bottom navigation bar ── -->
+        <div class="module-nav">
+            <button id="module-prev" class="module-nav-btn" disabled><span>◀ Previous</span></button>
+            <span id="module-page-counter">1 / 5</span>
+            <button id="module-next" class="module-nav-btn"><span>Next ▶</span></button>
+        </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- ===== FOOTER ===== -->
-    <footer id="site-footer">
-        <div class="footer-inner">
-            <div class="footer-brand">
-                <h3>Web Dev Fundamentals</h3>
-                <p>A student-built guide to HTML, CSS &amp; JavaScript — made for beginners, by a beginner.</p>
-            </div>
-            <div class="footer-divider-vertical"></div>
-            <div class="footer-links">
-                <a href="home.html">Home</a>
-                <a href="mission.html">Mission</a>
-                <a href="module1.html">Module 1: HTML</a>
-                <a href="module2.html">Module 2: CSS</a>
-                <a href="module3.html">Module 3: JavaScript</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Aztaryx (Mark) &mdash; Student Project &middot; Educational Use Only</p>
-            <div class="footer-dot-pattern">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-    </footer>
+    <!-- ── Show Output demo functions ── -->
+    <script>
+        function showCSSDemo() {
+            showOutput(`<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { font-family: Arial, sans-serif; padding: 30px; background: #f9f9f9; }
+  p {
+    color: red;
+    text-align: center;
+  }
+  .label {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <p class="label" style="color:#555; font-size:13px;">The CSS rule below is applied to all &lt;p&gt; elements:</p>
+  <pre style="background:#1e1e1e;color:#67be67;padding:12px;border-radius:6px;font-size:13px;">
+p {
+  color: red;
+  text-align: center;
+}</pre>
+  <hr>
+  <p>This paragraph is red and centered.</p>
+  <p>So is this one — every &lt;p&gt; gets the same style.</p>
+</body>
+</html>`);
+        }
+
+        function showBoxModelDemo() {
+            showOutput(`<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 360px;
+    background: #f0f4fa;
+    margin: 0;
+  }
+  .title { font-size: 16px; font-weight: bold; margin-bottom: 20px; color: #333; }
+  .margin-box {
+    background: rgba(255, 165, 0, 0.3);
+    padding: 20px;
+    position: relative;
+  }
+  .border-box {
+    border: 6px solid #e74c3c;
+    padding: 20px;
+    background: rgba(52, 152, 219, 0.15);
+    position: relative;
+  }
+  .padding-box {
+    background: rgba(46, 204, 113, 0.3);
+    padding: 20px;
+    position: relative;
+  }
+  .content-box {
+    background: white;
+    border: 1px dashed #999;
+    padding: 14px 22px;
+    font-weight: bold;
+    color: #222;
+    text-align: center;
+  }
+  .lbl {
+    font-size: 11px;
+    font-weight: bold;
+    color: #555;
+    display: block;
+    text-align: right;
+    padding: 2px 4px;
+  }
+</style>
+</head>
+<body>
+  <div class="title">CSS Box Model</div>
+  <div class="margin-box">
+    <span class="lbl" style="color:darkorange;">MARGIN</span>
+    <div class="border-box">
+      <span class="lbl" style="color:#c0392b;">BORDER</span>
+      <div class="padding-box">
+        <span class="lbl" style="color:#27ae60;">PADDING</span>
+        <div class="content-box">CONTENT</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>`);
+        }
+
+        function showBorderDemo() {
+            showOutput(`<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { font-family: Arial, sans-serif; padding: 24px; background: #f9f9f9; }
+  h3   { margin-bottom: 16px; color: #333; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .item {
+    border-width: 3px;
+    border-color: #1a3c8a;
+    padding: 12px;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    background: #fff;
+    color: #222;
+  }
+</style>
+</head>
+<body>
+  <h3>border-style values</h3>
+  <div class="grid">
+    <div class="item" style="border-style:dotted">dotted</div>
+    <div class="item" style="border-style:dashed">dashed</div>
+    <div class="item" style="border-style:solid">solid</div>
+    <div class="item" style="border-style:double;border-width:5px">double</div>
+    <div class="item" style="border-style:groove;border-color:#888">groove</div>
+    <div class="item" style="border-style:ridge;border-color:#888">ridge</div>
+    <div class="item" style="border-style:inset;border-color:#888">inset</div>
+    <div class="item" style="border-style:outset;border-color:#888">outset</div>
+  </div>
+</body>
+</html>`);
+        }
+
+        function showPseudoDemo() {
+            showOutput(`<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { font-family: Arial, sans-serif; padding: 30px; background: #f9f9f9; }
+  h3   { color: #333; margin-bottom: 10px; }
+  .info { font-size: 13px; color: #666; margin-bottom: 20px; }
+
+  a.demo:link    { color: #1a3c8a; }
+  a.demo:visited { color: #7a3caa; }
+  a.demo:hover   { color: #e74c3c; font-weight: bold; text-decoration: underline wavy; }
+  a.demo:active  { color: orange; }
+
+  .legend { margin-top: 24px; font-size: 13px; color: #444; }
+  .legend span { display: inline-block; width: 12px; height: 12px;
+                 border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+  .legend li { margin: 6px 0; list-style: none; }
+</style>
+</head>
+<body>
+  <h3>Pseudo-class Demo</h3>
+  <p class="info">Interact with the links below to see each state in action.</p>
+
+  <p><a href="#" class="demo">Hover over me! → turns red &amp; bold</a></p>
+  <p><a href="#visited" class="demo" style="color:#7a3caa;">I look like a visited link (:visited)</a></p>
+  <p><a href="#" class="demo">Click me! → turns orange while held (:active)</a></p>
+
+  <ul class="legend">
+    <li><span style="background:#1a3c8a;"></span><strong>:link</strong> — unvisited (blue)</li>
+    <li><span style="background:#7a3caa;"></span><strong>:visited</strong> — visited (purple)</li>
+    <li><span style="background:#e74c3c;"></span><strong>:hover</strong> — mouse over (red)</li>
+    <li><span style="background:orange;"></span><strong>:active</strong> — being clicked (orange)</li>
+  </ul>
+</body>
+</html>`);
+        }
+    </script>
 </body>
 
 </html>

@@ -1,0 +1,105 @@
+/* ========================================
+   BLACKOUT — Mode Styles
+   Five seconds. Hope you were watching.
+   ======================================== */
+
+body {
+    background: #040404;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 20%, rgba(0, 0, 0, 0.85) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Header overrides */
+#startP {
+    color: #2a2a2a;
+}
+
+h1 {
+    color: #e8e8e8;
+    letter-spacing: -0.01em;
+}
+
+.dashed_hr {
+    border-color: #111;
+}
+
+.intro-section p {
+    color: #4a4a4a;
+}
+
+.intro-section p strong {
+    color: #e8e8e8;
+}
+
+/* ---- Game Area ---- */
+.bo-game-area {
+    max-width: 860px;
+    margin: 40px auto 80px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 240px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ---- Start Button ---- */
+.bo-start-btn {
+    background: transparent;
+    color: #e8e8e8;
+    border: 1px solid #e8e8e8;
+    padding: 16px 64px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    transform: skewX(-20deg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.bo-start-btn span {
+    display: inline-block;
+    transform: skewX(20deg);
+}
+
+.bo-start-btn:hover {
+    background: #e8e8e8;
+    color: #040404;
+    box-shadow: 0 0 28px rgba(232, 232, 232, 0.18);
+}
+
+/* ---- Sidebar game button ---- */
+.sidebar-game-btn {
+    display: block;
+    width: 100%;
+    background: transparent;
+    color: #aaa;
+    border: 1px solid #222;
+    padding: 10px 16px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.22s ease;
+    margin-top: 8px;
+}
+
+.sidebar-game-btn:hover {
+    border-color: #aaa;
+    background: rgba(200, 200, 200, 0.05);
+}
+
+#site-footer {
+    position: relative;
+    z-index: 1;
+}

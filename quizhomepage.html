@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Quiz Game — Select Mode</title>
+    <script src="main.js" defer></script>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="quiz.css">
+    <style>
+        body {
+            margin-top: 80px;
+        }
+    </style>
+</head>
+
+<body class="page-quiz">
+
+    <!-- ===== SIDEBAR ===== -->
+    <div id="sidebar" role="navigation" aria-label="Sidebar navigation">
+        <div class="sidebar-label">Game Modes</div>
+        <nav class="sidebar-nav">
+            <a href="home.html"><span>🏠 Home</span></a>
+            <hr class="sidebar-divider">
+            <a href="blitzkrieg.html"><span>⚡ Blitzkrieg</span></a>
+            <a href="paranoia.html"><span>👁️ Paranoia</span></a>
+            <a href="suddendeath.html"><span>💀 Sudden Death</span></a>
+            <a href="overload.html"><span>🌊 Overload</span></a>
+            <a href="blackout.html"><span>🕶️ Blackout</span></a>
+        </nav>
+        <div class="sidebar-footer-blurb">
+            Quiz Game<br>Select your mode and begin.
+        </div>
+    </div>
+
+    <!-- ===== SIDEBAR OVERLAY ===== -->
+    <div id="sidebar-overlay"></div>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav id="navbar">
+        <div id="logo">
+            <a href="home.html">
+                <img src="theLogo.png" alt="Website Logo" height="50">
+            </a>
+        </div>
+        <ul id="nav-links">
+            <li><a href="home.html"><span>Home</span></a></li>
+            <li id="dropdown">
+                <a href="javascript:void(0)" class="dropbtn"><span>Modes &#9662;</span></a>
+                <div class="dropdown-content">
+                    <a href="blitzkrieg.html"><span>⚡ Blitzkrieg</span></a>
+                    <a href="paranoia.html"><span>👁️ Paranoia</span></a>
+                    <a href="suddendeath.html"><span>💀 Sudden Death</span></a>
+                    <a href="overload.html"><span>🌊 Overload</span></a>
+                    <a href="blackout.html"><span>🕶️ Blackout</span></a>
+                </div>
+            </li>
+        </ul>
+        <button id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+    </nav>
+
+    <!-- ===== PAGE HEADER ===== -->
+    <div class="page-content">
+        <p id="startP">Select your</p>
+        <h1>GAME MODE</h1>
+    </div>
+    <hr class="dashed_hr">
+
+    <div class="intro-section">
+        <p>
+            Five modes. Five different ways to test what you know — or find out what you don't.
+            Pick one and begin.
+        </p>
+    </div>
+
+    <!-- ===== MODE CARDS ===== -->
+    <div class="qhp-grid">
+
+        <a href="blitzkrieg.html" class="qhp-card mode-blitzkrieg">
+            <div class="qhp-icon">⚡</div>
+            <p class="qhp-name">Blitzkrieg</p>
+            <p class="qhp-desc">
+                Race the clock across four tracks. Answer as many as you can in 2 minutes and 30 seconds.
+                Every second counts.
+            </p>
+            <span class="qhp-play"><span>Play →</span></span>
+        </a>
+
+        <a href="paranoia.html" class="qhp-card mode-paranoia">
+            <div class="qhp-icon">👁️</div>
+            <p class="qhp-name">Paranoia</p>
+            <p class="qhp-desc">
+                Two cards. Two questions. Only one deserves your answer. A sanity meter rises when you
+                hesitate — or when you're wrong. Survive five Acts. Don't crack.
+            </p>
+            <span class="qhp-play"><span>Play →</span></span>
+        </a>
+
+        <a href="suddendeath.html" class="qhp-card mode-suddendeath">
+            <div class="qhp-icon">💀</div>
+            <p class="qhp-name">Sudden Death</p>
+            <p class="qhp-desc">
+                No timer. No meter. No second chances. One wrong answer and it's over.
+                How deep can you go?
+            </p>
+            <span class="qhp-play"><span>Play →</span></span>
+        </a>
+
+        <a href="overload.html" class="qhp-card mode-overload">
+            <div class="qhp-icon">🌊</div>
+            <p class="qhp-name">Overload</p>
+            <p class="qhp-desc">
+                The questions don't stop coming. Clear the board before it buries you — because
+                once it's full, you're done.
+            </p>
+            <span class="qhp-play"><span>Play →</span></span>
+        </a>
+
+        <a href="blackout.html" class="qhp-card mode-blackout">
+            <div class="qhp-icon">🕶️</div>
+            <p class="qhp-name">Blackout</p>
+            <p class="qhp-desc">
+                You had five seconds to read the question. Hope you were paying attention.
+            </p>
+            <span class="qhp-play"><span>Play →</span></span>
+        </a>
+
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer id="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h3>Web Dev Fundamentals</h3>
+                <p>A student-built guide to HTML, CSS &amp; JavaScript — made for beginners, by a beginner.</p>
+            </div>
+            <div class="footer-divider-vertical"></div>
+            <div class="footer-links">
+                <a href="home.html">Home</a>
+                <a href="blitzkrieg.html">Blitzkrieg</a>
+                <a href="paranoia.html">Paranoia</a>
+                <a href="suddendeath.html">Sudden Death</a>
+                <a href="overload.html">Overload</a>
+                <a href="blackout.html">Blackout</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Aztaryx (Mark) &mdash; Student Project &middot; Educational Use Only</p>
+            <div class="footer-dot-pattern">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

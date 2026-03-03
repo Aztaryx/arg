@@ -6,6 +6,12 @@
     <link rel="stylesheet" href="main.css">
     <meta charset="UTF-8">
     <style>
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
             background: url('assets/orangeBg.png') repeat center/40px rgba(0, 0, 0, 0.3);
             background-color: #0e0505;
@@ -21,7 +27,7 @@
             width: fit-content;
             min-width: 300px;
             max-width: 90%;
-            margin: 40px auto;
+            margin: 20px auto;
         }
 
         .terminal-header {
@@ -77,33 +83,6 @@
             font-family: 'Courier New', Courier, monospace;
         }
 
-
-        .literallyEverything {
-            background-color: rgba(0, 0, 0, 0.85);
-            color: white;
-            width: 100%;
-            max-width: 800px;
-            margin: 62px auto;
-            min-height: 100vh;
-            padding: 40px;
-            box-sizing: border-box;
-            line-height: 1.6;
-            border-left: dashed 2px #ffcf2f;
-            border-right: dashed 2px #ffcf2f;
-            border-top: dashed 2px #ffcf2f;
-            border-bottom: dashed 2px #ffcf2f;
-        }
-
-        main {
-            padding: 20px;
-            max-width: 800px;
-            margin: auto;
-        }
-
-        h1 {
-            color: white;
-        }
-
         code {
             background-color: #2d2d2d;
             color: #f8f8f2;
@@ -111,16 +90,133 @@
             border-radius: 3px;
             font-family: 'Courier New', Courier, monospace;
         }
+
+        /* ── Paged container ── */
+        .literallyEverything {
+            background-color: rgba(0, 0, 0, 0.85);
+            color: white;
+            width: 100%;
+            max-width: 800px;
+            margin: 62px auto 0;
+            height: calc(100vh - 62px);
+            box-sizing: border-box;
+            line-height: 1.6;
+            border-left: dashed 2px #ffcf2f;
+            border-right: dashed 2px #ffcf2f;
+            border-top: dashed 2px #ffcf2f;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        main {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 40px;
+            box-sizing: border-box;
+            scrollbar-width: thin;
+            scrollbar-color: #ffcf2f #1a1a1a;
+        }
+
+        main::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        main::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        main::-webkit-scrollbar-thumb {
+            background: #ffcf2f;
+            border-radius: 3px;
+        }
+
+        /* ── Individual pages ── */
+        .module-page {
+            display: none;
+            animation: pageFadeIn 0.3s ease;
+        }
+
+        .module-page.active-page {
+            display: block;
+        }
+
+        @keyframes pageFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── Bottom navigation ── */
+        .module-nav {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-top: 1px solid #ffcf2f44;
+        }
+
+        .module-nav-btn {
+            background-color: #1a3c8a;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            transform: skewX(-15deg);
+            transition: background-color 0.2s, opacity 0.2s;
+        }
+
+        .module-nav-btn span {
+            display: inline-block;
+            transform: skewX(15deg);
+        }
+
+        .module-nav-btn:hover:not(:disabled) {
+            background-color: #2a5cc7;
+        }
+
+        .module-nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        #module-page-counter {
+            color: #ffcf2f;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            color: white;
+        }
+
+        h2 {
+            color: #e7e7e7;
+        }
+
+        h3 {
+            color: #c9c9c9;
+        }
+
+        h4 {
+            color: #b0b0b0;
+        }
     </style>
 </head>
 
 <body>
-    <!-- ===== SIDEBAR TOGGLE BUTTON ===== -->
-    <button id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-    </button>
 
     <!-- ===== SIDEBAR ===== -->
     <div id="sidebar" role="navigation" aria-label="Sidebar navigation">
@@ -137,11 +233,7 @@
             Website Development Fundamentals<br>A student ICT project
         </div>
     </div>
-
-    <!-- ===== SIDEBAR OVERLAY ===== -->
     <div id="sidebar-overlay"></div>
-
-
 
     <nav id="navbar">
         <div id="logo">
@@ -152,7 +244,6 @@
         <ul id="nav-links">
             <li><a href="home.html">Home</a></li>
             <li><a href="mission.html">Mission</a></li>
-
             <li id="dropdown">
                 <a href="javascript:void(0)" class="dropbtn">Modules &#9662;</a>
                 <div class="dropdown-content">
@@ -162,614 +253,730 @@
                 </div>
             </li>
         </ul>
+        <button id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
     </nav>
 
     <div class="literallyEverything">
         <main>
-            <h1>Module 3: JavaScript Fundamentals</h1>
-            <hr>
 
-            <h2>What is JavaScript?</h2>
-            <p>JavaScript is a lightweight interpreted programming language commonly used for creating dynamic and
-                interactive web elements.</p>
-            <hr>
+            <!-- ═══════════════════════════════ PAGE 1 ═══════════════════════════════ -->
+            <div class="module-page">
+                <h1>Module 3: JavaScript Fundamentals</h1>
+                <hr>
+                <h2>What is JavaScript?</h2>
+                <p>JavaScript is a lightweight, interpreted programming language commonly used for creating dynamic and
+                    interactive web elements. It runs directly in the browser — no installation needed.</p>
 
-            <h2>1. JavaScript Syntax</h2>
-            <p>There are 3 ways to incorporate JavaScript into your code: <strong>Inline</strong>,
-                <strong>External</strong>, and <strong>Internal</strong> JS!
-            </p>
-            <p>External and Internal JS require the <code>&lt;script&gt;</code> tag. The <code>&lt;script&gt;</code> tag
-                alerts the browser to interpret the content in between.</p>
+                <h2>1. JavaScript Syntax</h2>
+                <p>There are 3 ways to incorporate JavaScript into your code: <strong>Inline</strong>,
+                    <strong>Internal</strong>, and <strong>External</strong> JS.
+                </p>
+                <p>External and Internal JS require the <code>&lt;script&gt;</code> tag, which alerts the browser
+                    to interpret the content inside it.</p>
 
-            <h3>Internal JavaScript</h3>
-            <p>Internal JS is placed within the body or the head of the HTML.</p>
-            <p><strong>Note:</strong> The LAST command will ALWAYS be the one that will be applied!</p>
-
-            <h4>Format of Internal JS:</h4>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="header-title">bash — 80×24</span>
-                </div>
-                <div class="terminal-body">
-                    <pre>
+                <h3>Internal JavaScript</h3>
+                <p>Internal JS is placed within the <code>&lt;body&gt;</code> or <code>&lt;head&gt;</code> of the HTML.
+                </p>
+                <p><strong>Note:</strong> The <em>last</em> command will always be the one applied!</p>
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <span class="header-title">bash — 80×24</span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>
 &lt;script&gt;
-
-    [pointer] {
-        [attribute]: [value];
-        [attribute]: [value];
-        [attribute]: [value];
-    }
-
+  document.getElementById("demo").style.color = "blue";
 &lt;/script&gt;
-            </pre>
+                        </pre>
+                    </div>
                 </div>
             </div>
 
-            <h4>Example of Internal JS:</h4>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="header-title">bash — 80×24</span>
-                </div>
-                <div class="terminal-body">
-                    <pre>
-&lt;script&gt;
+            <!-- ═══════════════════════════════ PAGE 2 ═══════════════════════════════ -->
+            <div class="module-page">
+                <h1>Module 3: JavaScript Fundamentals</h1>
+                <hr>
+                <h2>1. JavaScript Syntax — continued</h2>
 
-    p {
-        font-size: 12px;
-        color: black;
-        text-decoration: wavy;
-    }
+                <h3>External JavaScript</h3>
+                <p>The external JS file has the extension <strong>.js</strong> and must be in the same folder (or a
+                    correct path). It is linked using a <code>&lt;script src=""&gt;</code> tag.</p>
+                <p>External JS is written the same way as Internal JS — just without the <code>&lt;script&gt;</code> tag
+                    wrapping it.</p>
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <span class="header-title">bash — 80×24</span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>
+&lt;!-- In your HTML --&gt;
+&lt;script src="myscript.js"&gt;&lt;/script&gt;
 
-&lt;/script&gt;
-            </pre>
+/* Inside myscript.js */
+document.getElementById("demo").style.color = "blue";
+                        </pre>
+                    </div>
                 </div>
-            </div>
 
-            <h3>External JavaScript</h3>
-            <p>The external JS has the file extension ".js" in order to work and must also be placed in the same folder!
-            </p>
-            <p>External JS is the same as internal JS—just without the <code>&lt;script&gt;</code> tag.</p>
-
-            <h4>Format of External JS:</h4>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="header-title">bash — 80×24</span>
-                </div>
-                <div class="terminal-body">
-                    <pre>
-[pointer] {
-    [attribute]: [value];
-    [attribute]: [value];
-    [attribute]: [value];
-}
-            </pre>
-                </div>
-            </div>
-
-            <h4>Example of External JS:</h4>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="header-title">bash — 80×24</span>
-                </div>
-                <div class="terminal-body">
-                    <pre>
-p {
-    font-size: 12px;
-    color: black;
-    text-decoration: wavy;
-}
-            </pre>
-                </div>
-            </div>
-
-            <h3>Inline JavaScript</h3>
-            <p>Inline JS—just like in CSS—requires an existing tag and needs to be WITHIN the tag.</p>
-            <p>Inline JS requires the "onClick=" attribute for buttons.</p>
-
-            <h4>Example of Inline JS:</h4>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="header-title">bash — 80×24</span>
-                </div>
-                <div class="terminal-body">
-                    <pre>
+                <h3>Inline JavaScript</h3>
+                <p>Inline JS requires an existing HTML tag and must be placed as an attribute <em>within</em> that tag.
+                    For buttons, the <code>onClick</code> attribute is used.</p>
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <span class="header-title">bash — 80×24</span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>
 &lt;button onClick="alert('This is an Alert!')"&gt;Click Me!&lt;/button&gt;
-            </pre>
+                        </pre>
+                    </div>
                 </div>
+                <button class="show-output-btn" onclick="showInlineDemo()">
+                    <span>▶ Show Output</span>
+                </button>
             </div>
 
-            <hr>
+            <!-- ═══════════════════════════════ PAGE 3 ═══════════════════════════════ -->
+            <div class="module-page">
+                <h1>Module 3: JavaScript Fundamentals</h1>
+                <hr>
+                <h2>2. Document Object Reference</h2>
 
-            <h2>2. Document Object Reference</h2>
+                <h3>Method</h3>
+                <p>A method is an <em>action</em> — such as adding, replacing, or deleting an HTML element.</p>
 
-            <h3>Method</h3>
-            <p>What is a Method? A method is an action, such as: Adding, Replacing, or Deleting an HTML element.</p>
+                <h3>Property</h3>
+                <p>A property is a <em>value</em> that can be changed or set by code. Methods act <em>on</em>
+                    properties.</p>
 
-            <h3>Property</h3>
-            <p>Property is a value that can be changed or set according to the written code. They are what the METHODS
-                are used on.</p>
+                <h3>document.getElementById()</h3>
+                <p><code>document.getElementById()</code> targets a specific element with a unique ID to modify or
+                    change it. Note: it is <strong>case-sensitive</strong> — the E, B, and I are always capitalized.</p>
 
-            <h3>document.getElementById()</h3>
-            <p><code>document.getElementById()</code> is used for targeting a specific element with a unique ID in order
-                to modify or change it.</p>
-            <p><strong>Note:</strong> <code>document.getElementById()</code> is case-sensitive. This means that 'E',
-                'B', and 'I' are ALWAYS capitals and everything else is lowercase.</p>
-
-            <p>Whatever comes after this determines what will happen to the code that has been pointed to. However,
-                before the change is applied, specifying what type of element it is comes first. There are two types of
-                these 'identifiers':</p>
-
-            <h4>For Non-INPUT Elements:</h4>
-            <p>These are elements that are not <code>&lt;input&gt;</code>.</p>
-            <p>Examples of non-input elements: <code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code>, <code>&lt;h4&gt;</code>,
-                etc.</p>
-            <p>For non-INPUT elements, we use ".innerHTML".</p>
-
-            <h4>Example:</h4>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="header-title">bash — 80×24</span>
+                <h4>For Non-INPUT Elements — use <code>.innerHTML</code></h4>
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <span class="header-title">bash — 80×24</span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>
+document.getElementById('p1').innerHTML = "Success!";
+                        </pre>
+                    </div>
                 </div>
-                <div class="terminal-body">
-                    <pre>
-document.getElementById('p1').innerHTML = "success!";
-            </pre>
+
+                <h4>For INPUT Elements — use <code>.value</code></h4>
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <span class="header-title">bash — 80×24</span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>
+document.getElementById('input1').value = "Success!";
+                        </pre>
+                    </div>
                 </div>
+                <button class="show-output-btn" onclick="showDOMDemo()">
+                    <span>▶ Show Output</span>
+                </button>
             </div>
 
-            <h4>For INPUT Elements:</h4>
-            <p>For INPUT elements, we use ".value".</p>
+            <!-- ═══════════════════════════════ PAGE 4 ═══════════════════════════════ -->
+            <div class="module-page">
+                <h1>Module 3: JavaScript Fundamentals</h1>
+                <hr>
+                <h2>3. Variables</h2>
+                <p>Variables store information or data — like boxes that hold objects. However, a variable can only hold
+                    one piece of information at a time.</p>
 
-            <h4>Example:</h4>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="header-title">bash — 80×24</span>
-                </div>
-                <div class="terminal-body">
-                    <pre>
-document.getElementById('input').value = "success!";
-            </pre>
-                </div>
-            </div>
+                <h3>Declaring Variables</h3>
+                <ul>
+                    <li><strong>let</strong> — the most common, modern way to declare a variable.</li>
+                    <li><strong>var</strong> — the old-school way; functionally similar to <code>let</code>.</li>
+                    <li><strong>const</strong> — short for <em>constant</em>; the value cannot be changed after
+                        assignment.</li>
+                </ul>
 
-            <hr>
-
-            <h2>3. Variables</h2>
-            <p>Variables in JS are what you use to store information or data.</p>
-            <ul>
-                <li>They are basically like boxes; they store different "objects".</li>
-                <li>However, unlike boxes, variables CANNOT store different information at once—they can only store one
-                    piece of information at a time.</li>
-            </ul>
-
-            <h3>Declaring Variables</h3>
-            <p>In JS, to "declare" a variable, we must use the following:</p>
-
-            <ul>
-                <li><strong>"let"</strong> - This is the most common and modern way of declaring a variable.</li>
-                <li><strong>"var"</strong> - This is used in the old-school way of declaring a variable. This has no
-                    difference with "let".</li>
-                <li><strong>"const"</strong> - Short for constant. Unlike the aforementioned two, this is used when the
-                    information needs to be irreplaceable and CANNOT change.</li>
-            </ul>
-
-            <h4>Multiple Variable Declaration:</h4>
-            <p>You can declare multiple variables at once!</p>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="header-title">bash — 80×24</span>
-                </div>
-                <div class="terminal-body">
-                    <pre>
+                <h4>Multiple Variable Declaration:</h4>
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <span class="header-title">bash — 80×24</span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>
 let user = "John", age = 25, message = "Hello";
-            </pre>
+                        </pre>
+                    </div>
                 </div>
-            </div>
 
-            <h4>What is a Declaration?</h4>
-            <p>"Declaration" is what you call the entirety of where "let" or "var" declares a variable.</p>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="header-title">bash — 80×24</span>
-                </div>
-                <div class="terminal-body">
-                    <pre>
+                <h4>You CANNOT redeclare the same variable:</h4>
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <span class="header-title">bash — 80×24</span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>
 let message = "hi!";
-            </pre>
+let message = "hello!"; // ❌ SyntaxError!
+                        </pre>
+                    </div>
                 </div>
-            </div>
-            <p>This entire string of code is what you call a declaration!</p>
 
-            <h4>Important Note:</h4>
-            <p>While you can declare multiple variables at once, you cannot, however, declare a variable multiple times!
-            </p>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="header-title">bash — 80×24</span>
-                </div>
-                <div class="terminal-body">
-                    <pre>
-let message = "hi!";
-let message = "hello!"; // This leads to a Syntax Error!
-            </pre>
-                </div>
-            </div>
+                <h3>Naming Rules</h3>
+                <ol>
+                    <li>Digits <strong>cannot</strong> be the first character.</li>
+                    <li>Variables must only contain letters, digits, <code>$</code>, and <code>_</code>.</li>
+                </ol>
+                <p><strong>Variable names are case-sensitive:</strong> <code>LastName</code> ≠ <code>lastname</code>.
+                </p>
 
-            <h3>Naming Variables</h3>
-            <p>In naming variables, there are 2 absolute rules:</p>
-
-            <ol>
-                <li>Digits CANNOT be the first character of the variable.</li>
-                <li>Variables must ONLY contain letters, digits, and the symbols "$" and "_".</li>
-            </ol>
-
-            <h4>Examples of WRONG variable names:</h4>
-            <ul>
-                <li>my-name</li>
-                <li>123abc</li>
-                <li>1name</li>
-                <li>first-name</li>
-                <li>last-name</li>
-            </ul>
-
-            <p><strong>Note:</strong> In naming variables, you have to note that variables are CASE-SENSITIVE. This
-                means that LastName and lastname are NOT the same and WILL lead to an error.</p>
-
-            <h4>Capitalization Methods:</h4>
-            <p>There are two ways of capitalizing variable names that are a combination of different words:</p>
-
-            <ul>
-                <li><strong>Camel Casing</strong> - This is the type of casing that capitalizes the first letter of the
-                    words that are included in the name.<br>
-                    <em>Examples: colorOrange, redFlower, etc.</em>
-                </li>
-                <li><strong>Snake Casing</strong> - This is utilized by using "_" in order to create space.<br>
-                    <em>Examples: color_orange, red_flower, etc.</em>
-                </li>
-            </ul>
-
-            <h3>Data Types</h3>
-            <p>There are 3 different data types:</p>
-
-            <ul>
-                <li><strong>String</strong> - It is the type of data that is purely text and is placed within quotation
-                    marks ("" or '').</li>
-                <li><strong>Integer</strong> - It is the type of data that consists of digits/numbers and is not placed
-                    within quotation marks.</li>
-                <li><strong>Float</strong> - It is the type of data that also consists of numbers but in decimal form.
-                </li>
-            </ul>
-
-            <hr>
-
-            <h2>4. Math/Arithmetic Operators</h2>
-            <p>Arithmetic Operators perform arithmetic on numbers!</p>
-
-            <h3>Addition</h3>
-            <p>With the symbol plus (+), it is used to add the values together to get the resulting number.</p>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="header-title">bash — 80×24</span>
-                </div>
-                <div class="terminal-body">
-                    <pre>
-15 + 3 would result in 18
-3 + 5 would result in 8
-200 + 20 would result in 220
-40 + 2 would result in 42
-            </pre>
-                </div>
+                <h3>Data Types</h3>
+                <ul>
+                    <li><strong>String</strong> — pure text, placed within quotation marks (<code>""</code> or
+                        <code>''</code>).</li>
+                    <li><strong>Integer</strong> — whole digits/numbers, not in quotation marks.</li>
+                    <li><strong>Float</strong> — numbers in decimal form.</li>
+                </ul>
+                <button class="show-output-btn" onclick="showVariablesDemo()">
+                    <span>▶ Show Output</span>
+                </button>
             </div>
 
-            <h3>Subtraction</h3>
-            <p>With the symbol hyphen (-), it is used when subtracting the second value from the first value.</p>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="header-title">bash — 80×24</span>
+            <!-- ═══════════════════════════════ PAGE 5 ═══════════════════════════════ -->
+            <div class="module-page">
+                <h1>Module 3: JavaScript Fundamentals</h1>
+                <hr>
+                <h2>4. Math / Arithmetic Operators</h2>
+                <p>Arithmetic operators perform calculations on numbers.</p>
+                <ul>
+                    <li><strong>+</strong> Addition — adds values together.</li>
+                    <li><strong>-</strong> Subtraction — subtracts the second value from the first.</li>
+                    <li><strong>*</strong> Multiplication — multiplies values.</li>
+                    <li><strong>/</strong> Division — divides values.</li>
+                    <li><strong>%</strong> Modulo — returns the <em>remainder</em> after division.</li>
+                </ul>
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <span class="header-title">bash — 80×24</span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>
+15 + 3  → 18      // Addition
+15 - 3  → 12      // Subtraction
+15 * 3  → 45      // Multiplication
+15 / 3  → 5       // Division
+10 % 3  → 1       // Modulo (remainder)
+                        </pre>
+                    </div>
                 </div>
-                <div class="terminal-body">
-                    <pre>
-15 - 3 would result in 12
-3 - 5 would result in -2
-200 - 20 would result in 180
-40 - 2 would result in 38
-            </pre>
-                </div>
+                <button class="show-output-btn" onclick="showArithmeticDemo()">
+                    <span>▶ Show Output</span>
+                </button>
             </div>
 
-            <h3>Multiplication</h3>
-            <p>With the symbol asterisk (*), it is used when multiplying values.</p>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="header-title">bash — 80×24</span>
-                </div>
-                <div class="terminal-body">
-                    <pre>
-15 * 3 would result in 45
-3 * 5 would result in 15
-20 * 10 * 2 would result in 400
-40 * 2 would result in 80
-            </pre>
-                </div>
-            </div>
-
-            <h3>Division</h3>
-            <p>With the symbol forward slash (/), it is used when dividing values.</p>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="header-title">bash — 80×24</span>
-                </div>
-                <div class="terminal-body">
-                    <pre>
-15 / 3 would result in 5
-10 / 2 would result in 5
-200 / 20 would result in 10
-40 / 2 would result in 20
-            </pre>
-                </div>
-            </div>
-
-            <h3>Modulo</h3>
-            <p>With the symbol percent (%), it is used when finding the remainder after division. It is basically a
-                modified version of division; instead of finding the quotient, it finds the remainder.</p>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="header-title">bash — 80×24</span>
-                </div>
-                <div class="terminal-body">
-                    <pre>
-10 % 3 would result in 1
-35 % 6 would result in 5
-15 % 2 would result in 1
-44 % 5 would result in 4
-            </pre>
-                </div>
-            </div>
-
-            <hr>
-
-            <h2>5. Assignment Operators</h2>
-            <p>Assignment Operators are used to assign values to variables.</p>
-
-            <h3>Assign Value</h3>
-            <p>With the symbol (=), it is the most straightforward way to assign a value to a variable as it directly
-                assigns the variable whatever is written right after.</p>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="header-title">bash — 80×24</span>
-                </div>
-                <div class="terminal-body">
-                    <pre>
-x = 10 is equivalent to x = 10
-y = 5 is equivalent to y = 5
-z = 2 is equivalent to z = 2
-            </pre>
-                </div>
-            </div>
-
-            <h3>Add & Assign</h3>
-            <p>With the symbol (+=), it is used when adding a value to the declared value of the variable before
-                assigning it.</p>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="header-title">bash — 80×24</span>
-                </div>
-                <div class="terminal-body">
-                    <pre>
+            <!-- ═══════════════════════════════ PAGE 6 ═══════════════════════════════ -->
+            <div class="module-page">
+                <h1>Module 3: JavaScript Fundamentals</h1>
+                <hr>
+                <h2>5. Assignment Operators</h2>
+                <p>Assignment operators assign values to variables.</p>
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <span class="header-title">bash — 80×24</span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>
 let x = 10;
 
-x += 5 is equivalent to x = 10 + 5, assigned as x = 15
-x += 10 is equivalent to x = 10 + 10, assigned as x = 20
-x += 50 is equivalent to x = 10 + 50, assigned as x = 60
-            </pre>
+x = 10     // Assign       → x is 10
+x += 5     // Add & Assign → x = 10 + 5  = 15
+x -= 3     // Sub & Assign → x = 10 - 3  = 7
+x *= 2     // Mul & Assign → x = 10 * 2  = 20
+x /= 4     // Div & Assign → x = 10 / 4  = 2.5
+                        </pre>
+                    </div>
                 </div>
+
+                <h2>Comparison Operators &amp; Boolean</h2>
+                <p>A <strong>Boolean</strong> can only be <code>true</code> or <code>false</code>. Comparison
+                    operators compare two values and return a Boolean result.</p>
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <span class="header-title">bash — 80×24</span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>
+let x = 10, y = 5;
+
+x == y   // equal to           → false
+x != y   // not equal to       → true
+x > y    // greater than       → true
+x < y    // less than          → false
+x >= y   // greater or equal   → true
+x <= y   // less or equal      → false
+                        </pre>
+                    </div>
+                </div>
+                <button class="show-output-btn" onclick="showComparisonDemo()">
+                    <span>▶ Show Output</span>
+                </button>
             </div>
 
-            <h3>Subtract & Assign</h3>
-            <p>With the symbol (-=), it is the subtraction version of Add & Assign, as it is used when subtracting a
-                value from the declared value of the variable before assigning it.</p>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="header-title">bash — 80×24</span>
-                </div>
-                <div class="terminal-body">
-                    <pre>
-let x = 50;
+            <!-- ═══════════════════════════════ PAGE 7 ═══════════════════════════════ -->
+            <div class="module-page">
+                <h1>Module 3: JavaScript Fundamentals</h1>
+                <hr>
+                <h2>6. Functions</h2>
+                <p>A function is a block of code designed to perform a particular task. It is executed when
+                    <em>called</em> (invoked).
+                </p>
 
-x -= 5 is equivalent to x = 50 - 5, assigned as x = 45
-x -= 10 is equivalent to x = 50 - 10, assigned as x = 40
-x -= 50 is equivalent to x = 50 - 50, assigned as x = 0
-            </pre>
-                </div>
-            </div>
-
-            <h3>Multiply & Assign</h3>
-            <p>With the symbol (*=), it is used when multiplying a value to the declared value of the variable.</p>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="header-title">bash — 80×24</span>
-                </div>
-                <div class="terminal-body">
-                    <pre>
-let x = 3;
-
-x *= 5 is equivalent to x = 3 * 5, assigned as x = 15
-x *= 3 is equivalent to x = 3 * 3, assigned as x = 9
-x *= 30 is equivalent to x = 3 * 30, assigned as x = 90
-            </pre>
-                </div>
-            </div>
-
-            <h3>Divide & Assign</h3>
-            <p>With the symbol (/=), it is used when dividing a value to the declared value of the variable.</p>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="header-title">bash — 80×24</span>
-                </div>
-                <div class="terminal-body">
-                    <pre>
-let x = 100;
-
-x /= 10 is equivalent to x = 100 / 10, assigned as x = 10
-x /= 5 is equivalent to x = 100 / 5, assigned as x = 20
-x /= 2 is equivalent to x = 100 / 2, assigned as x = 50
-            </pre>
-                </div>
-            </div>
-
-            <h3>Boolean Data Type</h3>
-            <p>Boolean is a data type that can only have two values: true or false.</p>
-            <h3>Comparison Operators</h3>
-            <p>
-                Comparison operators are used to compare two values. They return true or false.
-            </p>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="header-title">bash — 80×24</span>
-                </div>
-                <div class="terminal-body">
-                    <pre>
-let x = 10;
-let y = 5;
-
-x == y is equivalent to x = y, output is false
-x != y is equivalent to x ≠ y, output is true
-x > y is equivalent to x > y, output is true
-x < y is equivalent to x < y, output is false
-x >= y is equivalent to x ≥ y, output is true
-x <= y is equivalent to x ≤ y, output is false
-            </pre>
-
-                </div>
-            </div>
-            <hr>
-            <br><br>
-            <h1 style="text-align: left">6. Functions</h1>
-            <p>A function is a block of code designed to perform a particular task. It is executed when "called" or
-                "invoked".</p>
-            <h2>Function Declaration</h2>
-            <p>To declare a function, we use the keyword <code>function</code>, followed by the name of the function,
-                parentheses <code>()</code>, and curly braces <code>{}</code> that contain the code to be executed.</p>
-
-            <h4>Example of Function Declaration:</h4>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="header-title">bash — 80×24</span>
-                </div>
-                <div class="terminal-body">
-                    <pre>
+                <h3>Function Declaration</h3>
+                <p>Use the keyword <code>function</code>, followed by the function name, parentheses <code>()</code>,
+                    and curly braces <code>{}</code> containing the code to execute.</p>
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <span class="header-title">bash — 80×24</span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>
 function greet() {
     document.getElementById("greeting").innerHTML = "Hello, World!";
 }
-</pre>
+                        </pre>
+                    </div>
                 </div>
-            </div>
-            <h2>Function Invocation</h2>
-            <p>To execute the function, we simply call its name followed by parentheses.</p>
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span class="header-title">bash — 80×24</span>
-                </div>
-                <div class="terminal-body">
-                    <pre>
-greet(); // Invokes the greet function
+
+                <h3>Function Invocation</h3>
+                <p>To execute the function, call its name followed by parentheses — or trigger it via an HTML event.</p>
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <span class="header-title">bash — 80×24</span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>
+greet(); // invokes the function in a script
+
 &lt;button onClick="greet()"&gt;Click Me to Greet!&lt;/button&gt;
-</pre>
+                        </pre>
+                    </div>
                 </div>
+                <button class="show-output-btn" onclick="showFunctionDemo()">
+                    <span>▶ Show Output</span>
+                </button>
             </div>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    </div>
-    <!-- ===== FOOTER ===== -->
-    <footer id="site-footer">
-        <div class="footer-inner">
-            <div class="footer-brand">
-                <h3>Web Dev Fundamentals</h3>
-                <p>A student-built guide to HTML, CSS &amp; JavaScript — made for beginners, by a beginner.</p>
+
+            <!-- ═══════════════════════════════ PAGE 8 ═══════════════════════════════ -->
+            <div class="module-page">
+                <h1>Module 3: JavaScript Fundamentals</h1>
+                <hr>
+                <h2>7. Conditionals</h2>
+                <p>Conditionals let your code make decisions. They check whether a condition is <code>true</code> or
+                    <code>false</code> and run different blocks of code accordingly.
+                </p>
+
+                <h3>if</h3>
+                <p>The <code>if</code> block runs <strong>only when its condition is true</strong>. If the condition
+                    is false, the block is skipped entirely.</p>
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <span class="header-title">bash — 80×24</span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>
+let score = 80;
+
+if (score >= 75) {
+    console.log("You passed!");
+}
+                        </pre>
+                    </div>
+                </div>
+
+                <h3>else if</h3>
+                <p><code>else if</code> provides an additional condition to check when the previous <code>if</code>
+                    (or <code>else if</code>) was false. You can chain as many as you need.</p>
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <span class="header-title">bash — 80×24</span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>
+let score = 65;
+
+if (score >= 90) {
+    console.log("Excellent!");
+} else if (score >= 75) {
+    console.log("You passed!");
+} else if (score >= 60) {
+    console.log("Barely passed.");
+}
+                        </pre>
+                    </div>
+                </div>
+
+                <h3>else</h3>
+                <p><code>else</code> is a catch-all — it runs when <strong>none</strong> of the preceding conditions
+                    were true. It has no condition of its own.</p>
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <span class="header-title">bash — 80×24</span>
+                    </div>
+                    <div class="terminal-body">
+                        <pre>
+let score = 45;
+
+if (score >= 90) {
+    console.log("Excellent!");
+} else if (score >= 75) {
+    console.log("You passed!");
+} else if (score >= 60) {
+    console.log("Barely passed.");
+} else {
+    console.log("You failed. Try again!");
+}
+                        </pre>
+                    </div>
+                </div>
+                <button class="show-output-btn" onclick="showConditionalsDemo()">
+                    <span>▶ Show Output</span>
+                </button>
+                <p style="margin-top: 30px; color: #ffcf2f; font-style: italic;">
+                    🎉 That wraps up Module 3! You now know the fundamentals of HTML, CSS, and JavaScript.
+                </p>
             </div>
-            <div class="footer-divider-vertical"></div>
-            <div class="footer-links">
-                <a href="home.html">Home</a>
-                <a href="mission.html">Mission</a>
-                <a href="module1.html">Module 1: HTML</a>
-                <a href="module2.html">Module 2: CSS</a>
-                <a href="module3.html">Module 3: JavaScript</a>
-            </div>
+
+        </main>
+
+        <!-- ── Bottom navigation bar ── -->
+        <div class="module-nav">
+            <button id="module-prev" class="module-nav-btn" disabled><span>◀ Previous</span></button>
+            <span id="module-page-counter">1 / 8</span>
+            <button id="module-next" class="module-nav-btn"><span>Next ▶</span></button>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Aztaryx (Mark) &mdash; Student Project &middot; Educational Use Only</p>
-            <div class="footer-dot-pattern">
-                <span></span><span></span><span></span>
-            </div>
-    </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ── Show Output demo functions ── -->
+    <script>
+        function showInlineDemo() {
+            showOutput(`<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { font-family: Arial, sans-serif; padding: 30px; }
+  button { padding: 10px 20px; font-size: 16px; cursor: pointer; background: #1a3c8a; color: white; border: none; border-radius: 4px; }
+  button:hover { background: #2a5cc7; }
+  .code { background: #1e1e1e; color: #67be67; padding: 12px; border-radius: 6px; font-family: monospace; margin-bottom: 20px; font-size: 14px; }
+</style>
+</head>
+<body>
+  <div class="code">&lt;button onClick="alert('This is an Alert!')"&gt;Click Me!&lt;/button&gt;</div>
+  <button onClick="alert('This is an Alert!')">Click Me!</button>
+</body>
+</html>`);
+        }
+
+        function showDOMDemo() {
+            showOutput(`<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { font-family: Arial, sans-serif; padding: 24px; }
+  h2   { color: #1a3c8a; }
+  .section { margin: 16px 0; padding: 14px; border: 1px solid #ddd; border-radius: 6px; background: #f9f9f9; }
+  .label { font-size: 12px; color: #888; margin-bottom: 6px; font-style: italic; }
+  button { padding: 8px 16px; background: #1a3c8a; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 8px; }
+  button:hover { background: #2a5cc7; }
+  input { padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; margin-top: 6px; }
+</style>
+</head>
+<body>
+  <h2>document.getElementById() Demo</h2>
+
+  <div class="section">
+    <div class="label">Non-input element — uses .innerHTML</div>
+    <p id="p1">I am the original paragraph text.</p>
+    <button onclick="document.getElementById('p1').innerHTML = 'Success! Text was changed by JavaScript!'">Change Paragraph</button>
+  </div>
+
+  <div class="section">
+    <div class="label">Input element — uses .value</div>
+    <input type="text" id="input1" value="Original value"><br>
+    <button onclick="document.getElementById('input1').value = 'Value set by JavaScript!'">Change Input Value</button>
+  </div>
+</body>
+</html>`);
+        }
+
+        function showVariablesDemo() {
+            showOutput(`<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { font-family: Arial, sans-serif; padding: 24px; background: #f9f9f9; }
+  h2   { color: #1a3c8a; }
+  .card { background: white; border: 1px solid #ddd; border-radius: 6px; padding: 14px; margin: 10px 0; }
+  .var-name { font-family: monospace; font-weight: bold; color: #c0392b; }
+  .var-val  { font-family: monospace; color: #27ae60; }
+  .type     { font-size: 12px; color: #888; float: right; }
+</style>
+</head>
+<body>
+  <h2>Variables Demo</h2>
+  <script>
+    let user    = "John";
+    let age     = 25;
+    let price   = 9.99;
+    let active  = true;
+    document.addEventListener('DOMContentLoaded', function() {
+      var out = document.getElementById('output');
+      var vars = [
+        { name: 'user',   val: user,   type: 'String'  },
+        { name: 'age',    val: age,    type: 'Integer' },
+        { name: 'price',  val: price,  type: 'Float'   },
+        { name: 'active', val: active, type: 'Boolean' },
+      ];
+      vars.forEach(function(v) {
+        out.innerHTML +=
+          '<div class="card"><span class="type">' + v.type + '</span>' +
+          '<span class="var-name">let ' + v.name + '</span> = ' +
+          '<span class="var-val">' + JSON.stringify(v.val) + '</span></div>';
+      });
+    });
+  <\/script>
+  <div id="output"></div>
+</body>
+</html>`);
+        }
+
+        function showArithmeticDemo() {
+            showOutput(`<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { font-family: Arial, sans-serif; padding: 24px; background: #f9f9f9; }
+  h2   { color: #1a3c8a; }
+  .calc { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+  .row  { display: flex; align-items: center; gap: 8px; }
+  input[type=number] { width: 70px; padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 15px; }
+  select { padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 15px; }
+  button { padding: 8px 18px; background: #1a3c8a; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
+  button:hover { background: #2a5cc7; }
+  #result { margin-top: 14px; font-size: 20px; font-weight: bold; color: #1a3c8a; min-height: 28px; }
+</style>
+</head>
+<body>
+  <h2>Arithmetic Operators — Interactive Demo</h2>
+  <div class="calc">
+    <div class="row">
+      <input type="number" id="numA" value="10">
+      <select id="op">
+        <option value="+">+ (add)</option>
+        <option value="-">- (subtract)</option>
+        <option value="*">* (multiply)</option>
+        <option value="/">/ (divide)</option>
+        <option value="%">% (modulo)</option>
+      </select>
+      <input type="number" id="numB" value="3">
+    </div>
+    <button onclick="calculate()">= Calculate</button>
+  </div>
+  <div id="result"></div>
+  <script>
+    function calculate() {
+      var a  = parseFloat(document.getElementById('numA').value);
+      var b  = parseFloat(document.getElementById('numB').value);
+      var op = document.getElementById('op').value;
+      var r;
+      if (op === '+') r = a + b;
+      else if (op === '-') r = a - b;
+      else if (op === '*') r = a * b;
+      else if (op === '/') r = b !== 0 ? a / b : 'Cannot divide by zero';
+      else r = b !== 0 ? a % b : 'Cannot modulo by zero';
+      document.getElementById('result').textContent = a + ' ' + op + ' ' + b + ' = ' + r;
+    }
+  <\/script>
+</body>
+</html>`);
+        }
+
+        function showComparisonDemo() {
+            showOutput(`<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { font-family: Arial, sans-serif; padding: 24px; background: #f9f9f9; }
+  h2   { color: #1a3c8a; }
+  .row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  input[type=number] { width: 70px; padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 15px; }
+  button { padding: 8px 18px; background: #1a3c8a; color: white; border: none; border-radius: 4px; cursor: pointer; }
+  button:hover { background: #2a5cc7; }
+  table { border-collapse: collapse; width: 100%; margin-top: 14px; }
+  th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: center; }
+  th { background: #1a3c8a; color: white; }
+  .true  { color: #27ae60; font-weight: bold; }
+  .false { color: #e74c3c; font-weight: bold; }
+</style>
+</head>
+<body>
+  <h2>Comparison Operators Demo</h2>
+  <div class="row">
+    <label>x = <input type="number" id="vx" value="10"></label>
+    <label>y = <input type="number" id="vy" value="5"></label>
+    <button onclick="compare()">Compare</button>
+  </div>
+  <div id="output"></div>
+  <script>
+    function compare() {
+      var x = parseFloat(document.getElementById('vx').value);
+      var y = parseFloat(document.getElementById('vy').value);
+      var ops = [
+        { sym: '==',  desc: 'equal to',         r: x == y  },
+        { sym: '!=',  desc: 'not equal to',      r: x != y  },
+        { sym: '>',   desc: 'greater than',      r: x > y   },
+        { sym: '<',   desc: 'less than',         r: x < y   },
+        { sym: '>=',  desc: 'greater or equal',  r: x >= y  },
+        { sym: '<=',  desc: 'less or equal',     r: x <= y  },
+      ];
+      var html = '<table><tr><th>Expression</th><th>Description</th><th>Result</th></tr>';
+      ops.forEach(function(o) {
+        var cls = o.r ? 'true' : 'false';
+        html += '<tr><td><code>x ' + o.sym + ' y</code></td><td>' + o.desc + '</td><td class="' + cls + '">' + o.r + '</td></tr>';
+      });
+      html += '</table>';
+      document.getElementById('output').innerHTML = html;
+    }
+    compare();
+  <\/script>
+</body>
+</html>`);
+        }
+
+        function showFunctionDemo() {
+            showOutput(`<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { font-family: Arial, sans-serif; padding: 30px; }
+  h2   { color: #1a3c8a; }
+  #greeting {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin: 20px 0;
+    padding: 14px;
+    border: 2px dashed #1a3c8a;
+    border-radius: 6px;
+    text-align: center;
+    min-height: 30px;
+  }
+  button { padding: 10px 22px; background: #1a3c8a; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 15px; margin: 4px; }
+  button:hover { background: #2a5cc7; }
+  .code { background: #1e1e1e; color: #67be67; padding: 12px; border-radius: 6px; font-family: monospace; margin-bottom: 20px; font-size: 13px; }
+</style>
+</head>
+<body>
+  <h2>Functions Demo</h2>
+  <div class="code">
+function greet() {<br>
+&nbsp;&nbsp;document.getElementById("greeting").innerHTML = "Hello, World!";<br>
+}
+  </div>
+  <div id="greeting">Click a button to invoke the function!</div>
+  <button onclick="greet()">greet() — Hello, World!</button>
+  <button onclick="goodbye()">goodbye() — Goodbye!</button>
+  <button onclick="reset()">reset() — Reset</button>
+  <script>
+    function greet()   { document.getElementById('greeting').innerHTML = '👋 Hello, World!'; }
+    function goodbye() { document.getElementById('greeting').innerHTML = '👋 Goodbye, World!'; }
+    function reset()   { document.getElementById('greeting').innerHTML = 'Click a button to invoke the function!'; }
+  <\/script>
+</body>
+</html>`);
+        }
+        function showConditionalsDemo() {
+            showOutput(`<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { font-family: Arial, sans-serif; padding: 24px; background: #f9f9f9; }
+  h2   { color: #1a3c8a; }
+  .row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+  label { font-size: 15px; }
+  input[type=number] { width: 80px; padding: 7px; border: 1px solid #ccc; border-radius: 4px; font-size: 15px; }
+  button { padding: 9px 20px; background: #1a3c8a; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
+  button:hover { background: #2a5cc7; }
+  #result {
+    margin-top: 10px;
+    padding: 14px 18px;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: bold;
+    min-height: 26px;
+    border-left: 5px solid #1a3c8a;
+    background: #fff;
+    color: #1a3c8a;
+  }
+  .branch { font-size: 12px; color: #888; margin-top: 6px; font-style: italic; }
+</style>
+</head>
+<body>
+  <h2>Conditionals Demo — Grade Checker</h2>
+  <div class="row">
+    <label for="score">Enter a score (0 – 100):</label>
+    <input type="number" id="score" value="80" min="0" max="100">
+    <button onclick="check()">Check</button>
+  </div>
+  <div id="result"></div>
+  <div class="branch" id="branch"></div>
+
+  <script>
+    function check() {
+      var score = parseInt(document.getElementById('score').value, 10);
+      var msg, branch;
+      if (score >= 90) {
+        msg    = '🏆 Excellent!';
+        branch = 'Matched: if (score >= 90)';
+      } else if (score >= 75) {
+        msg    = '✅ You passed!';
+        branch = 'Matched: else if (score >= 75)';
+      } else if (score >= 60) {
+        msg    = '⚠️ Barely passed.';
+        branch = 'Matched: else if (score >= 60)';
+      } else {
+        msg    = '❌ You failed. Try again!';
+        branch = 'Matched: else (no condition — catch-all)';
+      }
+      document.getElementById('result').textContent = msg;
+      document.getElementById('branch').textContent  = branch;
+    }
+    check();
+  <\/script>
+</body>
+</html>`);
+        }
+    </script>
 </body>
 
 </html>

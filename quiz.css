@@ -1,0 +1,1895 @@
+/* ============================================================
+   QUIZ.CSS
+   All styles for: Home Games Teaser, Quiz Homepage,
+   and all five game modes — Blitzkrieg, Paranoia,
+   Sudden Death, Overload, Blackout.
+   ============================================================ */
+
+
+/* ============================================================
+   HOME PAGE — GAMES TEASER SECTION
+   ============================================================ */
+
+.games-teaser {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 0 24px;
+}
+
+.gt-inner {
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: linear-gradient(130deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+    padding: 44px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 36px;
+    flex-wrap: wrap;
+}
+
+.gt-text {
+    flex: 1 1 260px;
+    min-width: 0;
+}
+
+.gt-label {
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #5a6a8a;
+    margin: 0 0 12px;
+}
+
+.gt-inner h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+}
+
+.gt-inner p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #6a7a9a;
+    margin: 0 0 24px;
+}
+
+.gt-btn {
+    display: inline-flex;
+    align-items: center;
+}
+
+.gt-modes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.gt-mode-tag {
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--c, #555);
+    padding: 5px 14px;
+    border: 1px solid currentColor;
+    opacity: 0.55;
+    transition: opacity 0.2s ease;
+    cursor: default;
+}
+
+.gt-mode-tag:hover {
+    opacity: 1;
+}
+
+
+/* ============================================================
+   QUIZ HOMEPAGE — MODE SELECTION
+   ============================================================ */
+
+body.page-quiz {
+    background: linear-gradient(165deg, #04060c 0%, #060a14 55%, #050810 100%);
+}
+
+body.page-quiz::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 30%, rgba(20, 40, 100, 0.15) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+body.page-quiz #startP {
+    color: #2a3860;
+}
+
+body.page-quiz h1 {
+    color: #d4daf0;
+    letter-spacing: -0.01em;
+}
+
+body.page-quiz .dashed_hr {
+    border-color: #0c142a;
+}
+
+body.page-quiz .intro-section p {
+    color: #4a5878;
+}
+
+body.page-quiz #site-footer {
+    position: relative;
+    z-index: 1;
+}
+
+/* Mode cards grid */
+.qhp-grid {
+    max-width: 960px;
+    margin: 0 auto 80px;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Base card */
+.qhp-card {
+    background: linear-gradient(140deg, #07101e 0%, #0a1528 100%);
+    border: 1px solid #111e3c;
+    padding: 32px 28px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.25s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: qhpCardIn 0.5s ease forwards;
+}
+
+@keyframes qhpCardIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.qhp-card:nth-child(1) { animation-delay: 0.05s; }
+.qhp-card:nth-child(2) { animation-delay: 0.12s; }
+.qhp-card:nth-child(3) { animation-delay: 0.19s; }
+.qhp-card:nth-child(4) { animation-delay: 0.26s; }
+.qhp-card:nth-child(5) { animation-delay: 0.33s; }
+
+/* Accent stripe on top */
+.qhp-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--mode-color, #334);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.qhp-card:hover::before {
+    opacity: 1;
+}
+
+.qhp-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--mode-color, #334);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6), 0 0 0 0 var(--mode-color, transparent);
+}
+
+/* Per-mode accent colors */
+.qhp-card.mode-blitzkrieg  { --mode-color: #f7e84e; }
+.qhp-card.mode-paranoia    { --mode-color: #f7d74e; }
+.qhp-card.mode-suddendeath { --mode-color: #e03030; }
+.qhp-card.mode-overload    { --mode-color: #32c8c8; }
+.qhp-card.mode-blackout    { --mode-color: #c8c8c8; }
+
+/* Card icon */
+.qhp-icon {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+/* Card name */
+.qhp-name {
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    color: var(--mode-color, #ccc);
+    text-transform: uppercase;
+    margin: 0;
+}
+
+/* Card description */
+.qhp-desc {
+    font-size: 0.82rem;
+    line-height: 1.65;
+    color: #4a5878;
+    margin: 0;
+    flex: 1;
+}
+
+/* Card play button */
+.qhp-play {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mode-color, #ccc);
+    border: 1px solid var(--mode-color, #334);
+    padding: 8px 22px;
+    transform: skewX(-14deg);
+    transition: background 0.22s ease, color 0.22s ease;
+    align-self: flex-start;
+}
+
+.qhp-play span {
+    display: inline-block;
+    transform: skewX(14deg);
+}
+
+.qhp-card:hover .qhp-play {
+    background: var(--mode-color, #334);
+    color: #050810;
+}
+
+
+/* ============================================================
+   SHARED GAME STYLES
+   Common layout and patterns used across all mode pages.
+   ============================================================ */
+
+/* Generic game area wrapper (all modes) */
+.game-area {
+    max-width: 900px;
+    margin: 40px auto 80px;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 260px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Shared skewed start button — override color with --btn-color */
+.game-start-btn {
+    background: transparent;
+    color: var(--btn-color, #ccc);
+    border: 1px solid var(--btn-color, #555);
+    padding: 15px 60px;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    transform: skewX(-20deg);
+    cursor: pointer;
+    transition: background 0.28s ease, color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.game-start-btn span {
+    display: inline-block;
+    transform: skewX(20deg);
+}
+
+.game-start-btn:hover {
+    background: var(--btn-color, #ccc);
+    color: #050810;
+    box-shadow: 0 0 30px color-mix(in srgb, var(--btn-color, #ccc) 40%, transparent);
+}
+
+/* Sidebar game area button */
+.sidebar-game-btn {
+    display: block;
+    width: 100%;
+    background: transparent;
+    color: var(--mode-color, #ccc);
+    border: 1px solid color-mix(in srgb, var(--mode-color, #555) 40%, transparent);
+    padding: 10px 16px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 0.22s ease, background 0.22s ease;
+    margin-top: 8px;
+}
+
+.sidebar-game-btn:hover {
+    border-color: var(--mode-color, #ccc);
+    background: color-mix(in srgb, var(--mode-color, #ccc) 8%, transparent);
+}
+
+
+/* ============================================================
+   BLITZKRIEG ⚡
+   Electric yellow — race the clock.
+   ============================================================ */
+
+body.mode-blitzkrieg {
+    background: linear-gradient(175deg, #090900 0%, #0e1000 55%, #080a00 100%);
+    --mode-color: #f7e84e;
+    --btn-color: #f7e84e;
+}
+
+body.mode-blitzkrieg::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 35%, rgba(0, 0, 0, 0.72) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+body.mode-blitzkrieg #startP       { color: #4a4400; }
+body.mode-blitzkrieg h1            { color: #f7e84e; text-shadow: 0 0 40px rgba(247,232,78,0.25); }
+body.mode-blitzkrieg .dashed_hr   { border-color: #1e1c00; }
+body.mode-blitzkrieg .intro-section p       { color: #6a6220; }
+body.mode-blitzkrieg .intro-section p strong { color: #f7e84e; }
+body.mode-blitzkrieg .intro-section p em     { color: #3a3610; }
+body.mode-blitzkrieg #site-footer  { position: relative; z-index: 1; }
+
+.bk-game-area {
+    max-width: 900px;
+    margin: 40px auto 80px;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 260px;
+    position: relative;
+    z-index: 1;
+}
+
+.bk-start-btn {
+    background: transparent;
+    color: #f7e84e;
+    border: 1px solid #f7e84e;
+    padding: 15px 64px;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    transform: skewX(-20deg);
+    cursor: pointer;
+    transition: background 0.28s ease, color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.bk-start-btn span { display: inline-block; transform: skewX(20deg); }
+
+.bk-start-btn:hover {
+    background: #f7e84e;
+    color: #090900;
+    box-shadow: 0 0 30px rgba(247, 232, 78, 0.35);
+}
+
+body.mode-blitzkrieg .sidebar-game-btn {
+    color: #f7e84e;
+    border-color: #3a3600;
+}
+
+body.mode-blitzkrieg .sidebar-game-btn:hover {
+    border-color: #f7e84e;
+    background: rgba(247, 232, 78, 0.07);
+}
+
+
+/* ============================================================
+   PARANOIA 👁️
+   Cold blue — two cards, one answer, don't crack.
+   ============================================================ */
+
+body.mode-paranoia {
+    background: linear-gradient(175deg, #03080f 0%, #060d1c 55%, #08101f 100%);
+    --mode-color: #f7d74e;
+    --btn-color: #f7d74e;
+}
+
+body.mode-paranoia::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.65) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+body.mode-paranoia #startP        { color: #3d5080; }
+body.mode-paranoia h1             { color: #d0daf0; }
+body.mode-paranoia .dashed_hr    { border-color: #0f1e3a; }
+body.mode-paranoia .intro-section p        { color: #5f7ab0; }
+body.mode-paranoia .intro-section p strong { color: #d0daf0; }
+body.mode-paranoia #site-footer   { position: relative; z-index: 1; }
+
+.pn-acts-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.pn-acts-list li {
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    color: #1e2e50;
+}
+
+.pn-acts-list li:first-child { color: #f7d74e; }
+
+.pn-game-area {
+    max-width: 900px;
+    margin: 40px auto 80px;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 260px;
+    position: relative;
+    z-index: 1;
+}
+
+.pn-start-btn {
+    background: transparent;
+    color: #f7d74e;
+    border: 1px solid #f7d74e;
+    padding: 15px 64px;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    transform: skewX(-20deg);
+    cursor: pointer;
+    transition: background 0.28s ease, color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.pn-start-btn span { display: inline-block; transform: skewX(20deg); }
+
+.pn-start-btn:hover {
+    background: #f7d74e;
+    color: #03080f;
+    box-shadow: 0 0 26px rgba(247, 215, 78, 0.28);
+}
+
+body.mode-paranoia .sidebar-game-btn {
+    color: #f7d74e;
+    border-color: #1a3060;
+}
+
+body.mode-paranoia .sidebar-game-btn:hover {
+    border-color: #f7d74e;
+    background: rgba(247, 215, 78, 0.06);
+}
+
+
+/* ============================================================
+   SUDDEN DEATH 💀
+   Crimson — one wrong answer, it's over.
+   ============================================================ */
+
+body.mode-suddendeath {
+    background: linear-gradient(175deg, #0f0000 0%, #180003 55%, #100002 100%);
+    --mode-color: #e03030;
+    --btn-color: #e03030;
+}
+
+body.mode-suddendeath::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.78) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+body.mode-suddendeath #startP        { color: #600a0a; }
+body.mode-suddendeath h1             { color: #f0c0c0; text-shadow: 0 0 40px rgba(200,30,30,0.3); }
+body.mode-suddendeath .dashed_hr    { border-color: #240404; }
+body.mode-suddendeath .intro-section p        { color: #7a3535; }
+body.mode-suddendeath .intro-section p strong { color: #f0c0c0; }
+body.mode-suddendeath #site-footer   { position: relative; z-index: 1; }
+
+.sd-game-area {
+    max-width: 900px;
+    margin: 40px auto 80px;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 260px;
+    position: relative;
+    z-index: 1;
+}
+
+.sd-start-btn {
+    background: transparent;
+    color: #e03030;
+    border: 1px solid #e03030;
+    padding: 15px 64px;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    transform: skewX(-20deg);
+    cursor: pointer;
+    transition: background 0.28s ease, color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.sd-start-btn span { display: inline-block; transform: skewX(20deg); }
+
+.sd-start-btn:hover {
+    background: #e03030;
+    color: #0f0000;
+    box-shadow: 0 0 30px rgba(224, 48, 48, 0.4);
+}
+
+body.mode-suddendeath .sidebar-game-btn {
+    color: #e03030;
+    border-color: #4a0808;
+}
+
+body.mode-suddendeath .sidebar-game-btn:hover {
+    border-color: #e03030;
+    background: rgba(224, 48, 48, 0.07);
+}
+
+
+/* ============================================================
+   OVERLOAD 🌊
+   Deep teal — clear the board before it buries you.
+   ============================================================ */
+
+body.mode-overload {
+    background: linear-gradient(175deg, #001212 0%, #001a1a 55%, #000f0f 100%);
+    --mode-color: #32c8c8;
+    --btn-color: #32c8c8;
+}
+
+body.mode-overload::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.70) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+body.mode-overload #startP        { color: #0b3e3e; }
+body.mode-overload h1             { color: #9ae8e8; text-shadow: 0 0 40px rgba(50,200,200,0.25); }
+body.mode-overload .dashed_hr    { border-color: #041c1c; }
+body.mode-overload .intro-section p        { color: #2e6868; }
+body.mode-overload .intro-section p strong { color: #9ae8e8; }
+body.mode-overload #site-footer   { position: relative; z-index: 1; }
+
+.ol-game-area {
+    max-width: 900px;
+    margin: 40px auto 80px;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 260px;
+    position: relative;
+    z-index: 1;
+}
+
+.ol-start-btn {
+    background: transparent;
+    color: #32c8c8;
+    border: 1px solid #32c8c8;
+    padding: 15px 64px;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    transform: skewX(-20deg);
+    cursor: pointer;
+    transition: background 0.28s ease, color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.ol-start-btn span { display: inline-block; transform: skewX(20deg); }
+
+.ol-start-btn:hover {
+    background: #32c8c8;
+    color: #001212;
+    box-shadow: 0 0 30px rgba(50, 200, 200, 0.35);
+}
+
+body.mode-overload .sidebar-game-btn {
+    color: #32c8c8;
+    border-color: #0a3a3a;
+}
+
+body.mode-overload .sidebar-game-btn:hover {
+    border-color: #32c8c8;
+    background: rgba(50, 200, 200, 0.07);
+}
+
+
+/* ============================================================
+   BLACKOUT 🕶️
+   Pure dark — five seconds, hope you were watching.
+   ============================================================ */
+
+body.mode-blackout {
+    background: #030303;
+    --mode-color: #c8c8c8;
+    --btn-color: #c8c8c8;
+}
+
+body.mode-blackout::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 20%, rgba(0,0,0,0.88) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+body.mode-blackout #startP        { color: #242424; }
+body.mode-blackout h1             { color: #d8d8d8; }
+body.mode-blackout .dashed_hr    { border-color: #0e0e0e; }
+body.mode-blackout .intro-section p        { color: #404040; }
+body.mode-blackout .intro-section p strong { color: #d8d8d8; }
+body.mode-blackout #site-footer   { position: relative; z-index: 1; }
+
+.bo-game-area {
+    max-width: 900px;
+    margin: 40px auto 80px;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 260px;
+    position: relative;
+    z-index: 1;
+}
+
+.bo-start-btn {
+    background: transparent;
+    color: #c8c8c8;
+    border: 1px solid #c8c8c8;
+    padding: 15px 64px;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    transform: skewX(-20deg);
+    cursor: pointer;
+    transition: background 0.28s ease, color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.bo-start-btn span { display: inline-block; transform: skewX(20deg); }
+
+.bo-start-btn:hover {
+    background: #c8c8c8;
+    color: #030303;
+    box-shadow: 0 0 20px rgba(200, 200, 200, 0.18);
+}
+
+body.mode-blackout .sidebar-game-btn {
+    color: #888;
+    border-color: #1c1c1c;
+}
+
+body.mode-blackout .sidebar-game-btn:hover {
+    border-color: #888;
+    background: rgba(200, 200, 200, 0.05);
+}
+
+
+/* ============================================================
+   SHARED GAME UI — ANSWER BUTTONS
+   Each mode uses its own prefix but shares this pattern.
+   ============================================================ */
+
+/* Generic flash overlays for wrong-answer feedback */
+body.bk-flash-wrong,
+body.sd-flash-wrong,
+body.bo-flash-wrong {
+    animation: flashRed 0.35s ease-out;
+}
+
+@keyframes flashRed {
+    0%   { filter: brightness(1); }
+    30%  { filter: brightness(1.4) sepia(0.6) hue-rotate(-30deg); }
+    100% { filter: brightness(1); }
+}
+
+/* Blinking warning at low time */
+body.bk-warning #bk-time {
+    animation: warnPulse 0.6s ease-in-out infinite;
+    color: #ff4444;
+}
+
+@keyframes warnPulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.35; }
+}
+
+/* Shared overlay hidden state */
+.bk-overlay.hidden,
+.sd-overlay.hidden,
+.ol-overlay.hidden,
+.bo-overlay.hidden,
+.pn-overlay.hidden { display: none; }
+
+/* Shared fade-in animation for overlays */
+@keyframes blurFadeIn {
+    from { opacity: 0; filter: blur(6px); }
+    to   { opacity: 1; filter: blur(0);   }
+}
+
+
+/* ============================================================
+   BLITZKRIEG — GAME UI
+   ============================================================ */
+
+.bk-game-area {
+    max-width: 760px;
+    margin: 0 auto 80px;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+/* HUD row */
+.bk-hud {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.bk-hud-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 70px;
+}
+
+.bk-hud-label {
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #3a3600;
+}
+
+.bk-hud-value {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #f7e84e;
+    letter-spacing: -0.02em;
+    line-height: 1;
+}
+
+/* Ring timer */
+.bk-timer-wrap {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    flex-shrink: 0;
+}
+
+.bk-ring {
+    width: 110px;
+    height: 110px;
+    transform: rotate(-90deg);
+}
+
+.bk-ring-bg {
+    fill: none;
+    stroke: #1e1c00;
+    stroke-width: 6;
+}
+
+.bk-ring-arc {
+    fill: none;
+    stroke: #f7e84e;
+    stroke-width: 6;
+    stroke-linecap: butt;
+    transition: stroke-dashoffset 0.9s linear, stroke 0.5s ease;
+}
+
+.bk-timer-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#bk-time {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #f7e84e;
+    letter-spacing: 0.04em;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Now playing strip */
+.bk-now-playing {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    color: #4a4400;
+    align-self: flex-start;
+}
+
+.bk-np-pip {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #f7e84e;
+    margin-right: 8px;
+    animation: npPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes npPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.3; transform: scale(0.7); }
+}
+
+/* Question card */
+.bk-card {
+    background: linear-gradient(140deg, #0c0c00 0%, #111000 100%);
+    border: 1px solid #2e2a00;
+    padding: 28px 28px 24px;
+    width: 100%;
+    max-width: 640px;
+    position: relative;
+}
+
+.bk-card-tag {
+    font-size: 0.58rem;
+    font-weight: 900;
+    letter-spacing: 0.22em;
+    color: #3a3600;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.bk-question {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #e0d870;
+    line-height: 1.65;
+    margin: 0 0 20px;
+    min-height: 48px;
+}
+
+.bk-answers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.bk-ans {
+    background: #0f0e00;
+    color: #7a7020;
+    border: 1px solid #2a2600;
+    padding: 12px 16px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.bk-ans span { display: block; }
+
+.bk-ans:hover:not(:disabled) {
+    background: #1e1c00;
+    border-color: #f7e84e;
+    color: #f7e84e;
+}
+
+.bk-ans.bk-correct {
+    background: rgba(77, 200, 100, 0.18);
+    border-color: #4dc864;
+    color: #4dc864;
+}
+
+.bk-ans.bk-wrong {
+    background: rgba(224, 48, 48, 0.18);
+    border-color: #e03030;
+    color: #e03030;
+}
+
+.bk-ans:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+/* Start / Game-over overlay */
+.bk-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(9, 9, 0, 0.97);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 600;
+    animation: blurFadeIn 0.6s ease-out;
+}
+
+.bk-overlay-box {
+    background: linear-gradient(140deg, #0c0c00 0%, #111000 100%);
+    border: 1px solid #2e2a00;
+    padding: 50px 56px;
+    max-width: 480px;
+    width: 90%;
+    text-align: center;
+}
+
+.bk-mode-tag {
+    display: inline-block;
+    border: 1px solid #f7e84e;
+    color: #f7e84e;
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    padding: 5px 18px;
+    margin-bottom: 22px;
+}
+
+.bk-overlay-box h2 {
+    color: #f7e84e;
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin: 0 0 14px;
+    letter-spacing: -0.02em;
+}
+
+.bk-overlay-box p {
+    color: #4a4400;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    margin: 0 0 28px;
+}
+
+.bk-start-btn {
+    background: transparent;
+    color: #f7e84e;
+    border: 1px solid #f7e84e;
+    padding: 13px 52px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    transform: skewX(-20deg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.bk-start-btn span { display: inline-block; transform: skewX(20deg); }
+
+.bk-start-btn:hover {
+    background: #f7e84e;
+    color: #090900;
+    box-shadow: 0 0 24px rgba(247, 232, 78, 0.28);
+}
+
+
+/* ============================================================
+   SUDDEN DEATH — GAME UI
+   ============================================================ */
+
+.sd-game-area {
+    max-width: 640px;
+    margin: 0 auto 80px;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.sd-hud {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.sd-hud-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.sd-hud-label {
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #500a0a;
+}
+
+.sd-hud-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #e03030;
+    letter-spacing: -0.02em;
+    line-height: 1;
+}
+
+.sd-now-playing {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    color: #4a1010;
+}
+
+.sd-card {
+    background: linear-gradient(140deg, #100000 0%, #160003 100%);
+    border: 1px solid #2a0404;
+    padding: 28px 28px 24px;
+    width: 100%;
+    position: relative;
+}
+
+.sd-card-tag {
+    font-size: 0.58rem;
+    font-weight: 900;
+    letter-spacing: 0.22em;
+    color: #4a0808;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.sd-question {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #e8b0b0;
+    line-height: 1.65;
+    margin: 0 0 20px;
+    min-height: 48px;
+}
+
+.sd-answers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.sd-ans {
+    background: #110000;
+    color: #6a2020;
+    border: 1px solid #280404;
+    padding: 12px 16px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.sd-ans span { display: block; }
+
+.sd-ans:hover:not(:disabled) {
+    background: #1e0000;
+    border-color: #e03030;
+    color: #e03030;
+}
+
+.sd-ans.sd-correct {
+    background: rgba(77, 200, 100, 0.18);
+    border-color: #4dc864;
+    color: #4dc864;
+}
+
+.sd-ans.sd-wrong {
+    background: rgba(224, 48, 48, 0.25);
+    border-color: #e03030;
+    color: #e03030;
+}
+
+.sd-ans:disabled { opacity: 0.4; cursor: default; }
+
+/* Overlay */
+.sd-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 0, 0, 0.97);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 600;
+    animation: blurFadeIn 0.6s ease-out;
+}
+
+.sd-overlay-box {
+    background: linear-gradient(140deg, #100000 0%, #160003 100%);
+    border: 1px solid #2a0404;
+    padding: 50px 56px;
+    max-width: 480px;
+    width: 90%;
+    text-align: center;
+}
+
+.sd-mode-tag {
+    display: inline-block;
+    border: 1px solid #e03030;
+    color: #e03030;
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    padding: 5px 18px;
+    margin-bottom: 22px;
+}
+
+.sd-overlay-box h2 {
+    color: #f0c0c0;
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin: 0 0 14px;
+    letter-spacing: -0.02em;
+}
+
+.sd-overlay-box p {
+    color: #6a2020;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    margin: 0 0 28px;
+}
+
+.sd-start-btn {
+    background: transparent;
+    color: #e03030;
+    border: 1px solid #e03030;
+    padding: 13px 52px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    transform: skewX(-20deg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sd-start-btn span { display: inline-block; transform: skewX(20deg); }
+
+.sd-start-btn:hover {
+    background: #e03030;
+    color: #0f0000;
+    box-shadow: 0 0 24px rgba(224, 48, 48, 0.35);
+}
+
+
+/* ============================================================
+   OVERLOAD — GAME UI
+   ============================================================ */
+
+.ol-game-area {
+    max-width: 960px;
+    margin: 0 auto 80px;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.ol-hud {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.ol-hud-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.ol-hud-label {
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #0b3e3e;
+}
+
+.ol-hud-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #32c8c8;
+    letter-spacing: -0.02em;
+    line-height: 1;
+}
+
+/* Fill meter */
+.ol-fill-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.ol-fill-label {
+    font-size: 0.56rem;
+    font-weight: 900;
+    letter-spacing: 0.22em;
+    color: #0b3e3e;
+    text-transform: uppercase;
+}
+
+.ol-fill-track {
+    height: 6px;
+    background: #041c1c;
+    border: 1px solid #0b3e3e;
+    position: relative;
+    overflow: hidden;
+}
+
+.ol-fill-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0%;
+    background: #32c8c8;
+    transition: width 0.4s ease, background 0.5s ease;
+}
+
+.ol-fill-pct {
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: #32c8c8;
+}
+
+.ol-now-playing {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    color: #0b3e3e;
+    margin-left: auto;
+}
+
+/* Card board */
+.ol-board {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+    min-height: 100px;
+}
+
+/* Individual question card */
+.ol-card {
+    background: linear-gradient(140deg, #001818 0%, #001e1e 100%);
+    border: 1px solid #0b3e3e;
+    padding: 18px 18px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: border-color 0.3s ease;
+}
+
+.ol-card:hover { border-color: #32c8c8; }
+
+.ol-card.ol-card-wrong {
+    border-color: #e03030;
+    box-shadow: 0 0 16px rgba(224, 48, 48, 0.25);
+}
+
+.ol-q-text {
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: #7ae8e8;
+    line-height: 1.55;
+    margin: 0;
+    flex: 1;
+}
+
+.ol-ans-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}
+
+.ol-ans {
+    background: #001414;
+    color: #2e6868;
+    border: 1px solid #0b3030;
+    padding: 8px 10px;
+    font-size: 0.74rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+}
+
+.ol-ans span { display: block; }
+
+.ol-ans:hover {
+    background: #001e1e;
+    border-color: #32c8c8;
+    color: #32c8c8;
+}
+
+.ol-ans.ol-correct {
+    background: rgba(77, 200, 100, 0.18);
+    border-color: #4dc864;
+    color: #4dc864;
+}
+
+.ol-ans.ol-wrong {
+    background: rgba(224, 48, 48, 0.18);
+    border-color: #e03030;
+    color: #e03030;
+}
+
+/* Overlay */
+.ol-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 18, 18, 0.97);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 600;
+    animation: blurFadeIn 0.6s ease-out;
+}
+
+.ol-overlay-box {
+    background: linear-gradient(140deg, #001212 0%, #001a1a 100%);
+    border: 1px solid #0b3e3e;
+    padding: 50px 56px;
+    max-width: 480px;
+    width: 90%;
+    text-align: center;
+}
+
+.ol-mode-tag {
+    display: inline-block;
+    border: 1px solid #32c8c8;
+    color: #32c8c8;
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    padding: 5px 18px;
+    margin-bottom: 22px;
+}
+
+.ol-overlay-box h2 {
+    color: #9ae8e8;
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin: 0 0 14px;
+    letter-spacing: -0.02em;
+}
+
+.ol-overlay-box p {
+    color: #2e6868;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    margin: 0 0 28px;
+}
+
+.ol-overlay-box p strong { color: #9ae8e8; }
+
+.ol-start-btn {
+    background: transparent;
+    color: #32c8c8;
+    border: 1px solid #32c8c8;
+    padding: 13px 52px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    transform: skewX(-20deg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.ol-start-btn span { display: inline-block; transform: skewX(20deg); }
+
+.ol-start-btn:hover {
+    background: #32c8c8;
+    color: #001212;
+    box-shadow: 0 0 24px rgba(50, 200, 200, 0.3);
+}
+
+
+/* ============================================================
+   BLACKOUT — GAME UI
+   ============================================================ */
+
+.bo-game-area {
+    max-width: 640px;
+    margin: 0 auto 80px;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.bo-hud {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 16px;
+}
+
+.bo-hud-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.bo-hud-label {
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #242424;
+}
+
+.bo-hud-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #d8d8d8;
+    letter-spacing: -0.02em;
+    line-height: 1;
+}
+
+/* Countdown block */
+.bo-countdown-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.bo-countdown-label {
+    font-size: 0.52rem;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #242424;
+}
+
+.bo-countdown-val {
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: #888;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    transition: color 0.3s ease;
+}
+
+.bo-countdown-val.bo-countdown-urgent {
+    color: #e03030;
+    animation: warnPulse 0.5s ease-in-out infinite;
+}
+
+/* Question card */
+.bo-card {
+    background: #050505;
+    border: 1px solid #141414;
+    padding: 28px 28px 24px;
+    width: 100%;
+    position: relative;
+}
+
+.bo-card-tag {
+    font-size: 0.58rem;
+    font-weight: 900;
+    letter-spacing: 0.22em;
+    color: #222;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+/* The question text — goes dark after 5s */
+.bo-question {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #c8c8c8;
+    line-height: 1.65;
+    margin: 0 0 20px;
+    min-height: 48px;
+    transition: color 0.6s ease, text-shadow 0.6s ease;
+}
+
+.bo-question.blacked-out {
+    color: #050505;
+    text-shadow: none;
+    user-select: none;
+}
+
+.bo-answers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.bo-ans {
+    background: #0a0a0a;
+    color: #444;
+    border: 1px solid #181818;
+    padding: 12px 16px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+
+.bo-ans span { display: block; }
+
+.bo-ans:hover:not(:disabled) {
+    background: #141414;
+    border-color: #c8c8c8;
+    color: #c8c8c8;
+}
+
+.bo-ans.bo-correct {
+    background: rgba(77, 200, 100, 0.14);
+    border-color: #4dc864;
+    color: #4dc864;
+}
+
+.bo-ans.bo-wrong {
+    background: rgba(224, 48, 48, 0.2);
+    border-color: #e03030;
+    color: #e03030;
+}
+
+.bo-ans:disabled { opacity: 0.3; cursor: default; }
+
+/* Overlay */
+.bo-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(2, 2, 2, 0.98);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 600;
+    animation: blurFadeIn 0.6s ease-out;
+}
+
+.bo-overlay-box {
+    background: #050505;
+    border: 1px solid #181818;
+    padding: 50px 56px;
+    max-width: 480px;
+    width: 90%;
+    text-align: center;
+}
+
+.bo-mode-tag {
+    display: inline-block;
+    border: 1px solid #888;
+    color: #888;
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    padding: 5px 18px;
+    margin-bottom: 22px;
+}
+
+.bo-overlay-box h2 {
+    color: #d8d8d8;
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin: 0 0 14px;
+    letter-spacing: -0.02em;
+}
+
+.bo-overlay-box p {
+    color: #404040;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    margin: 0 0 28px;
+}
+
+.bo-start-btn {
+    background: transparent;
+    color: #c8c8c8;
+    border: 1px solid #c8c8c8;
+    padding: 13px 52px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    transform: skewX(-20deg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.bo-start-btn span { display: inline-block; transform: skewX(20deg); }
+
+.bo-start-btn:hover {
+    background: #c8c8c8;
+    color: #030303;
+    box-shadow: 0 0 20px rgba(200, 200, 200, 0.18);
+}
+
+
+/* ============================================================
+   PARANOIA — supplemental styles not in original paranoia.css
+   (paranoia.css is no longer used; everything lives here)
+   ============================================================ */
+
+.pn-meter {
+    position: fixed;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    z-index: 100;
+}
+
+.pn-meter-label {
+    font-size: 0.52rem;
+    font-weight: 900;
+    letter-spacing: 0.22em;
+    color: #2a3a5a;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+}
+
+.pn-meter-track {
+    width: 9px;
+    height: 180px;
+    background: #060e1c;
+    border: 1px solid #1a3c8a;
+    position: relative;
+    overflow: hidden;
+}
+
+.pn-meter-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0%;
+    background: linear-gradient(to top, #c0392b, #e74c3c, #ff6b35);
+    transition: height 0.7s ease, background 0.7s ease;
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+}
+
+.pn-meter-pct {
+    font-size: 0.58rem;
+    font-weight: 700;
+    color: #c0392b;
+}
+
+.pn-game-area {
+    max-width: 860px;
+    margin: 0 auto 60px;
+    padding: 0 20px 0 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.pn-act-header { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+
+.pn-act-label {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #f7d74e;
+    opacity: 0.8;
+}
+
+.pn-act-pips { display: flex; gap: 10px; }
+
+.pn-pip {
+    width: 30px;
+    height: 3px;
+    background: #0f1e3a;
+    transition: background 0.4s ease;
+}
+
+.pn-pip.active { background: #f7d74e; box-shadow: 0 0 6px rgba(247,215,78,0.55); }
+.pn-pip.done   { background: #2a5cc7; }
+
+.pn-cards-row {
+    display: flex;
+    align-items: stretch;
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.pn-card {
+    background: linear-gradient(145deg, #07101f 0%, #0b1830 100%);
+    border: 1px solid #1a3c8a;
+    padding: 32px 28px 28px;
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    flex-shrink: 0;
+}
+
+.pn-card:hover { border-color: #2a5cc7; box-shadow: 0 0 28px rgba(42,92,199,0.25); }
+
+.pn-card-glyph { font-size: 2.4rem; font-weight: 900; color: #1a3c8a; line-height: 1; }
+
+.pn-question {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #c0ccdf;
+    text-align: center;
+    line-height: 1.65;
+    margin: 0;
+}
+
+.pn-ans-btn {
+    background: #0f2460;
+    color: #8a9dc0;
+    border: 1px solid #1a3c8a;
+    padding: 10px 22px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transform: skewX(-10deg);
+    transition: all 0.22s ease;
+}
+
+.pn-ans-btn span { display: inline-block; transform: skewX(10deg); }
+
+.pn-ans-btn:hover {
+    background: #1a3c8a;
+    border-color: #f7d74e;
+    color: #fff;
+    transform: skewX(-10deg) translateY(-2px);
+}
+
+.pn-divider {
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.22em;
+    color: #1a2a45;
+    align-self: center;
+    flex-shrink: 0;
+}
+
+.pn-sub {
+    font-size: 0.75rem;
+    color: #2a3a5a;
+    font-style: italic;
+    text-align: center;
+    margin: 0;
+}
+
+.pn-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(3, 8, 15, 0.96);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 600;
+    animation: blurFadeIn 0.7s ease-out;
+}
+
+.pn-overlay-box {
+    background: linear-gradient(140deg, #060d1c 0%, #0a1530 100%);
+    border: 1px solid #1a3c8a;
+    padding: 50px 56px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 0 80px rgba(0,0,0,0.9), 0 0 30px rgba(26,60,138,0.15);
+}
+
+.pn-mode-tag {
+    display: inline-block;
+    border: 1px solid #f7d74e;
+    color: #f7d74e;
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    padding: 5px 18px;
+    margin-bottom: 22px;
+}
+
+.pn-overlay-box h2 {
+    color: #fff;
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin: 0 0 14px;
+    letter-spacing: -0.02em;
+}
+
+.pn-overlay-box p {
+    color: #5f7ab0;
+    font-size: 0.95rem;
+    line-height: 1.85;
+    margin: 0 0 24px;
+}
+
+.pn-overlay-box p strong { color: #d0daf0; }
+
+.pn-acts-preview { display: flex; flex-direction: column; gap: 5px; margin-bottom: 32px; }
+
+.pn-ap-item {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: #253050;
+}
+
+.pn-ap-item.active { color: #f7d74e; }
+
+.pn-start-btn {
+    background: transparent;
+    color: #f7d74e;
+    border: 1px solid #f7d74e;
+    padding: 13px 52px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    transform: skewX(-20deg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pn-start-btn span { display: inline-block; transform: skewX(20deg); }
+
+.pn-start-btn:hover {
+    background: #f7d74e;
+    color: #0a1a3a;
+    box-shadow: 0 0 24px rgba(247,215,78,0.28);
+}

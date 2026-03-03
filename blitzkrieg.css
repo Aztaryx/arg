@@ -1,0 +1,114 @@
+/* ========================================
+   BLITZKRIEG — Mode Styles
+   Race the clock. Keep the streak alive.
+   ======================================== */
+
+body {
+    background: linear-gradient(175deg, #0a0a00 0%, #0f110a 55%, #0b0d00 100%);
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 35%, rgba(0, 0, 0, 0.7) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Header overrides */
+#startP {
+    color: #5a5200;
+}
+
+h1 {
+    color: #f7e84e;
+    letter-spacing: -0.01em;
+    text-shadow: 0 0 40px rgba(247, 232, 78, 0.3);
+}
+
+.dashed_hr {
+    border-color: #2a2600;
+}
+
+.intro-section p {
+    color: #7a7230;
+}
+
+.intro-section p strong {
+    color: #f7e84e;
+}
+
+.intro-section p em {
+    color: #4a4520;
+}
+
+/* ---- Game Area ---- */
+.bk-game-area {
+    max-width: 860px;
+    margin: 40px auto 80px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 240px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ---- Start Button ---- */
+.bk-start-btn {
+    background: transparent;
+    color: #f7e84e;
+    border: 1px solid #f7e84e;
+    padding: 16px 64px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    transform: skewX(-20deg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.bk-start-btn span {
+    display: inline-block;
+    transform: skewX(20deg);
+}
+
+.bk-start-btn:hover {
+    background: #f7e84e;
+    color: #0a0a00;
+    box-shadow: 0 0 28px rgba(247, 232, 78, 0.35);
+}
+
+/* ---- Sidebar game button ---- */
+.sidebar-game-btn {
+    display: block;
+    width: 100%;
+    background: transparent;
+    color: #f7e84e;
+    border: 1px solid #f7e84e;
+    padding: 10px 16px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.22s ease;
+    margin-top: 8px;
+}
+
+.sidebar-game-btn span {
+    display: inline-block;
+}
+
+.sidebar-game-btn:hover {
+    background: #f7e84e;
+    color: #0a0a00;
+}
+
+#site-footer {
+    position: relative;
+    z-index: 1;
+}

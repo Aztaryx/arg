@@ -1,0 +1,106 @@
+/* ========================================
+   SUDDEN DEATH — Mode Styles
+   No timer. No meter. No second chances.
+   ======================================== */
+
+body {
+    background: linear-gradient(175deg, #0f0000 0%, #1a0003 55%, #110002 100%);
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, 0.75) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Header overrides */
+#startP {
+    color: #6b1010;
+}
+
+h1 {
+    color: #f0c0c0;
+    letter-spacing: -0.01em;
+    text-shadow: 0 0 40px rgba(200, 30, 30, 0.35);
+}
+
+.dashed_hr {
+    border-color: #2a0505;
+}
+
+.intro-section p {
+    color: #8a4040;
+}
+
+.intro-section p strong {
+    color: #f0c0c0;
+}
+
+/* ---- Game Area ---- */
+.sd-game-area {
+    max-width: 860px;
+    margin: 40px auto 80px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 240px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ---- Start Button ---- */
+.sd-start-btn {
+    background: transparent;
+    color: #e03030;
+    border: 1px solid #e03030;
+    padding: 16px 64px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    transform: skewX(-20deg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sd-start-btn span {
+    display: inline-block;
+    transform: skewX(20deg);
+}
+
+.sd-start-btn:hover {
+    background: #e03030;
+    color: #0f0000;
+    box-shadow: 0 0 28px rgba(224, 48, 48, 0.4);
+}
+
+/* ---- Sidebar game button ---- */
+.sidebar-game-btn {
+    display: block;
+    width: 100%;
+    background: transparent;
+    color: #e03030;
+    border: 1px solid #5a0a0a;
+    padding: 10px 16px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.22s ease;
+    margin-top: 8px;
+}
+
+.sidebar-game-btn:hover {
+    border-color: #e03030;
+    background: rgba(224, 48, 48, 0.08);
+}
+
+#site-footer {
+    position: relative;
+    z-index: 1;
+}
