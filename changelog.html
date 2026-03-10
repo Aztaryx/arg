@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Changelog — Web Dev Fundamentals</title>
+    <script src="main.js" defer></script>
+    <link rel="stylesheet" href="main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin-top: 80px;
+        }
+
+        /* ===== CHANGELOG TIMELINE ===== */
+        .changelog-outer {
+            max-width: 760px;
+            margin: 0 auto 80px;
+            padding: 0 24px;
+            position: relative;
+        }
+
+        /* Vertical line */
+        .changelog-outer::before {
+            content: '';
+            position: absolute;
+            left: 32px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #f7d74e, #2a5cc7 60%, transparent);
+            opacity: 0.35;
+        }
+
+        .changelog-entry {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 36px;
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.55s ease, transform 0.55s ease;
+        }
+
+        .changelog-entry.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Version dot on the line */
+        .cl-dot {
+            flex-shrink: 0;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 3px solid;
+            background: #0a1a3a;
+            margin-top: 6px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cl-dot.dot-latest {
+            border-color: #f7d74e;
+            box-shadow: 0 0 10px rgba(247, 215, 78, 0.5);
+        }
+
+        .cl-dot.dot-update {
+            border-color: #2a5cc7;
+        }
+
+        .cl-dot.dot-fix {
+            border-color: #e05050;
+        }
+
+        .cl-dot.dot-add {
+            border-color: #43b581;
+        }
+
+        /* Entry card */
+        .cl-card {
+            flex: 1;
+            background: linear-gradient(135deg, #0a1a3a 0%, #0d2050 100%);
+            border: 1px solid #1e3a7a;
+            border-radius: 10px;
+            padding: 22px 26px;
+            box-shadow: 0 5px 22px rgba(10, 26, 58, 0.35);
+        }
+
+        .cl-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .cl-version {
+            font-family: 'Rubik', sans-serif;
+            font-size: 1rem;
+            font-weight: 800;
+            color: #f7d74e;
+            letter-spacing: 0.04em;
+        }
+
+        .cl-date {
+            font-size: 0.72rem;
+            color: #3d5080;
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        .cl-tag {
+            font-size: 0.64rem;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 4px;
+            border: 1px solid;
+        }
+
+        .cl-tag.tag-latest {
+            background: rgba(247, 215, 78, 0.1);
+            border-color: rgba(247, 215, 78, 0.5);
+            color: #f7d74e;
+        }
+
+        .cl-tag.tag-update {
+            background: rgba(42, 92, 199, 0.15);
+            border-color: rgba(42, 92, 199, 0.5);
+            color: #7fa8f0;
+        }
+
+        .cl-tag.tag-fix {
+            background: rgba(224, 80, 80, 0.12);
+            border-color: rgba(224, 80, 80, 0.4);
+            color: #f08080;
+        }
+
+        .cl-tag.tag-add {
+            background: rgba(67, 181, 129, 0.12);
+            border-color: rgba(67, 181, 129, 0.4);
+            color: #80e0b0;
+        }
+
+        .cl-items {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .cl-items li {
+            font-size: 0.86rem;
+            color: #a0b4d8;
+            line-height: 1.6;
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .cl-items li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #2a5cc7;
+            font-size: 0.75rem;
+            top: 2px;
+        }
+
+        .cl-items li strong {
+            color: #d0daf0;
+        }
+
+        /* ===== UPCOMING UPDATES ===== */
+        .cl-dot.dot-upcoming {
+            border-color: #a259ff;
+            box-shadow: 0 0 10px rgba(162, 89, 255, 0.5);
+            animation: upcomingPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes upcomingPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 8px rgba(162, 89, 255, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 18px rgba(162, 89, 255, 0.9);
+            }
+        }
+
+        .cl-tag.tag-upcoming {
+            background: rgba(162, 89, 255, 0.12);
+            border-color: rgba(162, 89, 255, 0.45);
+            color: #c49aff;
+        }
+
+        .cl-version.version-upcoming {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 800;
+            color: #c49aff;
+        }
+
+        /* Page heading */
+        h1 {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 800;
+        }
+
+        .upcoming-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: none;
+            border: 1px solid rgba(162, 89, 255, 0.3);
+            border-radius: 6px;
+            cursor: pointer;
+            padding: 7px 14px;
+            margin-top: 14px;
+            color: #a259ff;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+        }
+
+        .upcoming-toggle:hover {
+            background: rgba(162, 89, 255, 0.1);
+            color: #c49aff;
+            border-color: rgba(162, 89, 255, 0.6);
+        }
+
+        .upcoming-toggle .toggle-arrow {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .upcoming-toggle.open .toggle-arrow {
+            transform: rotate(90deg);
+        }
+
+        .upcoming-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.45s ease, opacity 0.35s ease;
+            opacity: 0;
+        }
+
+        .upcoming-body.open {
+            max-height: 700px;
+            opacity: 1;
+        }
+
+        .upcoming-divider {
+            border: none;
+            border-top: 1px solid rgba(162, 89, 255, 0.2);
+            margin: 14px 0 12px;
+        }
+
+        .upcoming-section-label {
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+            color: #a259ff;
+            margin-bottom: 9px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ===== SIDEBAR ===== -->
+    <div id="sidebar" role="navigation" aria-label="Sidebar navigation">
+        <div class="sidebar-label">Navigation</div>
+        <nav class="sidebar-nav">
+            <a href="home.html"><span>🏠 Home</span></a>
+            <a href="mission.html"><span>📌 Mission</span></a>
+            <a href="aboutus.html"><span>👥 About Us</span></a>
+            <a href="changelog.html"><span>📋 Changelog</span></a>
+            <a href="quizhomepage.html"><span>🎮 Quiz Game</span></a>
+            <hr class="sidebar-divider">
+            <a href="module1.html"><span>🏗️ Module 1: HTML</span></a>
+            <a href="module2.html"><span>🎨 Module 2: CSS</span></a>
+            <a href="module3.html"><span>⚡ Module 3: JavaScript</span></a>
+        </nav>
+        <div class="sidebar-footer-blurb">
+            Website Development Fundamentals<br>A student ICT project
+        </div>
+    </div>
+    <div id="sidebar-overlay"></div>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav id="navbar">
+        <div id="logo">
+            <a href="home.html"><img src="theLogo.png" alt="Website Logo" height="50"></a>
+        </div>
+        <ul id="nav-links">
+            <li><a href="home.html"><span>Home</span></a></li>
+            <li id="about-dropdown">
+                <a href="javascript:void(0)" class="dropbtn"><span>About &#9662;</span></a>
+                <div class="dropdown-content about-drop">
+                    <a href="mission.html"><span>📌 Mission</span></a>
+                    <a href="aboutus.html"><span>👥 About Us</span></a>
+                    <a href="changelog.html"><span>📋 Changelog</span></a>
+                </div>
+            </li>
+            <li><a href="quizhomepage.html"><span>Quiz Game</span></a></li>
+            <li id="dropdown">
+                <a href="javascript:void(0)" class="dropbtn"><span>Modules &#9662;</span></a>
+                <div class="dropdown-content">
+                    <a href="module1.html"><span>Module 1: HTML Basics</span></a>
+                    <a href="module2.html"><span>Module 2: CSS Fundamentals</span></a>
+                    <a href="module3.html"><span>Module 3: JavaScript Introduction</span></a>
+                </div>
+            </li>
+        </ul>
+        <button id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+    </nav>
+
+    <div class="page-content">
+        <p id="startP">Site history</p>
+        <h1>Changelog</h1>
+    </div>
+    <hr class="dashed_hr">
+
+    <div class="intro-section">
+        <p>A running log of what's changed, what's been added, and what's been fixed.</p>
+    </div>
+
+    <!-- ===== CHANGELOG TIMELINE ===== -->
+    <div class="changelog-outer">
+
+        <!-- UPCOMING UPDATES -->
+        <div class="changelog-entry">
+            <div class="cl-dot dot-upcoming"></div>
+            <div class="cl-card">
+                <div class="cl-header">
+                    <span class="cl-version version-upcoming">v0.6.0</span>
+                    <span class="cl-tag tag-upcoming">Upcoming</span>
+                    <span class="cl-date">TBD</span>
+                </div>
+                <ul class="cl-items">
+                    <li><strong>Quiz Game</strong> — WIP screen replaced with a live, playable experience</li>
+                    <li><strong>All five modes</strong> fully functional and ready for play</li>
+                    <li><strong>Additional polish</strong> and bug fixes post-initial defense</li>
+                </ul>
+
+                <button class="upcoming-toggle" onclick="toggleUpcoming(this)" aria-expanded="false">
+                    <span class="toggle-arrow">▸</span>
+                    <span>What to Expect</span>
+                </button>
+
+                <div class="upcoming-body" id="upcoming-body">
+                    <hr class="upcoming-divider">
+                    <p class="upcoming-section-label">Planned for v0.6.0 — post initial defense</p>
+                    <ul class="cl-items">
+                        <li><strong>Quiz Game unlock</strong> — WIP overlay removed; all five modes go fully live</li>
+                        <li><strong>Blitzkrieg</strong> — timer, scoring, and end-screen fully wired up</li>
+                        <li><strong>Paranoia</strong> — sanity meter logic completed across all five Acts</li>
+                        <li><strong>Sudden Death</strong> — streak tracking and result summary screen</li>
+                        <li><strong>Overload</strong> — board-fill and difficulty scaling finalized</li>
+                        <li><strong>Blackout</strong> — timed question flash tuned and tested</li>
+                        <li><strong>General cleanup</strong> — dead links, placeholder text, and loose TODOs resolved
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="changelog-entry">
+            <div class="cl-dot dot-latest"></div>
+            <div class="cl-card">
+                <div class="cl-header">
+                    <span class="cl-version">v0.5.0</span>
+                    <span class="cl-tag tag-latest">Latest</span>
+                    <span class="cl-date">Mar 9–10, 2026</span>
+                </div>
+                <ul class="cl-items">
+                    <li><strong>Background</strong> replaced with a scrolling, blurred circuitry loop — GPU-accelerated
+                        via <code>transform</code> animation to prevent flickering, with <code>grayscale</code> filter
+                        applied</li>
+                    <li><strong>Text colors</strong> updated site-wide to remain readable against the dark background
+                        (body, headings, intro paragraphs, carousel section)</li>
+                    <li><strong>About Us</strong> profile cards filled in for Billy, Athena, and Maco — replacing the
+                        three placeholder cards</li>
+                    <li><strong>Athena's card</strong> features an animated regal purple-to-gold banner, floating petal
+                        burst on hover, and a soft glow pulse effect</li>
+                    <li><strong>Maco's card</strong> features an explosion shockwave with three expanding rings and a
+                        screen flash on hover</li>
+                    <li><strong>Profile avatars</strong> updated to support photo images from
+                        <code>profileimages/</code>
+                    </li>
+                    <li><strong>Changelog</strong> WIP overlay removed — page is now live</li>
+                    <li><strong>Changelog</strong> upcoming section added with collapsible "What to Expect" panel and
+                        pulsing purple dot</li>
+                    <li><strong>Quiz homepage</strong> — "Preview Modes" button added to WIP overlay; opens a tabbed
+                        modal with rules summaries for all five modes</li>
+                    <li><strong>Profile cards</strong> — 3D cursor-tracking tilt on hover with holographic light shimmer
+                        across all cards</li>
+                    <li><strong>Mark's card</strong> click animation overhauled — scene zooms out and blurs, cards
+                        dissolve in white light one by one, audio pauses for the video</li>
+                    <li><strong>Bug fixes</strong> — changelog timeline dot misalignment corrected; v0.5.0 entry missing
+                        wrapper div restored</li>
+                    <li><strong>Mark's card — shatter effect</strong> replaces the old crack animation; impact now
+                        spawns
+                        glass panel geometry radiating from center, with shards drifting apart in phase 2</li>
+                    <li><strong>Glass shard particles</strong> — post-shatter burst now uses angular polygon shards
+                        (triangles to pentagons) with a refracted white-to-ice gradient instead of circles; hover
+                        crystals on Mark's card reshaped to match</li>
+                    <li><strong>Shatter canvas isolated</strong> — effect is now confined strictly inside the card
+                        bounds (absolute positioning) rather than rendering over the full viewport</li>
+                    <li><strong>Video cue-in</strong> strictly enforced at 4.58 s — hard-seeks on reveal to correct any
+                        buffering drift</li>
+                    <li><strong>Post-video return</strong> — instant reset replaced with a spring zoom-in
+                        (<code>cubic-bezier(0.34, 1.48, 0.64, 1)</code>) and staggered element re-appearance, each
+                        fading in from a blurred desaturated state</li>
+                    <li><strong>White flash removed</strong> from the video outro; transition now fades the vignette
+                        out cleanly with no overexposure burst</li>
+                    <li><strong>Post-video atmosphere</strong> — fixed canvas spawns floating glass shards and god rays
+                        behind all UI; god rays are anchored to Mark's card and track its viewport position on
+                        scroll</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="changelog-entry">
+            <div class="cl-dot dot-update"></div>
+            <div class="cl-card">
+                <div class="cl-header">
+                    <span class="cl-version">v0.4.0</span>
+                    <span class="cl-tag tag-update">Update</span>
+                    <span class="cl-date">Mar 9, 2026</span>
+                </div>
+                <ul class="cl-items">
+                    <li><strong>Quiz game</strong> locked behind WIP screen</li>
+                    <li><strong>Mission</strong> nav button replaced with <strong>About</strong> dropdown (Mission,
+                        About Us, Changelog)</li>
+                    <li><strong>About Us</strong> page redesigned with Discord-style profile cards</li>
+                    <li><strong>Mission</strong> page filled with actual project content</li>
+                    <li><strong>Navbar</strong> now uses the same scrolling dot-pattern animation as the sidebar</li>
+                    <li><strong>Changelog</strong> page added (this page)</li>
+                    <li>Sidebar updated with About Us and Changelog links</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="changelog-entry">
+            <div class="cl-dot dot-add"></div>
+            <div class="cl-card">
+                <div class="cl-header">
+                    <span class="cl-version">v0.3.0</span>
+                    <span class="cl-tag tag-add">Feature</span>
+                    <span class="cl-date">Mar 8, 2026</span>
+                </div>
+                <ul class="cl-items">
+                    <li>Added <strong>Visualizer</strong> setup & settings page</li>
+                    <li>Blitzkrieg mode received particle canvas and visualizer canvas</li>
+                    <li>Scrolling banners added to game mode pages</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="changelog-entry">
+            <div class="cl-dot dot-update"></div>
+            <div class="cl-card">
+                <div class="cl-header">
+                    <span class="cl-version">v0.2.0</span>
+                    <span class="cl-tag tag-update">Update</span>
+                    <span class="cl-date">Mar 6, 2026</span>
+                </div>
+                <ul class="cl-items">
+                    <li>Quiz homepage redesigned with mode cards</li>
+                    <li>All five quiz modes (Blitzkrieg, Paranoia, Sudden Death, Overload, Blackout) implemented</li>
+                    <li>Sidebar added across all main pages</li>
+                    <li>Footer standardized across site</li>
+                    <li>Sources ticker added to homepage</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="changelog-entry">
+            <div class="cl-dot dot-fix"></div>
+            <div class="cl-card">
+                <div class="cl-header">
+                    <span class="cl-version">v0.1.0</span>
+                    <span class="cl-tag tag-fix">Initial</span>
+                    <span class="cl-date">Feb 9, 2026</span>
+                </div>
+                <ul class="cl-items">
+                    <li>Project initialized</li>
+                    <li>Three module pages created (HTML, CSS, JavaScript)</li>
+                    <li>Navbar and base layout established</li>
+                    <li>Assets and logo uploaded</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <footer id="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h3>Web Dev Fundamentals</h3>
+                <p>A student-built guide to HTML, CSS &amp; JavaScript — made for beginners, by a beginner.</p>
+            </div>
+            <div class="footer-divider-vertical"></div>
+            <div class="footer-links">
+                <a href="home.html">Home</a>
+                <a href="mission.html">Mission</a>
+                <a href="aboutus.html">About Us</a>
+                <a href="changelog.html">Changelog</a>
+                <a href="module1.html">Module 1: HTML</a>
+                <a href="module2.html">Module 2: CSS</a>
+                <a href="module3.html">Module 3: JavaScript</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Aztaryx (Mark) &mdash; Student Project &middot; Educational Use Only</p>
+            <div class="footer-dot-pattern">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const entries = document.querySelectorAll('.changelog-entry');
+        const obs = new IntersectionObserver((e) => {
+            e.forEach(en => { if (en.isIntersecting) en.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        entries.forEach(e => obs.observe(e));
+
+        function toggleUpcoming(btn) {
+            const body = document.getElementById('upcoming-body');
+            const isOpen = body.classList.contains('open');
+            body.classList.toggle('open', !isOpen);
+            btn.classList.toggle('open', !isOpen);
+            btn.setAttribute('aria-expanded', String(!isOpen));
+        }
+    </script>
+
+</body>
+
+</html>

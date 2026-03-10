@@ -9,6 +9,100 @@
         body {
             margin-top: 80px;
         }
+
+        .mission-section {
+            max-width: 820px;
+            margin: 0 auto 60px;
+            padding: 0 24px;
+        }
+
+        .mission-block {
+            background: linear-gradient(135deg, #0a1a3a 0%, #0f2460 100%);
+            border: 1px solid #1e3a7a;
+            border-left: 4px solid #f7d74e;
+            border-radius: 10px;
+            padding: 32px 36px;
+            margin-bottom: 28px;
+            box-shadow: 0 6px 28px rgba(10, 26, 58, 0.35);
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .mission-block.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .mission-block:nth-child(2) {
+            transition-delay: 0.1s;
+        }
+
+        .mission-block:nth-child(3) {
+            transition-delay: 0.2s;
+        }
+
+        .mission-block:nth-child(4) {
+            transition-delay: 0.3s;
+        }
+
+        .mission-block:nth-child(5) {
+            transition-delay: 0.4s;
+        }
+
+        .mission-block h3 {
+            color: #f7d74e;
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin: 0 0 12px;
+            letter-spacing: 0.04em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .mission-block p {
+            color: #c0cfe8;
+            font-size: 0.93rem;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        .mission-stat-row {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 820px;
+            margin: 0 auto 60px;
+            padding: 0 24px;
+        }
+
+        .mission-stat {
+            flex: 1;
+            min-width: 180px;
+            background: linear-gradient(135deg, #0a1a3a, #0f2460);
+            border: 1px solid #1e3a7a;
+            border-radius: 10px;
+            padding: 28px 20px;
+            text-align: center;
+        }
+
+        .mission-stat-num {
+            font-size: 2.4rem;
+            font-weight: 900;
+            color: #f7d74e;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .mission-stat-label {
+            font-size: 0.78rem;
+            color: #5f7ab0;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
     </style>
 </head>
 
@@ -19,6 +113,8 @@
         <nav class="sidebar-nav">
             <a href="home.html"><span>🏠 Home</span></a>
             <a href="mission.html"><span>📌 Mission</span></a>
+            <a href="aboutus.html"><span>👥 About Us</span></a>
+            <a href="changelog.html"><span>📋 Changelog</span></a>
             <a href="quizhomepage.html"><span>🎮 Quiz Game</span></a>
             <hr class="sidebar-divider">
             <a href="module1.html"><span>🏗️ Module 1: HTML</span></a>
@@ -29,20 +125,23 @@
             Website Development Fundamentals<br>A student ICT project
         </div>
     </div>
-
-    <!-- ===== SIDEBAR OVERLAY ===== -->
     <div id="sidebar-overlay"></div>
 
     <!-- ===== NAVBAR ===== -->
     <nav id="navbar">
         <div id="logo">
-            <a href="home.html">
-                <img src="theLogo.png" alt="Website Logo" height="50">
-            </a>
+            <a href="home.html"><img src="theLogo.png" alt="Website Logo" height="50"></a>
         </div>
         <ul id="nav-links">
             <li><a href="home.html"><span>Home</span></a></li>
-            <li><a href="mission.html"><span>Mission</span></a></li>
+            <li id="about-dropdown">
+                <a href="javascript:void(0)" class="dropbtn"><span>About &#9662;</span></a>
+                <div class="dropdown-content about-drop">
+                    <a href="mission.html"><span>📌 Mission</span></a>
+                    <a href="aboutus.html"><span>👥 About Us</span></a>
+                    <a href="changelog.html"><span>📋 Changelog</span></a>
+                </div>
+            </li>
             <li><a href="quizhomepage.html"><span>Quiz Game</span></a></li>
             <li id="dropdown">
                 <a href="javascript:void(0)" class="dropbtn"><span>Modules &#9662;</span></a>
@@ -53,7 +152,6 @@
                 </div>
             </li>
         </ul>
-        <!-- ===== SIDEBAR TOGGLE BUTTON ===== -->
         <button id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
             <span class="hamburger-line"></span>
             <span class="hamburger-line"></span>
@@ -61,7 +159,6 @@
         </button>
     </nav>
 
-    <!-- ===== PAGE HEADER ===== -->
     <div class="page-content">
         <p id="startP">About this project</p>
         <h1>Our Mission</h1>
@@ -70,12 +167,76 @@
 
     <div class="intro-section">
         <p>
-            <strong>This page is coming soon.</strong> Here you'll find a breakdown of our goals,
-            what drove us to build this website, and what we hope you take away from it.
+            Web development is intimidating when you're just starting out. We made this so it doesn't have to be.
+            Three modules. One quiz. Zero prior experience required.
         </p>
     </div>
 
-    <!-- ===== FOOTER ===== -->
+    <!-- Stats row -->
+    <div class="mission-stat-row">
+        <div class="mission-stat">
+            <span class="mission-stat-num">3</span>
+            <span class="mission-stat-label">Core Modules</span>
+        </div>
+        <div class="mission-stat">
+            <span class="mission-stat-num">5</span>
+            <span class="mission-stat-label">Quiz Modes</span>
+        </div>
+        <div class="mission-stat">
+            <span class="mission-stat-num">1000+</span>
+            <span class="mission-stat-label">Questions</span>
+        </div>
+    </div>
+
+    <!-- Mission blocks -->
+    <div class="mission-section">
+
+        <div class="mission-block">
+            <h3>🎯 Why We Built This</h3>
+            <p>
+                This website started as a school ICT project — but somewhere along the way it became something we
+                actually wanted to make. Too many beginner resources assume you already know things, or bury the
+                essentials under jargon. We wanted something that met people at zero, and walked them up from there.
+            </p>
+        </div>
+
+        <div class="mission-block">
+            <h3>📖 What We Cover</h3>
+            <p>
+                Three modules follow the exact curriculum we were taught: HTML for structure, CSS for styling,
+                and JavaScript for behavior. Every concept is explained with examples, and where possible,
+                with interactive demonstrations you can run right in the browser.
+            </p>
+        </div>
+
+        <div class="mission-block">
+            <h3>🎮 The Quiz Game</h3>
+            <p>
+                Knowing something and being able to use it under pressure are two different things.
+                The quiz game was built to test the second one — five different modes, each designed
+                to stress-test your knowledge in a different way. No multiple choice safety nets in some of them.
+            </p>
+        </div>
+
+        <div class="mission-block">
+            <h3>🏫 Our Scope</h3>
+            <p>
+                This project only covers what was taught to us during our school curriculum. We're not trying to
+                replace W3Schools or MDN — we're trying to give you a starting point that's approachable,
+                honest about what it doesn't cover, and built by someone who was in your position not that long ago.
+            </p>
+        </div>
+
+        <div class="mission-block">
+            <h3>✨ What We Hope You Absorb</h3>
+            <p>
+                That web development isn't magic. It's learnable. And that the best way to understand something
+                is to build it yourself — even if it looks rough the first time. Especially if it looks rough.
+            </p>
+        </div>
+
+    </div>
+
     <footer id="site-footer">
         <div class="footer-inner">
             <div class="footer-brand">
@@ -86,6 +247,7 @@
             <div class="footer-links">
                 <a href="home.html">Home</a>
                 <a href="mission.html">Mission</a>
+                <a href="aboutus.html">About Us</a>
                 <a href="module1.html">Module 1: HTML</a>
                 <a href="module2.html">Module 2: CSS</a>
                 <a href="module3.html">Module 3: JavaScript</a>
@@ -98,6 +260,15 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Scroll-reveal for mission blocks
+        const blocks = document.querySelectorAll('.mission-block');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.15 });
+        blocks.forEach(b => observer.observe(b));
+    </script>
 
 </body>
 

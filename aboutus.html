@@ -19,6 +19,8 @@
         <nav class="sidebar-nav">
             <a href="home.html"><span>🏠 Home</span></a>
             <a href="mission.html"><span>📌 Mission</span></a>
+            <a href="aboutus.html"><span>👥 About Us</span></a>
+            <a href="changelog.html"><span>📋 Changelog</span></a>
             <a href="quizhomepage.html"><span>🎮 Quiz Game</span></a>
             <hr class="sidebar-divider">
             <a href="module1.html"><span>🏗️ Module 1: HTML</span></a>
@@ -29,20 +31,23 @@
             Website Development Fundamentals<br>A student ICT project
         </div>
     </div>
-
-    <!-- ===== SIDEBAR OVERLAY ===== -->
     <div id="sidebar-overlay"></div>
 
     <!-- ===== NAVBAR ===== -->
     <nav id="navbar">
         <div id="logo">
-            <a href="home.html">
-                <img src="theLogo.png" alt="Website Logo" height="50">
-            </a>
+            <a href="home.html"><img src="theLogo.png" alt="Website Logo" height="50"></a>
         </div>
         <ul id="nav-links">
             <li><a href="home.html"><span>Home</span></a></li>
-            <li><a href="mission.html"><span>Mission</span></a></li>
+            <li id="about-dropdown">
+                <a href="javascript:void(0)" class="dropbtn"><span>About &#9662;</span></a>
+                <div class="dropdown-content about-drop">
+                    <a href="mission.html"><span>📌 Mission</span></a>
+                    <a href="aboutus.html"><span>👥 About Us</span></a>
+                    <a href="changelog.html"><span>📋 Changelog</span></a>
+                </div>
+            </li>
             <li><a href="quizhomepage.html"><span>Quiz Game</span></a></li>
             <li id="dropdown">
                 <a href="javascript:void(0)" class="dropbtn"><span>Modules &#9662;</span></a>
@@ -53,7 +58,6 @@
                 </div>
             </li>
         </ul>
-        <!-- ===== SIDEBAR TOGGLE BUTTON ===== -->
         <button id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
             <span class="hamburger-line"></span>
             <span class="hamburger-line"></span>
@@ -61,7 +65,6 @@
         </button>
     </nav>
 
-    <!-- ===== PAGE HEADER ===== -->
     <div class="page-content">
         <p id="startP">Meet the team</p>
         <h1>About Us</h1>
@@ -69,14 +72,291 @@
     <hr class="dashed_hr">
 
     <div class="intro-section">
-        <p>
-            <strong>This page is coming soon.</strong> We'll be introducing the people behind this project —
-            who we are, what we study, and why we decided to build a website about web development.
-        </p>
+        <p>The people behind this project. Hover over a card to see each person's effect.</p>
     </div>
 
-    <!-- ===== FOOTER ===== -->
-    <footer id="site-footer">
+    <!-- ===== PROFILE CARDS ===== -->
+    <div class="profile-cards-grid">
+
+        <div class="profile-card card-mark" id="mark-card">
+            <div class="profile-card-banner"></div>
+            <div class="profile-avatar">
+                <img src="profileimages/markpfp.jpg" alt="Mark">
+                <span class="profile-avatar-dot"></span>
+            </div>
+            <!-- Crystal hover shards -->
+            <span class="mkcrystal mk-c1"></span>
+            <span class="mkcrystal mk-c2"></span>
+            <span class="mkcrystal mk-c3"></span>
+            <span class="mkcrystal mk-c4"></span>
+            <span class="mkcrystal mk-c5"></span>
+            <span class="mkcrystal mk-c6"></span>
+            <span class="mkcrystal mk-c7"></span>
+            <span class="mkcrystal mk-c8"></span>
+            <div class="profile-card-body">
+                <p class="profile-name">Aztaryx</p>
+                <p class="profile-tag">@mark · he/him</p>
+                <span class="profile-role-badge">⚡ Lead Developer</span>
+                <hr class="profile-divider">
+                <p class="profile-section-label">About Me</p>
+                <p class="profile-bio">Built this whole thing. Spent more time on the CSS animations than the actual
+                    content. Probably fine.</p>
+                <hr class="profile-divider">
+                <p class="profile-section-label">Favorite Quote</p>
+                <blockquote class="profile-quote-block">
+                    <p class="profile-quote">"It works on my machine."</p>
+                </blockquote>
+                <p class="mark-click-hint">[ tap to see more ]</p>
+            </div>
+        </div>
+
+        <!-- BILLY -->
+        <div class="profile-card card-billy">
+            <div class="profile-card-banner"></div>
+            <div class="profile-avatar">
+                <img src="profileimages/billypfp.jpg" alt="Billy">
+                <span class="profile-avatar-dot"></span>
+            </div>
+            <!-- Basketball hover effect -->
+            <span class="bball bb1">🏀</span>
+            <span class="bball bb2">🏀</span>
+            <span class="bball bb3">🏀</span>
+            <span class="bball bb4">🏀</span>
+            <span class="bball bb5">🏀</span>
+            <span class="bball bb6">🏀</span>
+            <span class="bball-court-flash"></span>
+            <span class="bball-ring"></span>
+            <span class="bball">🏀</span>
+            <div class="profile-card-body">
+                <p class="profile-name">Billy</p>
+                <p class="profile-tag">@billy</p>
+                <span class="profile-role-badge">🐛 Bug Remover & Module Maker</span>
+                <hr class="profile-divider">
+                <p class="profile-section-label">About Me</p>
+                <p class="profile-bio">Helps in removing bugs, takes part in module making, and lends a hand in other
+                    parts of the code.</p>
+                <hr class="profile-divider">
+                <p class="profile-section-label">Favorite Quote</p>
+                <blockquote class="profile-quote-block">
+                    <p class="profile-quote">"Be happy."</p>
+                </blockquote>
+            </div>
+        </div>
+
+        <!-- ATHENA -->
+        <div class="profile-card card-athena">
+            <div class="profile-card-banner"></div>
+            <div class="profile-avatar">
+                <img src="profileimages/athenapfp.jpg" alt="Athena">
+                <span class="profile-avatar-dot"></span>
+            </div>
+            <!-- Confetti hover effect -->
+            <span class="confetti c1"></span>
+            <span class="confetti c2"></span>
+            <span class="confetti c3"></span>
+            <span class="confetti c4"></span>
+            <span class="confetti c5"></span>
+            <span class="confetti c6"></span>
+            <span class="confetti c7"></span>
+            <span class="confetti c8"></span>
+            <span class="confetti c9"></span>
+            <span class="confetti c10"></span>
+            <div class="profile-card-body">
+                <p class="profile-name">Athena</p>
+                <p class="profile-tag">@athena · she/her</p>
+                <span class="profile-role-badge">🎨 Lead Designer</span>
+                <hr class="profile-divider">
+                <p class="profile-section-label">About Me</p>
+                <p class="profile-bio">Salutations! I'm the lead designer of the website. Isa ako sa takbuhan ng
+                    concepts at ideas!</p>
+                <hr class="profile-divider">
+                <p class="profile-section-label">Favorite Quote</p>
+                <blockquote class="profile-quote-block">
+                    <p class="profile-quote">"You're the judge of your own actions."</p>
+                </blockquote>
+            </div>
+        </div>
+
+        <!-- MACO -->
+        <div class="profile-card card-maco">
+            <div class="profile-card-banner"></div>
+            <div class="profile-avatar">
+                <img src="profileimages/macopfp.jpg" alt="Maco">
+                <span class="profile-avatar-dot"></span>
+            </div>
+            <!-- Explosion effect (hover) -->
+            <span class="expl-ring r1"></span>
+            <span class="expl-ring r2"></span>
+            <span class="expl-ring r3"></span>
+            <span class="expl-flash"></span>
+            <div class="profile-card-body">
+                <p class="profile-name">Maco</p>
+                <p class="profile-tag">@maco</p>
+                <span class="profile-role-badge">💻 Developer</span>
+                <hr class="profile-divider">
+                <p class="profile-section-label">About Me</p>
+                <p class="profile-bio">I like physical activities, games, food, and sleeping. I don't like assignments.
+                </p>
+                <hr class="profile-divider">
+                <p class="profile-section-label">Favorite Quote</p>
+                <blockquote class="profile-quote-block">
+                    <p class="profile-quote">"I want to be a hacker."</p>
+                </blockquote>
+            </div>
+        </div>
+
+        <!-- DANVER -->
+        <div class="profile-card card-danver">
+            <div class="profile-card-banner"></div>
+            <div class="profile-avatar">
+                <img src="profileimages/danverpfp.jpg" alt="Danver">
+                <span class="profile-avatar-dot"></span>
+            </div>
+            <!-- Lizard hover effect -->
+            <span class="lizard liz-1">🦎</span>
+            <span class="lizard liz-2">🦎</span>
+            <span class="lizard liz-3">🦎</span>
+            <span class="lizard liz-4">🦎</span>
+            <div class="profile-card-body">
+                <p class="profile-name">Danver</p>
+                <p class="profile-tag">@danver · she/they</p>
+                <span class="profile-role-badge">🎤 Panelist Liaison</span>
+                <hr class="profile-divider">
+                <p class="profile-section-label">About Me</p>
+                <p class="profile-bio">Goal: To sell you not the product, but the <i>website</i> . <br> SB19,Cup of Joe
+                    (^^)</p>
+                <hr class="profile-divider">
+                <p class="profile-section-label">Favorite Quote</p>
+                <blockquote class="profile-quote-block">
+                    <p class="profile-quote">"No one can stop you except for yourself."</p>
+                </blockquote>
+            </div>
+        </div>
+
+        <!-- NYTHAN -->
+        <div class="profile-card card-nythan">
+            <div class="profile-card-banner"></div>
+            <div class="profile-avatar">
+                <img src="profileimages/nythanpfp.jpg" alt="Nythan">
+                <span class="profile-avatar-dot"></span>
+            </div>
+            <!-- Wisteria petals hover effect -->
+            <span class="wisteria-petal wp-1">🌸</span>
+            <span class="wisteria-petal wp-2">🌸</span>
+            <span class="wisteria-petal wp-3">🌸</span>
+            <span class="wisteria-petal wp-4">🌸</span>
+            <span class="wisteria-petal wp-5">🌸</span>
+            <span class="wisteria-petal wp-6">🌸</span>
+            <span class="wisteria-petal wp-7">🌸</span>
+            <span class="wisteria-petal wp-8">🌸</span>
+            <div class="profile-card-body">
+                <p class="profile-name">Nythan</p>
+                <p class="profile-tag">@nythan · he/him</p>
+                <span class="profile-role-badge">💻 Developer</span>
+                <hr class="profile-divider">
+                <p class="profile-section-label">About Me</p>
+                <p class="profile-bio">m b v</p>
+                <hr class="profile-divider">
+                <p class="profile-section-label">Favorite Quote</p>
+                <blockquote class="profile-quote-block">
+                    <p class="profile-quote">"When I look at you, oh, I don't know what's real."</p>
+                </blockquote>
+            </div>
+        </div>
+
+        <!-- ZHYRIEL -->
+        <div class="profile-card card-zhyriel">
+            <div class="profile-card-banner"></div>
+            <div class="profile-avatar">
+                <img src="profileimages/zhyrielpfp.jpg" alt="Zhyriel">
+                <span class="profile-avatar-dot"></span>
+            </div>
+            <!-- Sparkle hover effect -->
+            <span class="sparkle sp-1">✦</span>
+            <span class="sparkle sp-2">✧</span>
+            <span class="sparkle sp-3">✦</span>
+            <span class="sparkle sp-4">✧</span>
+            <span class="sparkle sp-5">✦</span>
+            <span class="sparkle sp-6">✧</span>
+            <span class="sparkle sp-7">✦</span>
+            <span class="sparkle sp-8">✧</span>
+            <div class="profile-card-body">
+                <p class="profile-name">Zhyriel</p>
+                <p class="profile-tag">@zhyriel</p>
+                <span class="profile-role-badge">🌊 Member</span>
+                <hr class="profile-divider">
+                <p class="profile-section-label">About Me</p>
+                <p class="profile-bio">I like cooking, eating, and small adventures. <br> NIKI - urs</p>
+                <hr class="profile-divider">
+                <p class="profile-section-label">Favorite Quote</p>
+                <blockquote class="profile-quote-block">
+                    <p class="profile-quote">"Go with the flow."</p>
+                </blockquote>
+            </div>
+        </div>
+
+        <!-- MHARYNELL -->
+        <div class="profile-card card-mharynell">
+            <div class="profile-card-banner"></div>
+            <div class="profile-avatar">
+                <img src="profileimages/mharynellpfp.jpg" alt="Mharynell">
+                <span class="profile-avatar-dot"></span>
+            </div>
+            <!-- Music emoji hover effect -->
+            <span class="musicnote mn-1">🎵</span>
+            <span class="musicnote mn-2">🎶</span>
+            <span class="musicnote mn-3">🎵</span>
+            <span class="musicnote mn-4">🎶</span>
+            <span class="musicnote mn-5">🎵</span>
+            <span class="musicnote mn-6">🎶</span>
+            <div class="profile-card-body">
+                <p class="profile-name">Mharynell</p>
+                <p class="profile-tag">@mharynell</p>
+                <span class="profile-role-badge">🎵 Member</span>
+                <hr class="profile-divider">
+                <p class="profile-section-label">About Me</p>
+                <p class="profile-bio">LANY</p>
+                <hr class="profile-divider">
+                <p class="profile-section-label">Favorite Quote</p>
+                <blockquote class="profile-quote-block">
+                    <p class="profile-quote">"Forgive but never forgot."</p>
+                </blockquote>
+            </div>
+        </div>
+
+        <!-- JOHAN -->
+        <div class="profile-card card-johan">
+            <div class="profile-card-banner"></div>
+            <div class="profile-avatar">
+                <img src="profileimages/johanpfp.jpg" alt="Johan">
+                <span class="profile-avatar-dot"></span>
+            </div>
+            <!-- Bubble hover effect -->
+            <span class="jbubble jb-1">🫧</span>
+            <span class="jbubble jb-2">🫧</span>
+            <span class="jbubble jb-3">🫧</span>
+            <span class="jbubble jb-4">🫧</span>
+            <span class="jbubble jb-5">🫧</span>
+            <div class="profile-card-body">
+                <p class="profile-name">Johan</p>
+                <p class="profile-tag">@johan</p>
+                <span class="profile-role-badge">🫂 Emotional Support</span>
+                <hr class="profile-divider">
+                <p class="profile-section-label">About Me</p>
+                <p class="profile-bio">Full-time student and lifelong learner. Currently balancing books, caffeine, and
+                    the occasional deadline. I like exploring new ideas and finding creative solutions to everyday
+                    challenges. Just here to grow, one at a time.</p>
+                <hr class="profile-divider">
+                <p class="profile-section-label">Favorite Quote</p>
+                <blockquote class="profile-quote-block">
+                    <p class="profile-quote">"Focus on the step, not the mountain."</p>
+                </blockquote>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
         <div class="footer-inner">
             <div class="footer-brand">
                 <h3>Web Dev Fundamentals</h3>
@@ -86,6 +366,7 @@
             <div class="footer-links">
                 <a href="home.html">Home</a>
                 <a href="mission.html">Mission</a>
+                <a href="aboutus.html">About Us</a>
                 <a href="module1.html">Module 1: HTML</a>
                 <a href="module2.html">Module 2: CSS</a>
                 <a href="module3.html">Module 3: JavaScript</a>
@@ -99,6 +380,784 @@
         </div>
     </footer>
 
+    <!-- ===== CARD TILT + HOLOGRAPHIC ===== -->
+    <script>
+        (function () {
+            function lerp(a, b, t) { return a + (b - a) * t; }
+
+            const cardData = [];
+
+            document.querySelectorAll('.profile-card').forEach((card, idx) => {
+                const holo = document.createElement('div');
+                holo.className = 'card-holo';
+                card.appendChild(holo);
+
+                const d = {
+                    card, holo,
+                    tRX: 0, tRY: 0, cRX: 0, cRY: 0,
+                    tHX: 50, tHY: 50, cHX: 50, cHY: 50,
+                    holoTarget: 0, holoCur: 0,
+                    isOver: false,
+                    phase: idx * 1.15,
+                };
+                cardData.push(d);
+
+                card.addEventListener('mouseenter', () => {
+                    d.isOver = true;
+                    d.holoTarget = 1;
+                    card.classList.add('is-tilting');
+                });
+
+                card.addEventListener('mousemove', e => {
+                    const r = card.getBoundingClientRect();
+                    d.tRY = ((e.clientX - (r.left + r.width / 2)) / (r.width / 2)) * 7;
+                    d.tRX = -((e.clientY - (r.top + r.height / 2)) / (r.height / 2)) * 5;
+                    d.tHX = ((e.clientX - r.left) / r.width) * 100;
+                    d.tHY = ((e.clientY - r.top) / r.height) * 100;
+                }, { passive: true });
+
+                card.addEventListener('mouseleave', () => {
+                    d.isOver = false;
+                    d.tRX = 0; d.tRY = 0;
+                    d.holoTarget = 0;
+                    card.classList.remove('is-tilting');
+                });
+            });
+
+            const idleAmpY = 4;
+            const idleAmpRX = 1.0;
+            const idleAmpRY = 0.8;
+            const idleSpeed = 0.00035;
+
+            // Single shared rAF loop for all cards — replaces 9 individual loops
+            (function tick(ts) {
+                requestAnimationFrame(tick);
+
+                if (document.body.classList.contains('mark-open')) return;
+
+                cardData.forEach(d => {
+                    const { card, holo, phase } = d;
+                    const sp = d.isOver ? 0.14 : 0.07;
+
+                    d.cRX = lerp(d.cRX, d.tRX, sp);
+                    d.cRY = lerp(d.cRY, d.tRY, sp);
+                    d.cHX = lerp(d.cHX, d.tHX, 0.11);
+                    d.cHY = lerp(d.cHY, d.tHY, 0.11);
+                    d.holoCur = lerp(d.holoCur, d.holoTarget, 0.1);
+
+                    if (d.isOver) {
+                        card.style.transform = `translateY(-10px) rotateX(${d.cRX.toFixed(2)}deg) rotateY(${d.cRY.toFixed(2)}deg)`;
+                    } else {
+                        const t = ts * idleSpeed + phase;
+                        const idY = Math.sin(t) * idleAmpY;
+                        const idX = Math.sin(t * 0.7 + 1.0) * idleAmpRX + d.cRX;
+                        const idYr = Math.cos(t * 0.9 + 0.5) * idleAmpRY + d.cRY;
+                        card.style.transform = `translateY(${idY.toFixed(2)}px) rotateX(${idX.toFixed(2)}deg) rotateY(${idYr.toFixed(2)}deg)`;
+                    }
+
+                    const mag = Math.sqrt(d.cRX * d.cRX + d.cRY * d.cRY);
+                    card.style.boxShadow = (d.isOver || mag > 0.1)
+                        ? `0 ${(18 + mag * 0.8).toFixed(0)}px ${(45 + mag * 1.5).toFixed(0)}px rgba(0,0,0,0.5), 0 0 20px rgba(247,215,78,0.06)`
+                        : '';
+
+                    const angle = Math.atan2(d.cRY, -d.cRX) * (180 / Math.PI);
+                    holo.style.opacity = (d.holoCur * 0.18).toFixed(3);
+                    holo.style.background = [
+                        `radial-gradient(ellipse 60% 50% at ${d.cHX.toFixed(1)}% ${d.cHY.toFixed(1)}%, rgba(255,255,255,0.14) 0%, transparent 65%)`,
+                        `linear-gradient(${(angle + 90).toFixed(1)}deg,
+                            hsla(0,60%,65%,0.16) 0%, hsla(55,60%,65%,0.16) 17%,
+                            hsla(110,60%,65%,0.16) 33%, hsla(180,60%,65%,0.16) 50%,
+                            hsla(240,60%,65%,0.16) 67%, hsla(300,60%,65%,0.16) 83%,
+                            hsla(360,60%,65%,0.16) 100%)`
+                    ].join(', ');
+                });
+            })(performance.now());
+        })();
+    </script>
+
+    <!-- ===== MARK TRANSITION LAYERS =====
+         All fixed, always in DOM so video buffers without interruption.
+         Stacked above page content but below close btn. -->
+    <div id="mark-vignette"></div>
+    <div id="mark-white"></div>
+    <video id="mark-video" src="assets/awesomesecret.mp4" playsinline preload="auto"></video>
+    <button id="mark-close">✕</button>
+
+    <!-- Loading badge that sits on Mark's card while video buffers -->
+    <div id="mark-loading">
+        <span class="mark-loading-ring"></span>
+        <span class="mark-loading-text">Loading…</span>
+    </div>
+
+    <script>
+        (function () {
+            const card = document.getElementById('mark-card');
+            const video = document.getElementById('mark-video');
+            const vignette = document.getElementById('mark-vignette');
+            const white = document.getElementById('mark-white');
+            const closeBtn = document.getElementById('mark-close');
+            const loadBadge = document.getElementById('mark-loading');
+
+            const CUE_IN = 4.58;
+            const CUE_OUT = 34.45;
+            const INTRO_DUR = CUE_IN;
+            const OUTRO_DUR = 1.5;
+
+            let introRaf = null;
+            let outroRaf = null;
+            let outroRunning = false;
+            let videoReady = false;
+            let isOpen = false;
+            let dissolveTimers = [];
+
+            function easeIn(t) { return t * t * t; }
+            function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+            /* ── Loading badge ── */
+            function positionLoader() {
+                const r = card.getBoundingClientRect();
+                loadBadge.style.left = (r.left + r.width / 2) + 'px';
+                loadBadge.style.top = (r.top + r.height / 2) + 'px';
+            }
+            window.addEventListener('load', function () {
+                positionLoader();
+                loadBadge.classList.add('visible');
+                if (video.readyState >= 4) { onReady(); }
+                else { video.addEventListener('canplaythrough', onReady, { once: true }); }
+            });
+            function onReady() { videoReady = true; loadBadge.classList.remove('visible'); }
+
+            /* ── Layer helpers ── */
+            function setLayers(vigOp, whiteOp, videoOp) {
+                vignette.style.opacity = vigOp.toFixed(4);
+                white.style.opacity = whiteOp.toFixed(4);
+                video.style.opacity = videoOp.toFixed(4);
+            }
+            function resetAll() {
+                setLayers(0, 0, 0);
+                video.style.pointerEvents = 'none';
+                closeBtn.style.opacity = '0';
+                closeBtn.style.pointerEvents = 'none';
+            }
+
+            /* ══════════════════════════════════════════════
+               SHATTER CANVAS  — lives inside the card
+            ══════════════════════════════════════════════ */
+            let crackCvs = null;
+
+            function buildCrackCvs() {
+                if (crackCvs) return;
+                crackCvs = document.createElement('canvas');
+                crackCvs.id = 'mark-crack-canvas';
+                // Position INSIDE the card, confined to its bounds
+                crackCvs.style.cssText = [
+                    'position:absolute',
+                    'inset:0',
+                    'z-index:20',
+                    'pointer-events:none',
+                    'opacity:0',
+                    'transition:opacity 0.12s ease-in',
+                    'border-radius:14px',
+                    'overflow:hidden'
+                ].join(';');
+                crackCvs.width = card.offsetWidth;
+                crackCvs.height = card.offsetHeight;
+                card.appendChild(crackCvs);
+            }
+
+            function clearCrackCvs() {
+                if (!crackCvs) return;
+                const ctx = crackCvs.getContext('2d');
+                ctx.clearRect(0, 0, crackCvs.width, crackCvs.height);
+                crackCvs.style.opacity = '0';
+            }
+
+            /* ── Seeded RNG so the shard layout is deterministic ── */
+            let _seed = 77;
+            function rnd() { _seed = (_seed * 9301 + 49297) % 233280; return _seed / 233280; }
+            function resetSeed() { _seed = 77; }
+
+            /* ── Build the glass-shard geometry (card-local coords) ── */
+            function buildShards(cx, cy, W, H) {
+                resetSeed();
+                const NUM = 14;          // primary fracture arms
+                const arms = [];
+
+                for (let i = 0; i < NUM; i++) {
+                    const baseAngle = (i / NUM) * Math.PI * 2 + (rnd() - 0.5) * 0.38;
+                    // Each arm reaches toward a card edge
+                    const reach = Math.min(W, H) * (0.45 + rnd() * 0.55);
+                    // Walk the arm in jagged segments to get the outer tip
+                    let x = cx, y = cy, a = baseAngle;
+                    const SEG = 10;
+                    for (let s = 0; s < SEG; s++) {
+                        a += (rnd() - 0.5) * 0.38;
+                        x += Math.cos(a) * reach / SEG;
+                        y += Math.sin(a) * reach / SEG;
+                    }
+                    arms.push({ angle: baseAngle, tipX: x, tipY: y, reach: reach });
+                }
+
+                // Shards = wedge between each pair of adjacent arms
+                const shards = [];
+                for (let i = 0; i < NUM; i++) {
+                    const a = arms[i];
+                    const b = arms[(i + 1) % NUM];
+
+                    // Mid-point offset for non-uniform inner wedge
+                    resetSeed(); // deliberately re-seed per shard for stable sub-random
+                    _seed = 77 + i * 31;
+                    const innerDist = 12 + rnd() * 20;
+                    const midAngle = (a.angle + b.angle) / 2 + (rnd() - 0.5) * 0.25;
+
+                    shards.push({
+                        pts: [
+                            { x: cx, y: cy },                          // center
+                            {
+                                x: cx + Math.cos(a.angle) * innerDist,
+                                y: cy + Math.sin(a.angle) * innerDist
+                            },  // near-left
+                            { x: a.tipX, y: a.tipY },                  // outer-left
+                            {
+                                x: cx + Math.cos(midAngle) * (a.reach + b.reach) * 0.38,
+                                y: cy + Math.sin(midAngle) * (a.reach + b.reach) * 0.38
+                            }, // mid-out
+                            { x: b.tipX, y: b.tipY },                  // outer-right
+                            {
+                                x: cx + Math.cos(b.angle) * innerDist,
+                                y: cy + Math.sin(b.angle) * innerDist
+                            },  // near-right
+                        ],
+                        // Each shard drifts in a unique direction when pieces fly apart
+                        driftAngle: (a.angle + b.angle) / 2,
+                        driftDist: 8 + (i % 3) * 5,
+                        // Unique glass tint per shard (icy blues & whites)
+                        hue: [200, 210, 195, 0][i % 4],
+                        sat: [45, 55, 35, 0][i % 4],
+                    });
+                }
+                resetSeed();
+                return shards;
+            }
+
+            let _shardCache = null;
+
+            function drawShatter(cx, cy, progress) {
+                const ctx = crackCvs.getContext('2d');
+                const W = crackCvs.width;
+                const H = crackCvs.height;
+                ctx.clearRect(0, 0, W, H);
+                crackCvs.style.opacity = '1';
+
+                if (!_shardCache) _shardCache = buildShards(cx, cy, W, H);
+                const shards = _shardCache;
+
+                // Phase 1 (0→0.5): cracks appear, glass fills in
+                // Phase 2 (0.5→1): shards drift apart
+                const crackP = Math.min(progress / 0.5, 1);
+                const driftP = Math.max(0, (progress - 0.5) / 0.5);
+
+                shards.forEach(function (sh, idx) {
+                    const drift = driftP * sh.driftDist;
+                    const dx = Math.cos(sh.driftAngle) * drift;
+                    const dy = Math.sin(sh.driftAngle) * drift;
+
+                    ctx.save();
+                    ctx.translate(dx, dy);
+
+                    // Clip each shard to its polygon
+                    ctx.beginPath();
+                    sh.pts.forEach(function (p, pi) {
+                        pi === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
+                    });
+                    ctx.closePath();
+                    ctx.clip();
+
+                    // Glass fill: luminous gradient
+                    const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(W, H) * 0.6);
+                    const baseAlpha = crackP * (0.18 + 0.10 * (idx % 3));
+                    grd.addColorStop(0, 'rgba(255,255,255,' + (baseAlpha * 1.8).toFixed(3) + ')');
+                    grd.addColorStop(0.3, 'hsla(' + sh.hue + ',' + sh.sat + '%,90%,' + (baseAlpha * 0.9).toFixed(3) + ')');
+                    grd.addColorStop(1, 'rgba(140,200,255,' + (baseAlpha * 0.3).toFixed(3) + ')');
+                    ctx.fillStyle = grd;
+                    ctx.beginPath();
+                    sh.pts.forEach(function (p, pi) {
+                        pi === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
+                    });
+                    ctx.closePath();
+                    ctx.fill();
+
+                    ctx.restore();
+
+                    // Fracture edge lines (drawn without clip so they show on top)
+                    ctx.save();
+                    ctx.translate(dx, dy);
+                    const lineAlpha = crackP * (0.65 + 0.25 * (idx % 2));
+                    ctx.strokeStyle = 'rgba(255,255,255,' + lineAlpha.toFixed(2) + ')';
+                    ctx.lineWidth = 0.8 + (idx % 3) * 0.4;
+                    ctx.shadowColor = 'rgba(180,230,255,0.9)';
+                    ctx.shadowBlur = 6;
+                    ctx.beginPath();
+                    sh.pts.forEach(function (p, pi) {
+                        pi === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
+                    });
+                    ctx.closePath();
+                    ctx.stroke();
+                    ctx.restore();
+                });
+
+                // Central impact flash
+                const flashR = (30 + 50 * crackP) * crackP;
+                const fgrd = ctx.createRadialGradient(cx, cy, 0, cx, cy, flashR);
+                fgrd.addColorStop(0, 'rgba(255,255,255,' + (0.9 * crackP).toFixed(2) + ')');
+                fgrd.addColorStop(0.3, 'rgba(180,230,255,' + (0.45 * crackP).toFixed(2) + ')');
+                fgrd.addColorStop(1, 'rgba(100,180,255,0)');
+                ctx.beginPath();
+                ctx.arc(cx, cy, flashR, 0, Math.PI * 2);
+                ctx.fillStyle = fgrd;
+                ctx.fill();
+            }
+
+            /* ── Draw a single glass-shard polygon at position ── */
+            function drawGlassShard(ctx, x, y, size, rotation, alpha) {
+                const sides = 3 + Math.floor(Math.random() * 3); // triangle to pentagon
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.rotate(rotation);
+                ctx.globalAlpha = alpha;
+
+                // Irregular polygon (each vertex offset a bit for shattered look)
+                ctx.beginPath();
+                for (let i = 0; i < sides; i++) {
+                    const a = (i / sides) * Math.PI * 2;
+                    const jitter = 0.55 + Math.random() * 0.9;
+                    const px = Math.cos(a) * size * jitter;
+                    const py = Math.sin(a) * size * (0.4 + Math.random() * 0.6);
+                    i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+                }
+                ctx.closePath();
+
+                // Glass fill — white-to-icy-blue gradient
+                const g = ctx.createLinearGradient(-size, -size, size, size);
+                g.addColorStop(0, 'rgba(255,255,255,0.85)');
+                g.addColorStop(0.4, 'rgba(180,230,255,0.6)');
+                g.addColorStop(1, 'rgba(100,190,255,0.25)');
+                ctx.fillStyle = g;
+                ctx.shadowColor = 'rgba(180,230,255,0.95)';
+                ctx.shadowBlur = 8;
+                ctx.fill();
+
+                // Crisp edge highlight
+                ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+                ctx.lineWidth = 0.8;
+                ctx.shadowBlur = 3;
+                ctx.stroke();
+
+                // Chromatic split on the edge
+                ctx.strokeStyle = 'rgba(0,210,255,0.4)';
+                ctx.lineWidth = 1.2;
+                ctx.shadowColor = 'rgba(0,210,255,0.6)';
+                ctx.stroke();
+
+                ctx.restore();
+            }
+
+            function spawnParticles(cx, cy) {
+                const ctx = crackCvs.getContext('2d');
+                const COUNT = 55;
+                const parts = [];
+
+                for (let i = 0; i < COUNT; i++) {
+                    const a = Math.random() * Math.PI * 2;
+                    const spd = 1.5 + Math.random() * 6.5;
+                    const life = 0.55 + Math.random() * 0.6;
+                    // Spread from center but bias toward card interior
+                    const startR = Math.random() * 30;
+                    parts.push({
+                        x: cx + Math.cos(a) * startR,
+                        y: cy + Math.sin(a) * startR,
+                        vx: Math.cos(a) * spd,
+                        vy: Math.sin(a) * spd - 1.2,  // slight upward bias
+                        size: 3 + Math.random() * 7,
+                        rotation: Math.random() * Math.PI * 2,
+                        rotSpd: (Math.random() - 0.5) * 0.18,
+                        life: life,
+                        maxLife: life,
+                    });
+                }
+
+                (function animPart() {
+                    ctx.clearRect(0, 0, crackCvs.width, crackCvs.height);
+                    drawShatter(cx, cy, 1);
+
+                    let anyAlive = false;
+                    parts.forEach(function (p) {
+                        p.life -= 0.018;
+                        if (p.life <= 0) return;
+                        anyAlive = true;
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        p.vy += 0.14;   // gravity
+                        p.vx *= 0.975;
+                        p.vy *= 0.975;
+                        p.rotation += p.rotSpd;
+
+                        const alpha = easeOut(p.life / p.maxLife);
+                        drawGlassShard(ctx, p.x, p.y, p.size, p.rotation, alpha);
+                    });
+
+                    if (anyAlive) {
+                        requestAnimationFrame(animPart);
+                    } else {
+                        crackCvs.style.transition = 'opacity 0.5s ease';
+                        crackCvs.style.opacity = '0';
+                        setTimeout(clearCrackCvs, 520);
+                    }
+                })();
+            }
+
+            /* ══════════════════════════════════════════════
+               DISSOLVE — every visible element on the page
+            ══════════════════════════════════════════════ */
+            function collectTargets() {
+                const out = [];
+                function add(el) { if (el && !out.includes(el)) out.push(el); }
+                add(document.getElementById('navbar'));
+                add(document.getElementById('sidebar'));
+                add(document.getElementById('sidebar-overlay'));
+                document.querySelectorAll('.page-content, .dashed_hr, .intro-section').forEach(function (el) { add(el); });
+                document.querySelectorAll('.profile-card:not(#mark-card)').forEach(function (el) { add(el); });
+                add(document.getElementById('site-footer'));
+                add(card); // Mark's card goes last
+                return out;
+            }
+
+            function startDissolve() {
+                collectTargets().forEach(function (el, i) {
+                    const t = setTimeout(function () { el.classList.add('mark-flash-card'); }, i * 72);
+                    dissolveTimers.push(t);
+                });
+            }
+
+            function clearDissolve() {
+                dissolveTimers.forEach(clearTimeout);
+                dissolveTimers = [];
+                document.querySelectorAll('.mark-flash-card').forEach(function (el) {
+                    el.classList.remove('mark-flash-card');
+                });
+            }
+
+            /* ══════════════════════════════════════════════
+               CLICK — Phase 1: crack, Phase 2: dissolve + video
+            ══════════════════════════════════════════════ */
+            card.addEventListener('click', function () {
+                if (isOpen || !videoReady) return;
+                isOpen = true;
+                outroRunning = false;
+                document.body.classList.add('mark-open');
+                cancelAnimationFrame(introRaf);
+                cancelAnimationFrame(outroRaf);
+                resetAll();
+                if (typeof window.ambientPause === 'function') window.ambientPause();
+
+                buildCrackCvs();
+                _shardCache = null;  // fresh shard layout each click
+                crackCvs.style.transition = '';
+                crackCvs.style.opacity = '1';
+
+                card.classList.add('mark-shaking');
+
+                const CRACK_DUR = 700;
+                // Coordinates are card-local (canvas origin = card top-left)
+                const cx = crackCvs.width / 2;
+                const cy = crackCvs.height / 2;
+                const crT0 = performance.now();
+
+                (function crackTick(now) {
+                    const p = Math.min((now - crT0) / CRACK_DUR, 1);
+                    drawShatter(cx, cy, p);
+                    if (p < 1) {
+                        requestAnimationFrame(crackTick);
+                    } else {
+                        spawnParticles(cx, cy);
+                        setTimeout(function () {
+                            card.classList.remove('mark-shaking');
+                            beginPhase2();
+                        }, 100);
+                    }
+                })(performance.now());
+            });
+
+            function beginPhase2() {
+                const grid = document.querySelector('.profile-cards-grid');
+                const navbar = document.getElementById('navbar');
+                if (grid) grid.classList.add('mark-zooming');
+                if (navbar) navbar.classList.add('mark-zooming');
+
+                startDissolve();
+
+                video.currentTime = 0;
+                video.play().catch(function () { });
+
+                const t0 = performance.now();
+                (function tick(now) {
+                    const rawT = Math.min((now - t0) / 1000 / INTRO_DUR, 1);
+                    vignette.style.opacity = easeIn(Math.min(rawT / 0.45, 1)).toFixed(4);
+                    white.style.opacity = easeIn(Math.max(0, Math.min((rawT - 0.75) / 0.25, 1))).toFixed(4);
+                    if (rawT < 1) {
+                        introRaf = requestAnimationFrame(tick);
+                    } else {
+                        // Guarantee exact cue-in sync regardless of buffering
+                        if (Math.abs(video.currentTime - CUE_IN) > 0.15) {
+                            video.currentTime = CUE_IN;
+                        }
+                        setLayers(0, 0, 1);
+                        video.style.pointerEvents = 'auto';
+                        closeBtn.style.opacity = '1';
+                        closeBtn.style.pointerEvents = 'auto';
+                        watchForOutro();
+                    }
+                })(performance.now());
+            }
+
+            function watchForOutro() {
+                (function check() {
+                    if (!isOpen) return;
+                    if (!outroRunning && video.currentTime >= CUE_OUT) { outroRunning = true; startOutro(); return; }
+                    requestAnimationFrame(check);
+                })();
+            }
+
+            function startOutro() {
+                video.style.opacity = '0'; video.style.pointerEvents = 'none';
+                closeBtn.style.opacity = '0'; closeBtn.style.pointerEvents = 'none';
+                const OUTRO_DUR = 0.9;
+                const t0 = performance.now();
+                (function tick(now) {
+                    const rawT = Math.min((now - t0) / 1000 / OUTRO_DUR, 1);
+                    // No white flash — just the vignette fading out
+                    white.style.opacity = '0';
+                    vignette.style.opacity = (1 - easeOut(rawT)).toFixed(4);
+                    if (rawT < 1) { outroRaf = requestAnimationFrame(tick); }
+                    else { beginReturnAnimation(); }
+                })(performance.now());
+            }
+
+            /* ── Zoom-in return: UI slides back in, atmosphere spawns ── */
+            function beginReturnAnimation() {
+                cancelAnimationFrame(introRaf); cancelAnimationFrame(outroRaf);
+                video.pause(); video.currentTime = 0;
+                resetAll();
+                isOpen = false; outroRunning = false;
+                document.body.classList.remove('mark-open');
+                card.classList.remove('mark-shaking');
+                clearCrackCvs();
+
+                const grid = document.querySelector('.profile-cards-grid');
+                const navbar = document.getElementById('navbar');
+
+                // Zoom grid + navbar back in with a spring-like overshoot
+                if (grid) { grid.classList.remove('mark-zooming'); grid.classList.add('mark-zooming-return'); }
+                if (navbar) { navbar.classList.remove('mark-zooming'); navbar.classList.add('mark-zooming-return'); }
+                setTimeout(function () {
+                    if (grid) grid.classList.remove('mark-zooming-return');
+                    if (navbar) navbar.classList.remove('mark-zooming-return');
+                }, 1400);
+
+                // Staggered element re-appearance
+                dissolveTimers.forEach(clearTimeout);
+                dissolveTimers = [];
+                collectTargets().reverse().forEach(function (el, i) {
+                    el.classList.remove('mark-flash-card');
+                    const t = setTimeout(function () {
+                        el.classList.add('mark-return');
+                        setTimeout(function () { el.classList.remove('mark-return'); }, 950);
+                    }, i * 55 + 100);
+                    dissolveTimers.push(t);
+                });
+
+                // Spawn the post-video atmosphere
+                startAtmosphere();
+                if (typeof window.ambientResume === 'function') window.ambientResume();
+            }
+
+            function closeOverlay() {
+                cancelAnimationFrame(introRaf); cancelAnimationFrame(outroRaf);
+                video.pause(); video.currentTime = 0;
+                resetAll();
+                isOpen = false; outroRunning = false;
+                document.body.classList.remove('mark-open');
+                card.classList.remove('mark-shaking');
+
+                const grid = document.querySelector('.profile-cards-grid');
+                const navbar = document.getElementById('navbar');
+                if (grid) { grid.classList.remove('mark-zooming'); grid.classList.remove('mark-zooming-return'); }
+                if (navbar) { navbar.classList.remove('mark-zooming'); navbar.classList.remove('mark-zooming-return'); }
+
+                dissolveTimers.forEach(clearTimeout);
+                dissolveTimers = [];
+                document.querySelectorAll('.mark-flash-card').forEach(function (el) { el.classList.remove('mark-flash-card'); });
+                clearCrackCvs();
+                if (typeof window.ambientResume === 'function') window.ambientResume();
+            }
+
+            /* ══════════════════════════════════════════════
+               POST-VIDEO ATMOSPHERE
+               Icy glass shards + light rays drifting
+               behind the UI (z-index 2, cards at z-index 3).
+            ══════════════════════════════════════════════ */
+            function startAtmosphere() {
+                if (document.getElementById('mark-atm-canvas')) return;
+                document.body.classList.add('mark-atmosphere');
+                window.atmosphereMode = true;
+
+                // Ensure the visualizer and credit strip are explicitly visible —
+                // the CSS specificity handles it but forcing here is the safest fix
+                const viz = document.getElementById('amb-visualizer');
+                const cred = document.getElementById('amb-credit');
+                if (viz) { viz.classList.add('visible'); viz.style.zIndex = '600'; }
+                if (cred) { cred.classList.add('visible'); cred.style.zIndex = '601'; }
+
+                const atm = document.createElement('canvas');
+                atm.id = 'mark-atm-canvas';
+                atm.width = window.innerWidth;
+                atm.height = window.innerHeight;
+                document.body.appendChild(atm);
+
+                window.addEventListener('resize', function () {
+                    atm.width = window.innerWidth;
+                    atm.height = window.innerHeight;
+                }, { passive: true });
+
+                function makeShard(W, H, randomY) {
+                    const sides = 3 + Math.floor(Math.random() * 3);
+                    const size = 8 + Math.random() * 30;
+                    const pts = [];
+                    for (let i = 0; i < sides; i++) {
+                        const a = (i / sides) * Math.PI * 2 + (Math.random() - 0.5) * 0.95;
+                        const r = size * (0.4 + Math.random() * 0.9);
+                        pts.push({ x: Math.cos(a) * r, y: Math.sin(a) * r });
+                    }
+                    return {
+                        x: Math.random() * W,
+                        y: randomY ? Math.random() * H : H + size * 2,
+                        vx: (Math.random() - 0.5) * 0.35,
+                        vy: -0.22 - Math.random() * 0.52,
+                        size: size,
+                        rot: Math.random() * Math.PI * 2,
+                        rotSpd: (Math.random() - 0.5) * 0.005,
+                        alpha: 0.04 + Math.random() * 0.17,
+                        phase: Math.random() * Math.PI * 2,
+                        pts: pts,
+                    };
+                }
+
+                const SHARD_COUNT = 50;
+                const shards = [];
+                for (let i = 0; i < SHARD_COUNT; i++) shards.push(makeShard(atm.width, atm.height, true));
+
+                const RAY_COUNT = 10;
+                const rays = [];
+                for (let i = 0; i < RAY_COUNT; i++) {
+                    rays.push({
+                        angle: -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 0.6,
+                        width: 15 + Math.random() * 58,
+                        alpha: 0.016 + Math.random() * 0.045,
+                        phase: Math.random() * Math.PI * 2,
+                        spd: 0.0016 + Math.random() * 0.003,
+                    });
+                }
+
+                let tc = 0;
+                let _cardRect = card.getBoundingClientRect();
+                let _rectFrame = 0;
+                (function draw() {
+                    const W = atm.width;
+                    const H = atm.height;
+                    const ctx = atm.getContext('2d');
+                    ctx.clearRect(0, 0, W, H);
+                    tc += 0.016;
+                    _rectFrame++;
+
+                    // Re-read card position every 6 frames (~10/s) — avoids
+                    // forced layout reflow on every single rAF tick
+                    if (_rectFrame % 6 === 0) _cardRect = card.getBoundingClientRect();
+
+                    // God rays originate from Mark's card — track it every frame
+                    // so they follow both scroll and any layout shifts
+                    const cx = _cardRect.left + _cardRect.width / 2;
+                    const cy = _cardRect.top + _cardRect.height * 0.22;
+                    const rLen = Math.sqrt(W * W + H * H);
+
+                    // Light rays (god rays) — fan out from the card
+                    rays.forEach(function (ray) {
+                        const pulse = ray.alpha * (0.5 + 0.5 * Math.sin(tc * ray.spd * 60 + ray.phase));
+                        ctx.save();
+                        ctx.translate(cx, cy);
+                        ctx.rotate(ray.angle + Math.sin(tc * ray.spd * 30 + ray.phase) * 0.065);
+                        const grd = ctx.createLinearGradient(0, 0, 0, rLen);
+                        grd.addColorStop(0, 'rgba(215,235,255,' + (pulse * 2.5).toFixed(3) + ')');
+                        grd.addColorStop(0.2, 'rgba(185,220,255,' + (pulse * 1.1).toFixed(3) + ')');
+                        grd.addColorStop(0.65, 'rgba(140,195,255,' + (pulse * 0.3).toFixed(3) + ')');
+                        grd.addColorStop(1, 'rgba(100,165,255,0)');
+                        ctx.fillStyle = grd;
+                        ctx.beginPath();
+                        ctx.moveTo(-ray.width / 2, 0);
+                        ctx.lineTo(ray.width / 2, 0);
+                        ctx.lineTo(ray.width * 1.9, rLen);
+                        ctx.lineTo(-ray.width * 1.9, rLen);
+                        ctx.closePath();
+                        ctx.fill();
+                        ctx.restore();
+                    });
+
+                    // Central bloom anchored to the card
+                    const bloom = ctx.createRadialGradient(cx, cy, 0, cx, cy, H * 0.52);
+                    const bp = 0.038 + 0.02 * Math.sin(tc * 0.38);
+                    bloom.addColorStop(0, 'rgba(225,240,255,' + bp.toFixed(3) + ')');
+                    bloom.addColorStop(0.4, 'rgba(165,205,255,' + (bp * 0.4).toFixed(3) + ')');
+                    bloom.addColorStop(1, 'rgba(80,140,255,0)');
+                    ctx.fillStyle = bloom;
+                    ctx.fillRect(0, 0, W, H);
+
+                    // Glass shards
+                    shards.forEach(function (s) {
+                        s.x += s.vx;
+                        s.y += s.vy;
+                        s.rot += s.rotSpd;
+                        if (s.y < -s.size * 3) { const f = makeShard(W, H, false); Object.assign(s, f); }
+
+                        const flicker = s.alpha * (0.62 + 0.38 * Math.sin(tc * 0.75 + s.phase));
+                        ctx.save();
+                        ctx.translate(s.x, s.y);
+                        ctx.rotate(s.rot);
+                        ctx.globalAlpha = flicker;
+                        ctx.beginPath();
+                        s.pts.forEach(function (p, pi) { pi === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y); });
+                        ctx.closePath();
+                        const g = ctx.createLinearGradient(-s.size, -s.size, s.size, s.size);
+                        g.addColorStop(0, 'rgba(255,255,255,0.93)');
+                        g.addColorStop(0.4, 'rgba(195,228,255,0.68)');
+                        g.addColorStop(1, 'rgba(120,188,255,0.18)');
+                        ctx.fillStyle = g;
+                        ctx.shadowColor = 'rgba(185,225,255,0.85)';
+                        ctx.shadowBlur = 8;
+                        ctx.fill();
+                        ctx.strokeStyle = 'rgba(215,238,255,0.8)';
+                        ctx.lineWidth = 0.55;
+                        ctx.shadowBlur = 2;
+                        ctx.stroke();
+                        ctx.restore();
+                    });
+
+                    requestAnimationFrame(draw);
+                })();
+            }
+
+            closeBtn.addEventListener('click', function (e) { e.stopPropagation(); closeOverlay(); });
+            document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && isOpen) closeOverlay(); });
+        })();
+    </script>
 </body>
 
 </html>

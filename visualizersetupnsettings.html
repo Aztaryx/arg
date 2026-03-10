@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>VSNS — Visualizer Setup & Settings</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="vsns.css">
+</head>
+
+<body class="vsns-body">
+
+    <!-- ═══════════════════════════════════════════
+         HEADER
+    ═══════════════════════════════════════════ -->
+    <header class="vsns-header">
+        <div class="vsns-header-left">
+            <span class="vsns-logo">VSNS</span>
+            <span class="vsns-subtitle">Visualizer Setup &amp; Settings</span>
+        </div>
+        <div class="vsns-header-right">
+            <span class="vsns-status" id="vsns-status">NO TRACK LOADED</span>
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════
+         AUDIO PLAYER BAR
+    ═══════════════════════════════════════════ -->
+    <div class="vsns-player" id="vsns-player">
+        <div class="player-transport">
+            <button class="player-btn" id="player-rewind" title="Rewind to start"><span>⏮</span></button>
+            <button class="player-btn player-btn-main" id="player-playpause" title="Play / Pause"
+                disabled><span>▶</span></button>
+        </div>
+        <div class="player-track-info">
+            <span class="player-track-name" id="player-track-name">No file loaded</span>
+            <span class="player-source-badge" id="player-source-badge">SIM</span>
+        </div>
+        <div class="player-seek-wrap">
+            <span class="player-time" id="player-time-cur">0:00.000</span>
+            <input class="player-seek" type="range" id="player-seek" min="0" max="1000" step="1" value="0" disabled>
+            <span class="player-time" id="player-time-dur">0:00.000</span>
+        </div>
+        <div class="player-vol-wrap">
+            <span class="player-vol-icon">🔊</span>
+            <input class="vsns-range player-vol" type="range" id="player-vol" min="0" max="1" step="0.02" value="0.8">
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         MAIN LAYOUT
+    ═══════════════════════════════════════════ -->
+    <div class="vsns-layout">
+
+        <!-- ── LEFT: TRACK SELECTOR ───────────────── -->
+        <aside class="vsns-sidebar">
+            <div class="vsns-panel-label">PLAYLIST</div>
+            <div class="vsns-track-list" id="vsns-track-list">
+                <!-- Injected by JS -->
+            </div>
+
+            <div class="vsns-panel-label" style="margin-top:18px;">LOAD AUDIO</div>
+            <label class="vsns-file-btn" for="vsns-file-input">
+                <span>Choose Audio File</span>
+                <input type="file" id="vsns-file-input" accept="audio/*">
+            </label>
+            <div class="vsns-file-name" id="vsns-file-name">No file selected</div>
+
+            <div class="vsns-panel-label" style="margin-top:18px;">EXPORT</div>
+            <button class="vsns-btn" id="vsns-export-btn"><span>Export Config JSON</span></button>
+            <button class="vsns-btn vsns-btn-dim" id="vsns-import-btn"><span>Import Config JSON</span></button>
+            <input type="file" id="vsns-import-input" accept=".json" style="display:none">
+        </aside>
+
+        <!-- ── CENTER: TOOLS ─────────────────────── -->
+        <main class="vsns-main">
+
+            <!-- ── TABS ── -->
+            <div class="vsns-tabs" role="tablist">
+                <button class="vsns-tab active" data-tab="bpm" role="tab"><span>BPM &amp; METRO</span></button>
+                <button class="vsns-tab" data-tab="lap" role="tab"><span>LAP TIMER</span></button>
+                <button class="vsns-tab" data-tab="freq" role="tab"><span>FREQ BANDS</span></button>
+                <button class="vsns-tab" data-tab="notes" role="tab"><span>NOTES</span></button>
+            </div>
+
+            <!-- ══ TAB: BPM & METRONOME ══ -->
+            <div class="vsns-tabpanel active" id="tab-bpm">
+                <div class="vsns-section-title">BPM COUNTER &amp; METRONOME</div>
+
+                <div class="bpm-display-row">
+                    <div class="bpm-big" id="bpm-display">--</div>
+                    <div class="bpm-unit">BPM</div>
+                </div>
+
+                <div class="bpm-controls">
+                    <button class="vsns-btn vsns-btn-tap" id="bpm-tap-btn"><span>TAP</span></button>
+                    <button class="vsns-btn vsns-btn-dim" id="bpm-reset-btn"><span>RESET</span></button>
+                </div>
+
+                <div class="bpm-tap-hint">Tap repeatedly to the beat. Averages after 2+ taps.</div>
+                <div class="bpm-tap-count" id="bpm-tap-count">Taps: 0</div>
+
+                <div class="vsns-divider"></div>
+
+                <div class="vsns-section-title">METRONOME</div>
+
+                <div class="metro-controls">
+                    <div class="metro-field">
+                        <label class="vsns-label">BPM</label>
+                        <input class="vsns-input" type="number" id="metro-bpm-input" value="120" min="20" max="300">
+                    </div>
+                    <div class="metro-field">
+                        <label class="vsns-label">TIME SIG</label>
+                        <select class="vsns-select" id="metro-timesig">
+                            <option value="4">4 / 4</option>
+                            <option value="3">3 / 4</option>
+                            <option value="2">2 / 4</option>
+                            <option value="6">6 / 8</option>
+                            <option value="5">5 / 4</option>
+                            <option value="7">7 / 8</option>
+                        </select>
+                    </div>
+                    <div class="metro-field">
+                        <label class="vsns-label">VOLUME</label>
+                        <input class="vsns-range" type="range" id="metro-vol" min="0" max="1" step="0.05" value="0.6">
+                    </div>
+                </div>
+
+                <div class="metro-beat-row" id="metro-beat-row">
+                    <!-- Injected by JS -->
+                </div>
+
+                <div class="metro-btn-row">
+                    <button class="vsns-btn" id="metro-start-btn"><span>START METRONOME</span></button>
+                    <button class="vsns-btn vsns-btn-dim" id="metro-sync-btn"><span>SYNC FROM TAP</span></button>
+                </div>
+            </div>
+
+            <!-- ══ TAB: LAP TIMER ══ -->
+            <div class="vsns-tabpanel" id="tab-lap">
+                <div class="vsns-section-title">LAP TIMER — EFFECT TIMESTAMPS</div>
+                <div class="lap-sync-note" id="lap-sync-note">⚡ Audio loaded — timer is synced to playback position.
+                </div>
+
+                <div class="lap-display-row">
+                    <div class="lap-clock" id="lap-clock">0:00.000</div>
+                    <div class="lap-clock-sub" id="lap-clock-sub">mm:ss.msec</div>
+                </div>
+
+                <div class="lap-controls">
+                    <button class="vsns-btn" id="lap-start-btn"><span>START</span></button>
+                    <button class="vsns-btn vsns-btn-accent" id="lap-mark-btn" disabled><span>MARK</span></button>
+                    <button class="vsns-btn vsns-btn-dim" id="lap-reset-btn"><span>RESET</span></button>
+                </div>
+
+                <div class="lap-mark-label-row">
+                    <input class="vsns-input lap-label-input" id="lap-mark-label" type="text"
+                        placeholder="Label for next mark (e.g. bass drop, flash, pulse)">
+                </div>
+
+                <div class="vsns-divider"></div>
+
+                <div class="lap-list-header">
+                    <span>MARKS</span>
+                    <button class="vsns-btn-small" id="lap-clear-btn"><span>CLEAR ALL</span></button>
+                </div>
+                <div class="lap-list" id="lap-list">
+                    <div class="lap-empty">No marks yet. Start the timer and press MARK.</div>
+                </div>
+            </div>
+
+            <!-- ══ TAB: FREQUENCY BANDS ══ -->
+            <div class="vsns-tabpanel" id="tab-freq">
+                <div class="vsns-section-title">FREQUENCY BAND MAPPER</div>
+                <div class="freq-desc">
+                    Define which frequency ranges react to which instruments.
+                    Drag the handles to set each band's boundaries.
+                    These values will be exported with your config.
+                </div>
+
+                <canvas class="freq-canvas" id="freq-canvas" height="120"></canvas>
+
+                <div class="freq-band-list" id="freq-band-list">
+                    <!-- Injected by JS -->
+                </div>
+
+                <div class="freq-add-row">
+                    <input class="vsns-input" type="text" id="freq-new-name" placeholder="Instrument name">
+                    <input class="vsns-input freq-color-input" type="color" id="freq-new-color" value="#f7e84e">
+                    <button class="vsns-btn" id="freq-add-btn"><span>ADD BAND</span></button>
+                </div>
+            </div>
+
+            <!-- ══ TAB: NOTES ══ -->
+            <div class="vsns-tabpanel" id="tab-notes">
+                <div class="vsns-section-title">TRACK NOTES</div>
+                <div class="notes-track-label" id="notes-track-label">No track selected.</div>
+                <textarea class="vsns-textarea" id="notes-textarea"
+                    placeholder="Write notes about this track's effects, structure, cues, etc."></textarea>
+                <button class="vsns-btn" id="notes-save-btn"><span>SAVE NOTES</span></button>
+                <div class="notes-saved-msg" id="notes-saved-msg"></div>
+            </div>
+
+        </main>
+
+        <!-- ── RIGHT: VISUALIZER PREVIEW ──────────── -->
+        <aside class="vsns-vis-panel">
+            <div class="vsns-panel-label">VISUALIZER PREVIEW</div>
+
+            <canvas class="vsns-vis-canvas" id="vsns-vis-canvas"></canvas>
+
+            <div class="vsns-panel-label" style="margin-top:12px;">MODE</div>
+            <div class="vis-mode-btns" id="vis-mode-btns">
+                <button class="vis-mode-btn active" data-mode="bottom"><span>▼ BOTTOM</span></button>
+                <button class="vis-mode-btn" data-mode="top"><span>▲ TOP</span></button>
+                <button class="vis-mode-btn" data-mode="sides"><span>◀▶ SIDES</span></button>
+                <button class="vis-mode-btn" data-mode="circle"><span>◎ CIRCLE</span></button>
+                <button class="vis-mode-btn" data-mode="rotate"><span>↻ ROTATE</span></button>
+                <button class="vis-mode-btn" data-mode="scroll"><span>⇌ SCROLL</span></button>
+                <button class="vis-mode-btn" data-mode="mirror"><span>⇅ MIRROR</span></button>
+            </div>
+
+            <div class="vsns-panel-label" style="margin-top:12px;">SIM SIGNAL <span class="panel-label-note"
+                    id="sim-signal-note">(active — no audio loaded)</span></div>
+            <div class="vis-sim-row">
+                <label class="vsns-label">TYPE</label>
+                <select class="vsns-select vis-sim-select" id="vis-sim-type">
+                    <option value="noise">White Noise</option>
+                    <option value="bass">Bass Heavy</option>
+                    <option value="mid">Mid Range</option>
+                    <option value="high">High Freq</option>
+                    <option value="sweep" selected>Sweep</option>
+                    <option value="pulse">Pulse</option>
+                </select>
+            </div>
+            <div class="vis-sim-row">
+                <label class="vsns-label">INTENSITY</label>
+                <input class="vsns-range" type="range" id="vis-intensity" min="0.1" max="1" step="0.05" value="0.7">
+            </div>
+
+            <div class="vsns-panel-label" style="margin-top:12px;">COLOR</div>
+            <div class="vis-sim-row">
+                <label class="vsns-label">BAR COLOR</label>
+                <input class="vsns-range-color" type="color" id="vis-color" value="#f7e84e">
+            </div>
+            <div class="vis-sim-row">
+                <label class="vsns-label">PEAK COLOR</label>
+                <input class="vsns-range-color" type="color" id="vis-peak-color" value="#ffffff">
+            </div>
+        </aside>
+
+    </div><!-- end .vsns-layout -->
+
+    <script src="vsns.js"></script>
+</body>
+
+</html>

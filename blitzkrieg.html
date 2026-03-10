@@ -7,21 +7,127 @@
     <script src="questions.js" defer></script>
     <script src="blitzkrieg.js" defer></script>
     <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="quiz.css">
-    <style>body { margin-top: 80px; }</style>
+    <link rel="stylesheet" href="blitzkrieg.css">
 </head>
 
 <body class="mode-blitzkrieg">
+    <!-- ===== WIP OVERLAY ===== -->
+    <div class="wip-overlay">
+        <div class="wip-box">
+            <div class="wip-icon">🚧</div>
+            <span class="wip-badge">Work in Progress</span>
+            <h2>⚡ Blitzkrieg</h2>
+            <p>This mode is still being worked on. Check back later.</p>
+            <p style="font-size:0.82rem; color:#3d5080;">This section will be available once it's ready.</p>
+            <a href="home.html" class="wip-back-btn"><span>← Back to Home</span></a>
+        </div>
+    </div>
+
+
+    <!-- ===== SOLIDIFY FILTER (fills Rubik Maze hollow paths) ===== -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none;" aria-hidden="true">
+        <defs>
+            <!--
+                Morphological closing: dilate (expand) then erode (contract) by the same radius.
+                This floods any hole smaller than the radius, turning the maze pattern solid.
+                Radius ~4 works well for 1.5–4rem; bump to 6 for very large display text.
+            -->
+            <!--
+                Morphological closing: dilate then erode by the same radius fills any internal
+                hole smaller than the radius. No feBlend needed — just output solid directly.
+                Radius 2 for small/tight text (avoids adjacent chars merging).
+                Radius 5 for large display text where characters are well spaced.
+            -->
+            <filter id="bk-solidify" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+                <feMorphology operator="dilate" radius="2" in="SourceGraphic" result="dilated" />
+                <feMorphology operator="erode" radius="2" in="dilated" result="solid" />
+            </filter>
+            <!-- Larger radius variant for big display sizes (finale num, results score) -->
+            <filter id="bk-solidify-lg" x="-2%" y="-2%" width="104%" height="104%" color-interpolation-filters="sRGB">
+                <feMorphology operator="dilate" radius="5" in="SourceGraphic" result="dilated" />
+                <feMorphology operator="erode" radius="5" in="dilated" result="solid" />
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- ===== PARTICLE CANVAS ===== -->
+    <canvas id="bk-particles" class="bk-particles"></canvas>
+
+    <!-- ===== VISUALIZER CANVAS (full-screen: bottom bars, top bars, circular) ===== -->
+    <canvas id="bk-vis-canvas" class="bk-vis-canvas"></canvas>
+
+    <!-- ===== SCROLLING BANNERS ===== -->
+    <div class="bk-banner bk-banner-top" aria-hidden="true">
+        <div class="bk-banner-track" id="bk-banner-top-track">
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+        </div>
+    </div>
+
+    <div class="bk-banner bk-banner-bottom" aria-hidden="true">
+        <div class="bk-banner-track" id="bk-banner-bot-track">
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+            <span class="bk-banner-item">// BLITZKRIEG //</span><span class="bk-banner-item dim">·</span>
+        </div>
+    </div>
+
+    <!-- ===== CORNER TIMER (bottom-left) ===== -->
+    <div id="bk-corner-timer" class="bk-corner-timer">
+        <span id="bk-time-main">2:30</span><span class="bk-ms" id="bk-time-ms">.000</span>
+    </div>
+
+    <!-- ===== FINALE COUNTDOWN ===== -->
+    <div id="bk-finale-overlay" class="bk-finale-overlay hidden">
+        <span id="bk-finale-num"></span>
+    </div>
 
     <!-- ===== SIDEBAR ===== -->
     <div id="sidebar" role="navigation" aria-label="Sidebar navigation">
-        <div class="sidebar-label">Navigation</div>
+        <div class="sidebar-label">Game Modes</div>
         <nav class="sidebar-nav">
             <a href="home.html"><span>🏠 Home</span></a>
-            <a href="quizhomepage.html"><span>🎮 Game Modes</span></a>
             <hr class="sidebar-divider">
-            <div class="sidebar-label" style="margin-top:4px;">Game Area</div>
-            <button class="sidebar-game-btn" id="sidebar-play-btn"><span>▶ Play Now</span></button>
+            <a href="blitzkrieg.html"><span>⚡ Blitzkrieg</span></a>
+            <a href="paranoia.html"><span>👁️ Paranoia</span></a>
+            <a href="suddendeath.html"><span>💀 Sudden Death</span></a>
+            <a href="overload.html"><span>🌊 Overload</span></a>
+            <a href="blackout.html"><span>🕶️ Blackout</span></a>
         </nav>
         <div class="sidebar-footer-blurb">Quiz Game<br>Select your mode and begin.</div>
     </div>
@@ -34,7 +140,16 @@
         </div>
         <ul id="nav-links">
             <li><a href="home.html"><span>Home</span></a></li>
-            <li><a href="quizhomepage.html"><span>Game Modes</span></a></li>
+            <li id="dropdown">
+                <a href="javascript:void(0)" class="dropbtn"><span>Modes &#9662;</span></a>
+                <div class="dropdown-content">
+                    <a href="blitzkrieg.html"><span>⚡ Blitzkrieg</span></a>
+                    <a href="paranoia.html"><span>👁️ Paranoia</span></a>
+                    <a href="suddendeath.html"><span>💀 Sudden Death</span></a>
+                    <a href="overload.html"><span>🌊 Overload</span></a>
+                    <a href="blackout.html"><span>🕶️ Blackout</span></a>
+                </div>
+            </li>
         </ul>
         <button id="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
             <span class="hamburger-line"></span>
@@ -52,42 +167,39 @@
 
     <div class="intro-section">
         <p>
-            A race to the timer! With a collection of <strong>four different songs</strong>, answer as many questions
-            as possible in <strong>2 minutes and 30 seconds</strong>. Keep the streak alive — every second counts.
-            <em>(More songs to be added.)</em>
+            A race to the timer! With a collection of <strong>six different songs</strong>, answer as many questions
+            as possible in <strong>2 minutes and 30 seconds</strong>. Answer fast — speed feeds your score.
+            Keep the streak alive for a multiplier.
         </p>
     </div>
 
     <!-- ===== GAME AREA ===== -->
-    <div class="bk-game-area">
+    <div class="bk-game-area" id="bk-game-area">
 
-        <div class="bk-hud">
-            <div class="bk-hud-block">
-                <span class="bk-hud-label">Score</span>
-                <span class="bk-hud-value" id="bk-score">0</span>
-            </div>
-            <div class="bk-timer-wrap">
-                <svg class="bk-ring" viewBox="0 0 120 120">
-                    <circle class="bk-ring-bg" cx="60" cy="60" r="52"/>
-                    <circle class="bk-ring-arc" cx="60" cy="60" r="52" id="bk-ring-arc"/>
-                </svg>
-                <div class="bk-timer-center">
-                    <span id="bk-time">2:30</span>
+        <div class="bk-hud" id="bk-hud">
+            <div class="bk-hud-left">
+                <div class="bk-stat-block">
+                    <span class="bk-stat-label">SCORE</span>
+                    <span class="bk-stat-val" id="bk-score">0</span>
+                </div>
+                <div class="bk-stat-block">
+                    <span class="bk-stat-label">MULTIPLIER</span>
+                    <span class="bk-stat-val bk-mult-val" id="bk-mult">×1.0</span>
                 </div>
             </div>
-            <div class="bk-hud-block">
-                <span class="bk-hud-label">Streak</span>
-                <span class="bk-hud-value" id="bk-streak">0 🔥</span>
+            <div class="bk-hud-right">
+                <div class="bk-now-playing">
+                    <span class="bk-np-dot"></span>
+                    <span id="bk-song">—</span>
+                </div>
             </div>
-        </div>
-
-        <div class="bk-now-playing">
-            <span class="bk-np-pip"></span>
-            <span id="bk-song">♪ &nbsp;Now Playing: —</span>
         </div>
 
         <div class="bk-card" id="bk-card">
-            <div class="bk-card-tag" id="bk-q-num">Q1</div>
+            <div class="bk-card-header">
+                <span class="bk-q-num" id="bk-q-num">Q1</span>
+                <span class="bk-streak-bar" id="bk-streak-bar"></span>
+            </div>
             <p class="bk-question" id="bk-question">[ Waiting to start... ]</p>
             <div class="bk-answers" id="bk-answers">
                 <button class="bk-ans" disabled><span>—</span></button>
@@ -104,8 +216,31 @@
         <div class="bk-overlay-box">
             <div class="bk-mode-tag">BLITZKRIEG</div>
             <h2>Race the Clock.</h2>
-            <p>Four tracks. Two and a half minutes.<br>Answer as many as you can before time runs out.</p>
+            <p>
+                Six tracks. Two and a half minutes.<br>
+                Answer fast — speed builds your score.<br>
+                Keep the streak alive for a multiplier.
+            </p>
             <button class="bk-start-btn" id="bk-start-btn"><span>START</span></button>
+        </div>
+    </div>
+
+    <!-- ===== RESULTS OVERLAY ===== -->
+    <div class="bk-overlay bk-results-overlay" id="bk-results" style="display:none;">
+        <div class="bk-results-box">
+            <div class="bk-mode-tag">TIME'S UP</div>
+            <div class="bk-res-score-wrap">
+                <span class="bk-res-score-label">FINAL SCORE</span>
+                <span class="bk-res-score-val" id="bk-res-score">0</span>
+            </div>
+            <!-- Score grade meter (populated by JS) -->
+            <div class="bk-style-meter" id="bk-res-meter"></div>
+            <!-- Stats (populated by JS) -->
+            <div class="bk-res-stats" id="bk-res-stats"></div>
+            <div class="bk-res-actions">
+                <button class="bk-start-btn" id="bk-retry-btn"><span>RETRY</span></button>
+                <a href="quizhomepage.html" class="bk-ghost-btn"><span>MODES</span></a>
+            </div>
         </div>
     </div>
 
@@ -119,7 +254,6 @@
             <div class="footer-divider-vertical"></div>
             <div class="footer-links">
                 <a href="home.html">Home</a>
-                <a href="quizhomepage.html">Game Modes</a>
                 <a href="blitzkrieg.html">Blitzkrieg</a>
                 <a href="paranoia.html">Paranoia</a>
                 <a href="suddendeath.html">Sudden Death</a>
@@ -134,4 +268,5 @@
     </footer>
 
 </body>
+
 </html>

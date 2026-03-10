@@ -1,0 +1,1138 @@
+/* ============================================================
+   VSNS.CSS — Visualizer Setup & Settings
+   Dark DAW-style tool. Matches blitzkrieg's color language.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+/* ── Variables ──────────────────────────────────────────────── */
+:root {
+    --bg: #080807;
+    --bg2: #0e0e0c;
+    --bg3: #141410;
+    --panel: #111110;
+    --border: #2a2a24;
+    --border2: #3a3a30;
+    --yellow: #f7e84e;
+    --yellow-dim: #a89e22;
+    --yellow-dk: #3a3600;
+    --text: #c8c090;
+    --text-dim: #666050;
+    --text-bright: #f0e8a0;
+    --accent: #e87d2a;
+    --danger: #e84e4e;
+    --mono: 'Share Tech Mono', 'Courier New', monospace;
+    --sans: 'Montserrat', sans-serif;
+}
+
+/* ── Reset / Base ───────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body.vsns-body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* ── Header ─────────────────────────────────────────────────── */
+.vsns-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 48px;
+    background: var(--bg2);
+    border-bottom: 2px solid var(--yellow);
+    flex-shrink: 0;
+}
+
+.vsns-logo {
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    color: var(--yellow);
+    letter-spacing: 0.2em;
+    margin-right: 12px;
+}
+
+.vsns-subtitle {
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.vsns-status {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    letter-spacing: 0.12em;
+}
+
+.vsns-status.loaded {
+    color: var(--yellow);
+}
+
+/* ── Audio Player Bar ───────────────────────────────────────── */
+.vsns-player {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 0 16px;
+    height: 52px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border2);
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+
+.player-transport {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.player-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transform: none;
+    margin-top: 0;
+    padding: 0;
+    width: auto;
+    padding: 4px 10px;
+    transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+
+.player-btn span {
+    transform: none;
+}
+
+.player-btn:hover {
+    color: var(--text-bright);
+    border-color: var(--text-dim);
+}
+
+.player-btn:disabled {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.player-btn-main {
+    background: var(--yellow-dk);
+    border-color: var(--yellow-dim);
+    color: var(--yellow);
+    font-size: 1rem;
+    padding: 4px 14px;
+}
+
+.player-btn-main:hover {
+    background: var(--yellow);
+    color: #000;
+    border-color: var(--yellow);
+}
+
+.player-btn-main.playing {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: #2a1000;
+}
+
+.player-btn-main.playing:hover {
+    background: var(--accent);
+    color: #000;
+    border-color: var(--accent);
+}
+
+.player-track-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    min-width: 130px;
+    max-width: 180px;
+    overflow: hidden;
+}
+
+.player-track-name {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.player-source-badge {
+    font-family: var(--mono);
+    font-size: 0.55rem;
+    padding: 2px 5px;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+}
+
+.player-source-badge.live {
+    border-color: var(--yellow-dim);
+    color: var(--yellow);
+    background: var(--yellow-dk);
+}
+
+.player-seek-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+}
+
+.player-time {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.player-seek {
+    -webkit-appearance: none;
+    appearance: none;
+    flex: 1;
+    height: 4px;
+    background: var(--border2);
+    outline: none;
+    cursor: pointer;
+    border-radius: 0;
+    min-width: 0;
+}
+
+.player-seek:disabled {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.player-seek::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background: var(--yellow);
+    cursor: pointer;
+    border-radius: 0;
+}
+
+.player-seek::-webkit-slider-runnable-track {
+    height: 4px;
+    background: linear-gradient(to right, var(--yellow-dim) var(--seek-pct, 0%), var(--border2) var(--seek-pct, 0%));
+}
+
+.player-vol-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.player-vol-icon {
+    font-size: 0.7rem;
+}
+
+.player-vol {
+    width: 70px;
+}
+
+/* ── Lap timer sync note ──────────────────────────────────────── */
+.lap-sync-note {
+    display: none;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--yellow);
+    background: var(--yellow-dk);
+    border: 1px solid var(--yellow-dim);
+    padding: 5px 10px;
+    margin-bottom: 12px;
+    letter-spacing: 0.06em;
+}
+
+.lap-sync-note.visible {
+    display: block;
+}
+
+/* ── Panel label note ──────────────────────────────────────────── */
+.panel-label-note {
+    font-size: 0.55rem;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+    font-style: italic;
+    text-transform: none;
+}
+
+.panel-label-note.audio-live {
+    color: var(--yellow-dim);
+    font-style: normal;
+}
+
+
+.vsns-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr 260px;
+    flex: 1;
+    min-height: 0;
+    height: calc(100vh - 100px);
+    /* 48px header + 52px player */
+    overflow: hidden;
+}
+
+/* ── Sidebar ────────────────────────────────────────────────── */
+.vsns-sidebar {
+    background: var(--panel);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 14px 12px;
+    gap: 6px;
+    overflow-y: auto;
+}
+
+.vsns-panel-label {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    color: var(--text-dim);
+    padding: 4px 0 2px 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+    margin-top: 4px;
+}
+
+/* ── Track List ─────────────────────────────────────────────── */
+.vsns-track-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.vsns-track-item {
+    display: flex;
+    flex-direction: column;
+    padding: 7px 10px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.vsns-track-item:hover {
+    background: var(--yellow-dk);
+    border-color: var(--yellow-dim);
+}
+
+.vsns-track-item.active {
+    background: var(--yellow-dk);
+    border-color: var(--yellow);
+}
+
+.vsns-track-item.active .track-title {
+    color: var(--yellow);
+}
+
+.track-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-bright);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.track-artist {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    margin-top: 1px;
+}
+
+/* ── File / Buttons ─────────────────────────────────────────── */
+.vsns-file-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 10px;
+    background: var(--bg3);
+    border: 1px dashed var(--border2);
+    cursor: pointer;
+    font-size: 0.7rem;
+    font-family: var(--sans);
+    color: var(--text);
+    text-align: center;
+    transition: border-color 0.15s, color 0.15s;
+}
+
+.vsns-file-btn:hover {
+    border-color: var(--yellow);
+    color: var(--yellow);
+}
+
+.vsns-file-btn input {
+    display: none;
+}
+
+.vsns-file-name {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    color: var(--text-dim);
+    word-break: break-all;
+    padding: 2px 2px;
+}
+
+.vsns-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 14px;
+    background: var(--yellow-dk);
+    border: 1px solid var(--yellow-dim);
+    color: var(--yellow);
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transform: skewX(-10deg);
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+    width: 100%;
+    margin-top: 4px;
+}
+
+.vsns-btn span {
+    display: inline-block;
+    transform: skewX(10deg);
+}
+
+.vsns-btn:hover {
+    background: var(--yellow);
+    color: #000;
+    border-color: var(--yellow);
+}
+
+.vsns-btn:active {
+    filter: brightness(0.85);
+}
+
+.vsns-btn-dim {
+    background: var(--bg3);
+    border-color: var(--border2);
+    color: var(--text-dim);
+}
+
+.vsns-btn-dim:hover {
+    background: var(--border2);
+    color: var(--text);
+    border-color: var(--text-dim);
+}
+
+.vsns-btn-accent {
+    background: #3a1800;
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.vsns-btn-accent:hover {
+    background: var(--accent);
+    color: #000;
+}
+
+.vsns-btn-accent:disabled {
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+/* ── Main + Tabs ────────────────────────────────────────────── */
+.vsns-main {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+    border-right: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.vsns-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border2);
+    flex-shrink: 0;
+}
+
+.vsns-tab {
+    padding: 10px 18px;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-dim);
+    cursor: pointer;
+    transform: none;
+    width: auto;
+    margin-top: 0;
+    transition: color 0.15s, border-color 0.15s;
+}
+
+.vsns-tab span {
+    transform: none;
+}
+
+.vsns-tab:hover {
+    color: var(--text);
+}
+
+.vsns-tab.active {
+    color: var(--yellow);
+    border-bottom-color: var(--yellow);
+}
+
+.vsns-tabpanel {
+    display: none;
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 24px;
+}
+
+.vsns-tabpanel.active {
+    display: block;
+}
+
+.vsns-section-title {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+}
+
+.vsns-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 22px 0;
+}
+
+/* ── BPM Tab ────────────────────────────────────────────────── */
+.bpm-display-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.bpm-big {
+    font-family: var(--mono);
+    font-size: 5rem;
+    color: var(--yellow);
+    line-height: 1;
+    min-width: 160px;
+    letter-spacing: -0.02em;
+}
+
+.bpm-unit {
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+}
+
+.bpm-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.vsns-btn-tap {
+    font-size: 1rem;
+    padding: 14px 28px;
+    flex: 1;
+    letter-spacing: 0.2em;
+}
+
+.bpm-controls .vsns-btn:not(.vsns-btn-tap) {
+    width: auto;
+    flex: 0 0 auto;
+    padding: 14px 18px;
+}
+
+.bpm-tap-hint {
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    margin-top: 4px;
+    margin-bottom: 2px;
+}
+
+.bpm-tap-count {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+}
+
+/* Metronome */
+.metro-controls {
+    display: flex;
+    gap: 14px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.metro-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.vsns-label {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+}
+
+.vsns-input {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    color: var(--text-bright);
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    padding: 6px 8px;
+    width: 90px;
+    outline: none;
+    transition: border-color 0.15s;
+}
+
+.vsns-input:focus {
+    border-color: var(--yellow);
+}
+
+.vsns-select {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    color: var(--text-bright);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    padding: 6px 8px;
+    outline: none;
+    cursor: pointer;
+}
+
+.vsns-select:focus {
+    border-color: var(--yellow);
+}
+
+.vsns-range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 140px;
+    height: 4px;
+    background: var(--border2);
+    outline: none;
+    cursor: pointer;
+    border-radius: 0;
+}
+
+.vsns-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    background: var(--yellow);
+    cursor: pointer;
+    border-radius: 0;
+    transform: skewX(-10deg);
+}
+
+.metro-beat-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    min-height: 38px;
+}
+
+.metro-beat {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border2);
+    background: var(--bg3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    transition: background 0.05s, border-color 0.05s, color 0.05s;
+}
+
+.metro-beat.accent {
+    border-color: var(--yellow-dim);
+    color: var(--yellow-dim);
+}
+
+.metro-beat.active {
+    background: var(--yellow);
+    border-color: var(--yellow);
+    color: #000;
+    font-weight: 900;
+    transform: scale(1.12);
+}
+
+.metro-btn-row {
+    display: flex;
+    gap: 10px;
+}
+
+.metro-btn-row .vsns-btn {
+    width: auto;
+    flex: 1;
+}
+
+/* ── Lap Timer Tab ───────────────────────────────────────────── */
+.lap-display-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.lap-clock {
+    font-family: var(--mono);
+    font-size: 4rem;
+    color: var(--yellow);
+    letter-spacing: 0.02em;
+    line-height: 1;
+}
+
+.lap-clock-sub {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+}
+
+.lap-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.lap-controls .vsns-btn {
+    width: auto;
+    flex: 1;
+    padding: 10px;
+}
+
+.lap-mark-label-row {
+    margin-bottom: 14px;
+}
+
+.lap-label-input {
+    width: 100%;
+}
+
+.lap-list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    color: var(--text-dim);
+}
+
+.vsns-btn-small {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    padding: 3px 10px;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    color: var(--text-dim);
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    transform: none;
+    width: auto;
+    margin-top: 0;
+    transition: color 0.15s, border-color 0.15s;
+}
+
+.vsns-btn-small span {
+    transform: none;
+}
+
+.vsns-btn-small:hover {
+    color: var(--danger);
+    border-color: var(--danger);
+}
+
+.lap-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+.lap-empty {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    font-style: italic;
+    padding: 10px 0;
+}
+
+.lap-mark-row {
+    display: grid;
+    grid-template-columns: 80px 110px 1fr auto;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+}
+
+.lap-mark-idx {
+    color: var(--text-dim);
+}
+
+.lap-mark-time {
+    color: var(--yellow);
+    font-weight: 700;
+}
+
+.lap-mark-label-text {
+    color: var(--text-bright);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lap-mark-del {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0 4px;
+    transition: color 0.12s;
+    transform: none;
+    width: auto;
+    margin-top: 0;
+}
+
+.lap-mark-del span {
+    transform: none;
+}
+
+.lap-mark-del:hover {
+    color: var(--danger);
+}
+
+/* ── Frequency Band Tab ─────────────────────────────────────── */
+.freq-desc {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+    line-height: 1.6;
+}
+
+.freq-canvas {
+    width: 100%;
+    height: 120px;
+    display: block;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    cursor: crosshair;
+    margin-bottom: 16px;
+}
+
+.freq-band-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.freq-band-row {
+    display: grid;
+    grid-template-columns: 14px 1fr 70px 70px auto;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+}
+
+.freq-band-swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 0;
+    flex-shrink: 0;
+}
+
+.freq-band-name {
+    color: var(--text-bright);
+    font-weight: 700;
+}
+
+.freq-band-range {
+    color: var(--text-dim);
+    font-size: 0.62rem;
+}
+
+.freq-band-center {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 90px;
+    height: 3px;
+    background: var(--border2);
+    outline: none;
+    cursor: ew-resize;
+}
+
+.freq-band-center::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+    background: var(--yellow);
+    cursor: ew-resize;
+}
+
+.freq-band-del {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 0.85rem;
+    padding: 0 4px;
+    transition: color 0.12s;
+    transform: none;
+    width: auto;
+    margin-top: 0;
+}
+
+.freq-band-del span {
+    transform: none;
+}
+
+.freq-band-del:hover {
+    color: var(--danger);
+}
+
+.freq-add-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.freq-add-row .vsns-input {
+    flex: 1;
+    width: auto;
+}
+
+.freq-add-row .vsns-btn {
+    width: auto;
+    flex: 0 0 auto;
+}
+
+.freq-color-input {
+    width: 36px;
+    height: 32px;
+    padding: 0;
+    border: 1px solid var(--border2);
+    background: var(--bg3);
+    cursor: pointer;
+}
+
+/* ── Notes Tab ──────────────────────────────────────────────── */
+.notes-track-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--yellow);
+    margin-bottom: 10px;
+}
+
+.vsns-textarea {
+    width: 100%;
+    min-height: 260px;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    color: var(--text-bright);
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    line-height: 1.7;
+    padding: 12px;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.15s;
+    margin-bottom: 10px;
+}
+
+.vsns-textarea:focus {
+    border-color: var(--yellow);
+}
+
+.notes-save-btn {
+    width: auto;
+}
+
+.notes-saved-msg {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--yellow);
+    margin-top: 6px;
+    height: 16px;
+    transition: opacity 0.4s;
+}
+
+/* ── Vis Panel ──────────────────────────────────────────────── */
+.vsns-vis-panel {
+    background: var(--panel);
+    display: flex;
+    flex-direction: column;
+    padding: 14px 12px;
+    overflow-y: auto;
+}
+
+.vsns-vis-canvas {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: #000;
+    border: 1px solid var(--border2);
+    display: block;
+}
+
+.vis-mode-btns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+}
+
+.vis-mode-btn {
+    padding: 6px 4px;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    cursor: pointer;
+    transform: none;
+    width: auto;
+    margin-top: 0;
+    transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+
+.vis-mode-btn span {
+    transform: none;
+}
+
+.vis-mode-btn:hover {
+    color: var(--text);
+    border-color: var(--border2);
+}
+
+.vis-mode-btn.active {
+    background: var(--yellow-dk);
+    border-color: var(--yellow);
+    color: var(--yellow);
+}
+
+.vis-sim-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.vis-sim-row .vsns-label {
+    min-width: 70px;
+}
+
+.vis-sim-select {
+    flex: 1;
+}
+
+.vsns-range-color {
+    width: 36px;
+    height: 24px;
+    padding: 0;
+    border: 1px solid var(--border2);
+    background: var(--bg3);
+    cursor: pointer;
+    flex: 0 0 auto;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg2);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--yellow-dim);
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .vsns-layout {
+        grid-template-columns: 1fr;
+        height: auto;
+        overflow: visible;
+    }
+
+    .vsns-vis-panel {
+        order: -1;
+    }
+
+    .vsns-sidebar {
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 10px;
+    }
+
+    .vsns-track-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}

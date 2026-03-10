@@ -17,23 +17,23 @@
     const READ_TIME = 5;  // seconds the question is visible
 
     // ── State ─────────────────────────────────────────────────
-    let audio       = null;
-    let deck        = [];
-    let deckIdx     = 0;
-    let depth       = 0;
-    let locked      = false;
-    let gameActive  = false;
+    let audio = null;
+    let deck = [];
+    let deckIdx = 0;
+    let depth = 0;
+    let locked = false;
+    let gameActive = false;
     let readTimerId = null;
     let countdownId = null;
 
     // ── DOM refs ──────────────────────────────────────────────
-    const overlay    = document.getElementById('bo-overlay');
-    const startBtn   = document.getElementById('bo-start-btn');
-    const elDepth    = document.getElementById('bo-depth');
-    const elQNum     = document.getElementById('bo-q-num');
+    const overlay = document.getElementById('bo-overlay');
+    const startBtn = document.getElementById('bo-start-btn');
+    const elDepth = document.getElementById('bo-depth');
+    const elQNum = document.getElementById('bo-q-num');
     const elQuestion = document.getElementById('bo-question');
     const elCountdown = document.getElementById('bo-countdown');
-    const elAnswers  = document.getElementById('bo-answers');
+    const elAnswers = document.getElementById('bo-answers');
 
     // ── Helpers ───────────────────────────────────────────────
     function shuffle(arr) {
@@ -61,8 +61,8 @@
         const song = SONGS[0];
         audio = new Audio(song.file);
         audio.volume = 0.55;
-        audio.loop   = true;
-        audio.play().catch(() => {});
+        audio.loop = true;
+        audio.play().catch(() => { });
     }
 
     // ── Question logic ────────────────────────────────────────
@@ -77,14 +77,14 @@
         const q = deck[deckIdx++];
         locked = false;
 
-        if (elQNum)     elQNum.textContent     = `#${depth + 1}`;
+        if (elQNum) elQNum.textContent = `#${depth + 1}`;
         if (elQuestion) {
             elQuestion.textContent = q.q;
             elQuestion.classList.remove('blacked-out');
         }
 
         // Shuffle answers
-        const pairs    = q.a.map((text, i) => ({ text, correct: i === q.correct }));
+        const pairs = q.a.map((text, i) => ({ text, correct: i === q.correct }));
         const shuffled = shuffle(pairs);
 
         if (elAnswers) {

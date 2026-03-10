@@ -215,6 +215,8 @@
     <nav class="sidebar-nav">
       <a href="home.html"><span>🏠 Home</span></a>
       <a href="mission.html"><span>📌 Mission</span></a>
+      <a href="aboutus.html"><span>👥 About Us</span></a>
+      <a href="changelog.html"><span>📋 Changelog</span></a>
       <hr class="sidebar-divider">
       <a href="module1.html"><span>🏗️ Module 1: HTML</span></a>
       <a href="module2.html"><span>🎨 Module 2: CSS</span></a>
@@ -234,7 +236,14 @@
     </div>
     <ul id="nav-links">
       <li><a href="home.html">Home</a></li>
-      <li><a href="mission.html">Mission</a></li>
+                  <li id="about-dropdown">
+                <a href="javascript:void(0)" class="dropbtn"><span>About &#9662;</span></a>
+                <div class="dropdown-content about-drop">
+                    <a href="mission.html"><span>📌 Mission</span></a>
+                    <a href="aboutus.html"><span>👥 About Us</span></a>
+                    <a href="changelog.html"><span>📋 Changelog</span></a>
+                </div>
+            </li>
       <li id="dropdown">
         <a href="javascript:void(0)" class="dropbtn">Modules &#9662;</a>
         <div class="dropdown-content">

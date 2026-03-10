@@ -14,6 +14,177 @@
 </head>
 
 <body class="page-quiz">
+    <!-- ===== WIP OVERLAY ===== -->
+    <div class="wip-overlay">
+        <div class="wip-box">
+            <div class="wip-icon">🚧</div>
+            <span class="wip-badge">Work in Progress</span>
+            <h2>Quiz Game</h2>
+            <p>The quiz modes are under construction and not yet ready for play.</p>
+            <p style="font-size:0.82rem; color:#3d5080;">This section will be available once it's ready.</p>
+            <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:8px;">
+                <a href="home.html" class="wip-back-btn"><span>← Back to Home</span></a>
+                <button class="wip-back-btn" onclick="openPreview()"
+                    style="cursor:pointer; border:none; background:rgba(42,92,199,0.18); border:1px solid rgba(42,92,199,0.5);"><span>📋
+                        Preview Modes</span></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PREVIEW MODAL ===== -->
+    <div id="preview-modal"
+        style="display:none; position:fixed; inset:0; background:rgba(5,10,25,0.88); z-index:999999; overflow-y:auto; padding:60px 20px 40px;">
+        <div
+            style="max-width:720px; margin:0 auto; background:linear-gradient(135deg,#0a1a3a,#0d2050); border:1px solid #1e3a7a; border-radius:14px; padding:36px 32px; position:relative;">
+            <button onclick="closePreview()"
+                style="position:absolute; top:16px; right:18px; background:none; border:none; color:#3d5080; font-size:1.4rem; cursor:pointer; line-height:1;"
+                aria-label="Close preview">✕</button>
+
+            <h2 style="color:#f7d74e; font-size:1.2rem; letter-spacing:0.05em; margin:0 0 4px;">Game Modes — Overview
+            </h2>
+            <p style="color:#3d5080; font-size:0.78rem; margin:0 0 24px;">A quick summary of what each mode is about and
+                how it works.</p>
+
+            <!-- Tab buttons -->
+            <div id="preview-tabs" style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:22px;">
+                <button class="ptab active" onclick="switchTab(this,'blitzkrieg')">⚡ Blitzkrieg</button>
+                <button class="ptab" onclick="switchTab(this,'paranoia')">👁️ Paranoia</button>
+                <button class="ptab" onclick="switchTab(this,'suddendeath')">💀 Sudden Death</button>
+                <button class="ptab" onclick="switchTab(this,'overload')">🌊 Overload</button>
+                <button class="ptab" onclick="switchTab(this,'blackout')">🕶️ Blackout</button>
+            </div>
+
+            <!-- Tab panels -->
+            <div id="tab-blitzkrieg" class="ptab-panel">
+                <p class="ptab-name">⚡ Blitzkrieg</p>
+                <p class="ptab-tagline">"Race the clock. Answer as many as you can."</p>
+                <ul class="ptab-rules">
+                    <li>You have <strong>2 minutes and 30 seconds</strong> to answer as many questions as possible.</li>
+                    <li>Questions are drawn from one of <strong>four tracks</strong> — choose before you start.</li>
+                    <li>Each correct answer adds to your score; wrong answers don't subtract, but they waste time.</li>
+                    <li>The clock doesn't stop between questions — keep moving.</li>
+                    <li>Your final score is based on how many you got right before time ran out.</li>
+                </ul>
+            </div>
+
+            <div id="tab-paranoia" class="ptab-panel" style="display:none;">
+                <p class="ptab-name">👁️ Paranoia</p>
+                <p class="ptab-tagline">"Two questions. One is wrong. Don't let doubt consume you."</p>
+                <ul class="ptab-rules">
+                    <li>Each round presents <strong>two question cards</strong> — only one is the correct one to answer.
+                    </li>
+                    <li>A <strong>Sanity Meter</strong> fills when you hesitate too long or answer incorrectly.</li>
+                    <li>The game is divided into <strong>five Acts</strong>, each more intense than the last.</li>
+                    <li>If your sanity hits zero, the game ends — regardless of which Act you're on.</li>
+                    <li>Survive all five Acts to complete the mode.</li>
+                </ul>
+            </div>
+
+            <div id="tab-suddendeath" class="ptab-panel" style="display:none;">
+                <p class="ptab-name">💀 Sudden Death</p>
+                <p class="ptab-tagline">"One wrong answer. Game over."</p>
+                <ul class="ptab-rules">
+                    <li>There is <strong>no timer</strong> and <strong>no meter</strong> — just you and the question.
+                    </li>
+                    <li>Answer correctly and you move on. Answer wrong and the run is over — immediately.</li>
+                    <li>Questions get progressively harder the deeper you go.</li>
+                    <li>Your score is simply how many questions you answered correctly in a row.</li>
+                    <li>Challenge yourself to beat your own streak.</li>
+                </ul>
+            </div>
+
+            <div id="tab-overload" class="ptab-panel" style="display:none;">
+                <p class="ptab-name">🌊 Overload</p>
+                <p class="ptab-tagline">"The board fills up. Clear it before it buries you."</p>
+                <ul class="ptab-rules">
+                    <li>Questions appear on a board and pile up over time — answer them to clear the slots.</li>
+                    <li>If the board becomes <strong>completely full</strong>, the game ends.</li>
+                    <li>New questions arrive at increasing speed as you progress.</li>
+                    <li>Correct answers clear one slot; wrong answers keep the slot occupied.</li>
+                    <li>Survive as long as possible and rack up the highest score you can.</li>
+                </ul>
+            </div>
+
+            <div id="tab-blackout" class="ptab-panel" style="display:none;">
+                <p class="ptab-name">🕶️ Blackout</p>
+                <p class="ptab-tagline">"You had five seconds to read it. Hope you were paying attention."</p>
+                <ul class="ptab-rules">
+                    <li>A question is displayed for only <strong>five seconds</strong> — then it disappears.</li>
+                    <li>You must answer from memory once the question is hidden.</li>
+                    <li>No re-reading, no second looks. What you caught is all you get.</li>
+                    <li>Wrong or too-slow answers count against your score.</li>
+                    <li>Tests your short-term recall as much as your actual knowledge.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .ptab {
+            background: rgba(42, 92, 199, 0.1);
+            border: 1px solid rgba(42, 92, 199, 0.35);
+            border-radius: 6px;
+            color: #7fa8f0;
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            padding: 7px 14px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+        }
+
+        .ptab:hover,
+        .ptab.active {
+            background: rgba(42, 92, 199, 0.28);
+            border-color: rgba(42, 92, 199, 0.7);
+            color: #c0d8ff;
+        }
+
+        .ptab-name {
+            font-size: 1rem;
+            font-weight: 900;
+            color: #f7d74e;
+            margin: 0 0 4px;
+        }
+
+        .ptab-tagline {
+            font-size: 0.82rem;
+            color: #3d5080;
+            font-style: italic;
+            margin: 0 0 16px;
+        }
+
+        .ptab-rules {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .ptab-rules li {
+            font-size: 0.86rem;
+            color: #a0b4d8;
+            line-height: 1.6;
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .ptab-rules li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #2a5cc7;
+            font-size: 0.75rem;
+            top: 2px;
+        }
+
+        .ptab-rules li strong {
+            color: #d0daf0;
+        }
+    </style>
+
 
     <!-- ===== SIDEBAR ===== -->
     <div id="sidebar" role="navigation" aria-label="Sidebar navigation">
@@ -155,6 +326,26 @@
         </div>
     </footer>
 
+    <script>
+        function openPreview() {
+            document.getElementById('preview-modal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        function closePreview() {
+            document.getElementById('preview-modal').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+        function switchTab(btn, id) {
+            document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.ptab-panel').forEach(p => p.style.display = 'none');
+            btn.classList.add('active');
+            document.getElementById('tab-' + id).style.display = 'block';
+        }
+        // Close on backdrop click
+        document.getElementById('preview-modal').addEventListener('click', function (e) {
+            if (e.target === this) closePreview();
+        });
+    </script>
 </body>
 
 </html>

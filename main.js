@@ -400,3 +400,356 @@ function initModulePages() {
         initSidebarPlayBtn();
     }
 })();
+
+
+// ============================================================
+//  AMBIENT AUDIO PLAYER + BOTTOM VISUALIZER
+//  Plays calm background music on home, about, and module
+//  pages. Uses Web Audio API for the frequency visualizer.
+//  Respects Page Visibility API — pauses on tab hide/blur,
+//  resumes on focus. Credits are displayed in a small pill
+//  above the visualizer bar.
+// ============================================================
+(function () {
+
+    // ---- Track definitions ---------------------------------
+    // file: exact filename inside playlist/calm/ (no extension)
+    // title: clean display name
+    // credit: what to show in the credit pill
+    const CALM_TRACKS = [
+        {
+            file: '14. Welcome to the Green Room (DELTARUNE Chapter 34 Soundtrack) - Toby Fox',
+            title: 'Welcome to the Green Room',
+            credit: 'Toby Fox · DELTARUNE Ch.34'
+        },
+        {
+            file: '63. The Third Sanctuary (DELTARUNE Chapter 34 Soundtrack) - Toby Fox',
+            title: 'The Third Sanctuary',
+            credit: 'Toby Fox · DELTARUNE Ch.34'
+        },
+        {
+            file: 'Face to Face - Grace OST (1)',
+            title: 'Face to Face',
+            credit: 'Grace OST'
+        },
+        {
+            file: 'Hip Shop',
+            title: 'Hip Shop',
+            credit: 'Unknown · calm playlist'
+        },
+        {
+            file: 'Melancholy - Item Asylum',
+            title: 'Melancholy',
+            credit: 'Item Asylum'
+        },
+        {
+            file: 'My Castle Town',
+            title: 'My Castle Town',
+            credit: 'calm playlist'
+        },
+        {
+            file: 'samsonite - Item Asylum Vol. 8',
+            title: 'samsonite',
+            credit: 'Item Asylum Vol. 8'
+        },
+        {
+            file: 'TAKE YOUR TIME - KEY AFTER KEY  PHIGHTING OST',
+            title: 'TAKE YOUR TIME',
+            credit: 'KEY AFTER KEY · PHIGHTING OST'
+        },
+        {
+            file: 'The Temple of the Red Sun - Block Tales OST',
+            title: 'The Temple of the Red Sun',
+            credit: 'Block Tales OST'
+        },
+        {
+            file: 'Your New Prison',
+            title: 'Your New Prison',
+            credit: 'calm playlist'
+        },
+        {
+            file: 'Your Theme of sin - Grace OST',
+            title: 'Your Theme of sin',
+            credit: 'Grace OST'
+        }
+    ];
+
+    const TAKE_CARE = {
+        file: 'Take Care (ULTRAKILL_ INFINITE HYPERDEATH)',
+        title: 'Take Care',
+        credit: 'ULTRAKILL: INFINITE HYPERDEATH'
+    };
+
+    // ---- Page type detection --------------------------------
+    const pageName = (window.location.pathname.split('/').pop() || 'home.html').toLowerCase();
+
+    const HOME_PAGES = ['home.html', ''];
+    const ABOUT_PAGES = ['mission.html', 'aboutus.html', 'changelog.html',
+        'howwegothere.html', 'contactinfo.html', 'faq.html', 'generalinfo.html'];
+    const MODULE_PAGES = ['module1.html', 'module2.html', 'module3.html'];
+
+    let track = null;
+    if (HOME_PAGES.includes(pageName) || ABOUT_PAGES.includes(pageName)) {
+        const pool = CALM_TRACKS.filter(t => t.file !== TAKE_CARE.file);
+        track = pool[Math.floor(Math.random() * pool.length)];
+    } else if (MODULE_PAGES.includes(pageName)) {
+        track = TAKE_CARE;
+    }
+
+    if (!track) return;  // Quiz pages, visualizer page, etc. get no music.
+
+    // ---- Audio element + Web Audio API --------------------
+    const audioSrc = 'playlist/calm/' + encodeURIComponent(track.file) + '.mp3';
+    const audio = new Audio(audioSrc);
+    audio.loop = true;
+    audio.volume = 0.30;
+    audio.crossOrigin = 'anonymous';
+
+    let audioCtx = null;
+    let analyser = null;
+    let mediaNode = null;
+
+    function ensureCtx() {
+        if (audioCtx) return;
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 128;  // 64 bars
+        analyser.smoothingTimeConstant = 0.82;
+        mediaNode = audioCtx.createMediaElementSource(audio);
+        mediaNode.connect(analyser);
+        analyser.connect(audioCtx.destination);
+    }
+
+    // ---- State --------------------------------------------
+    let isPlaying = false;
+    let userPaused = false;   // true when the user manually paused
+    let uiBuilt = false;
+
+    // ---- Playback helpers ---------------------------------
+    function tryPlay() {
+        ensureCtx();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        return audio.play();
+    }
+
+    function pauseAudio() {
+        audio.pause();
+        isPlaying = false;
+        setToggleIcon();
+    }
+
+    function resumeAudio() {
+        tryPlay().then(() => {
+            isPlaying = true;
+            setToggleIcon();
+        }).catch(() => { });
+    }
+
+    // Expose for external pages (e.g. aboutus.html video takeover)
+    window.ambientPause = function () { if (isPlaying) pauseAudio(); };
+    window.ambientResume = function () { if (!userPaused) resumeAudio(); };
+
+    // ---- Page Visibility: pause on hide, resume on show ---
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            if (isPlaying) pauseAudio();
+        } else {
+            // Only auto-resume if the user hasn't manually paused
+            if (!userPaused && !isPlaying) resumeAudio();
+        }
+    });
+
+    // ---- Window blur/focus for new-tab link clicks --------
+    window.addEventListener('blur', function () {
+        if (isPlaying) pauseAudio();
+    });
+
+    window.addEventListener('focus', function () {
+        if (!userPaused && !isPlaying) resumeAudio();
+    });
+
+    // ---- DOM: build visualizer canvas + credit pill -------
+    function buildUI() {
+        if (uiBuilt) return;
+        uiBuilt = true;
+
+        // Mark body so we can add bottom padding
+        document.body.classList.add('amb-active');
+
+        // Canvas
+        const canvas = document.createElement('canvas');
+        canvas.id = 'amb-visualizer';
+        canvas.setAttribute('aria-hidden', 'true');
+        document.body.appendChild(canvas);
+        setTimeout(() => canvas.classList.add('visible'), 100);
+
+        // Credit strip
+        const credit = document.createElement('div');
+        credit.id = 'amb-credit';
+        credit.innerHTML = `
+            <div id="amb-credit-text">
+                <span id="amb-credit-note">♪</span>
+                <span id="amb-credit-title">${track.title}</span>
+                <span id="amb-credit-sep">·</span>
+                <span id="amb-credit-source">${track.credit}</span>
+            </div>
+            <button id="amb-toggle" title="Pause / Resume music" aria-label="Pause or resume background music">
+                <span id="amb-toggle-icon">⏸</span>
+            </button>
+        `;
+        document.body.appendChild(credit);
+        setTimeout(() => credit.classList.add('visible'), 400);
+
+        // Toggle button handler
+        document.getElementById('amb-toggle').addEventListener('click', function () {
+            if (isPlaying) {
+                userPaused = true;
+                pauseAudio();
+            } else {
+                userPaused = false;
+                resumeAudio();
+            }
+        });
+
+        // Draw loop
+        startDrawLoop(canvas);
+    }
+
+    function setToggleIcon() {
+        const icon = document.getElementById('amb-toggle-icon');
+        if (icon) icon.textContent = isPlaying ? '⏸' : '▶';
+    }
+
+    // ---- Visualizer draw loop ----------------------------
+    function startDrawLoop(canvas) {
+        const ctx = canvas.getContext('2d');
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = 28;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        const bufferLength = analyser ? analyser.frequencyBinCount : 64;
+        const dataArr = new Uint8Array(bufferLength);
+
+        function barColor(normalizedHeight) {
+            if (normalizedHeight > 0.75) return '#f7d74e';
+            if (normalizedHeight > 0.45) return '#4a9aff';
+            return '#2a5cc7';
+        }
+
+        function draw() {
+            requestAnimationFrame(draw);
+
+            const W = canvas.width;
+            const H = canvas.height;
+
+            ctx.clearRect(0, 0, W, H);
+
+            const grad = ctx.createLinearGradient(0, 0, 0, H);
+            grad.addColorStop(0, 'rgba(5, 10, 26, 0.0)');
+            grad.addColorStop(1, 'rgba(5, 10, 26, 0.72)');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, W, H);
+
+            if (!analyser) return;
+
+            analyser.getByteFrequencyData(dataArr);
+
+            const barCount = bufferLength;
+            const barW = (W / barCount) * 0.72;
+            const gap = (W / barCount) * 0.28;
+            const slotW = barW + gap;
+            const half = Math.floor(barCount / 2);
+
+            for (let i = 0; i < barCount; i++) {
+                const mirrorIdx = i < half ? (half - 1 - i) : (i - half);
+                const norm = dataArr[mirrorIdx] / 255;
+                const barH = Math.max(2, norm * H * 0.88);
+                const x = i * slotW + (W - barCount * slotW) / 2;
+
+                ctx.fillStyle = barColor(norm);
+                ctx.globalAlpha = 0.65 + norm * 0.35;
+                ctx.fillRect(x, H - barH, barW, barH);
+
+                if (norm > 0.5) {
+                    ctx.fillStyle = '#f7d74e';
+                    ctx.globalAlpha = (norm - 0.5) * 1.4;
+                    ctx.fillRect(x, H - barH - 2, barW, 2);
+                }
+
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        draw();
+    }
+
+    // ---- Autoplay prompt (shown if browser blocks it) ----
+    function showAutoplayPrompt() {
+        const prompt = document.createElement('div');
+        prompt.id = 'amb-prompt';
+        prompt.innerHTML = '<span>🎵</span><span>Click anywhere to enable background music</span>';
+        document.body.appendChild(prompt);
+        setTimeout(() => prompt.classList.add('visible'), 100);
+
+        function onInteract() {
+            document.removeEventListener('click', onInteract);
+            document.removeEventListener('keydown', onInteract);
+            prompt.classList.remove('visible');
+            setTimeout(() => prompt.remove(), 500);
+            tryPlay().then(() => {
+                isPlaying = true;
+                setToggleIcon();
+            });
+        }
+
+        document.addEventListener('click', onInteract);
+        document.addEventListener('keydown', onInteract);
+    }
+
+    // ---- Kick off -----------------------------------------
+    // Build UI once DOM is ready, then attempt autoplay.
+    function init() {
+        buildUI();
+
+        // Slight delay so AudioContext isn't created before any user
+        // gesture on the page (the warning overlay close counts).
+        setTimeout(function () {
+            ensureCtx();
+            tryPlay()
+                .then(() => {
+                    isPlaying = true;
+                    setToggleIcon();
+                })
+                .catch(() => {
+                    // Autoplay blocked — wait for first interaction then try again
+                    function onFirstInteract() {
+                        document.removeEventListener('click', onFirstInteract);
+                        document.removeEventListener('keydown', onFirstInteract);
+                        const promptEl = document.getElementById('amb-prompt');
+                        if (promptEl) {
+                            promptEl.classList.remove('visible');
+                            setTimeout(() => promptEl.remove(), 500);
+                        }
+                        tryPlay().then(() => {
+                            isPlaying = true;
+                            setToggleIcon();
+                        });
+                    }
+                    showAutoplayPrompt();
+                    document.addEventListener('click', onFirstInteract);
+                    document.addEventListener('keydown', onFirstInteract);
+                });
+        }, 500);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+
+})();
